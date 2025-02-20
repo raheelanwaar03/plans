@@ -38,14 +38,17 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Registered On</th>
+                                                <th>Number</th>
+                                                <th>IDFront</th>
+                                                <th>IDBack</th>
+                                                <th>Selfie</th>
+                                                <th>Payment SS</th>
                                                 <th>Status</th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($users as $user)
+                                            @forelse ($kyc as $item)
                                                 <tr>
                                                     <td class="d-flex align-items-center">
                                                         <div class="d-flex align-items-center">
@@ -53,12 +56,27 @@
                                                                 class="me-2 thumb-md align-self-center rounded"
                                                                 alt="avatar">
                                                             <div class="flex-grow-1 text-truncate">
-                                                                <h6 class="m-0">{{ $user->name }}</h6>
+                                                                <h6 class="m-0">{{ $item->name }}</h6>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>{{ $user->created_at }}</td>
+                                                    <td>{{ $item->number }}</td>
+                                                    <td>
+                                                        <img src="{{ asset('images/KYC/' . $item->idFront) }}" height="60px"
+                                                            width="60px" alt="$item->idFront">
+                                                    </td>
+                                                    <td>
+                                                        <img src="{{ asset('images/KYC/' . $item->idBack) }}" height="60px"
+                                                            width="60px" alt="$item->idFront">
+                                                    </td>
+                                                    <td>
+                                                        <img src="{{ asset('images/KYC/' . $item->selfie) }}" height="60px"
+                                                            width="60px" alt="$item->idFront">
+                                                    </td>
+                                                    <td>
+                                                        <img src="{{ asset('images/KYC/' . $item->paymentScreenshot) }}"
+                                                            height="60px" width="60px" alt="$item->idFront">
+                                                    </td>
                                                     <td><span
                                                             class="badge rounded text-success bg-success-subtle">Active</span>
                                                     </td>
@@ -70,7 +88,6 @@
                                                     </td>
                                                 </tr>
                                             @empty
-                                                <h3>Empty</h3>
                                             @endforelse
                                         </tbody>
                                     </table>
