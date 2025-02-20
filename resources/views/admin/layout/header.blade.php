@@ -74,8 +74,14 @@
                             <small class="text-muted px-2 pb-1 d-block">Account</small>
                             <a class="dropdown-item" href="pages-profile.html"><i
                                     class="las la-user fs-18 me-1 align-text-bottom"></i> Profile</a>
-                            <a class="dropdown-item text-danger" href="auth-login.html"><i
-                                    class="las la-power-off fs-18 me-1 align-text-bottom"></i> Logout</a>
+                            {{-- make a logout function in javascript --}}
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                <i class="las la-power-off fs-18 me-1 align-text-bottom"></i> Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </li>
                 </ul><!--end topbar-nav-->
