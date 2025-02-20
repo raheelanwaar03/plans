@@ -8,7 +8,7 @@
 
 
     <meta charset="utf-8" />
-    <title>Users | Approx - Admin & Dashboard Template</title>
+    <title>{{ env('APP_NAME') }}| Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="" name="author" />
@@ -30,8 +30,6 @@
     <div class="topbar d-print-none">
         <div class="container-fluid">
             <nav class="topbar-custom d-flex justify-content-between" id="topbar-custom">
-
-
                 <ul class="topbar-item list-unstyled d-inline-flex align-items-center mb-0">
                     <li>
                         <button class="nav-link mobile-menu-btn nav-icon" id="togglemenu">

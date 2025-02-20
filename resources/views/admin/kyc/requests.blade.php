@@ -10,12 +10,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box d-md-flex justify-content-md-between align-items-center">
-                            <h4 class="page-title">Users</h4>
+                            <h4 class="page-title">KYC</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Approx</a>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
-                                    <li class="breadcrumb-item active">Users</li>
+                                    <li class="breadcrumb-item active">KYC</li>
                                 </ol>
                             </div>
                         </div><!--end page-title-box-->
@@ -28,7 +29,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">Users Details</h4>
+                                        <h4 class="card-title text-center">KYC Requests</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
@@ -62,8 +63,8 @@
                                                     </td>
                                                     <td>{{ $item->number }}</td>
                                                     <td>
-                                                        <img src="{{ asset('images/KYC/' . $item->idFront) }}" height="60px"
-                                                            width="60px" alt="$item->idFront">
+                                                        <img src="{{ asset('images/KYC/' . $item->idFront) }}"
+                                                            height="60px" width="60px" alt="$item->idFront">
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->idBack) }}" height="60px"
@@ -78,7 +79,7 @@
                                                             height="60px" width="60px" alt="$item->idFront">
                                                     </td>
                                                     <td><span
-                                                            class="badge rounded text-success bg-success-subtle">Active</span>
+                                                            class="badge rounded text-primary bg-success-subtle">Pending</span>
                                                     </td>
                                                     <td class="text-end">
                                                         <a href="#"><i

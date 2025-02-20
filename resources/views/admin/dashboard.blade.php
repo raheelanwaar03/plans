@@ -13,7 +13,7 @@
                             <h4 class="page-title">Users</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="#">Approx</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
                                     <li class="breadcrumb-item active">Users</li>
                                 </ol>
