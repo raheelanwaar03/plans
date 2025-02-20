@@ -115,6 +115,22 @@
         .kyc-form input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        .btn {
+            padding: 8px;
+            background-color: red;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: white;
+            color: red;
+            border: 1px solid red
+        }
     </style>
 </head>
 
@@ -130,7 +146,11 @@
         <div id="miningTimer" class="timer">24:00:00</div>
         <div id="minedAmount" class="mined-amount">Mined PGN: 0</div>
         <button id="startButton" class="start-button">Start Mining</button>
-
+        {{-- add logout button --}}
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
         <!-- Tasks Section -->
         <!DOCTYPE html>
         <html lang="en">
