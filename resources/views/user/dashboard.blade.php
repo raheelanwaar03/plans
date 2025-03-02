@@ -535,7 +535,8 @@
 
     <div class="container">
         <h1>Contact Us</h1>
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('User.Contact.Us') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -747,14 +748,12 @@
             </div>
             <div class="form-group">
                 <label for="pick">Pick (Optional)</label>
-                <input type="file" id="pick" name="pick">
+                <input type="file" id="pick" name="pic">
             </div>
-
             <div class="form-group">
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="4" required></textarea>
             </div>
-
             <button type="submit" class="submit-btn">Submit</button>
         </form>
     </div>
