@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         /* General Styles */
@@ -294,155 +295,117 @@
             </script>
 
         </ul>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                padding: 20px;
+            }
 
-        <!DOCTYPE html>
-        <html lang="en">
+            .container {
+                max-width: 800px;
+                margin: auto;
+                background: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Referral Dashboard</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f9f9f9;
-                    padding: 20px;
-                }
+            h2 {
+                text-align: center;
+                color: #333;
+            }
 
-                .container {
-                    max-width: 800px;
-                    margin: auto;
-                    background: #fff;
-                    padding: 20px;
-                    border-radius: 10px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                }
+            .referral-box,
+            .details-box {
+                margin-top: 20px;
+                padding: 15px;
+                background: #f4f4f9;
+                border: 1px dashed #007bff;
+                border-radius: 5px;
+            }
 
-                h2 {
-                    text-align: center;
-                    color: #333;
-                }
+            button {
+                margin-top: 10px;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
 
-                .referral-box,
-                .details-box {
-                    margin-top: 20px;
-                    padding: 15px;
-                    background: #f4f4f9;
-                    border: 1px dashed #007bff;
-                    border-radius: 5px;
-                }
+            button:hover {
+                background-color: #0056b3;
+            }
 
-                button {
-                    margin-top: 10px;
-                    padding: 10px 20px;
-                    background-color: #007bff;
-                    color: #fff;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
+            table {
+                width: 100%;
+                \n margin-top: 20px;
+                border-collapse: collapse;
+            }
 
-                button:hover {
-                    background-color: #0056b3;
-                }
+            table,
+            th,
+            td {
+                border: 1px solid #ddd;
+            }
 
-                table {
-                    width: 100%;
-                    \n margin-top: 20px;
-                    border-collapse: collapse;
-                }
+            th,
+            td {
+                padding: 10px;
+                text-align: center;
+            }
 
-                table,
-                th,
-                td {
-                    border: 1px solid #ddd;
-                }
-
-                th,
-                td {
-                    padding: 10px;
-                    text-align: center;
-                }
-
-                th {
-                    background-color: #007bff;
-                    color: white;
-                }
-            </style>
-        </head>
-
-        <body>
-            <div class="container">
-                <h2>Referral Dashboard</h2>
-                <div class="referral-box">
-                    <p>Your Referral Link:</p>
-                    <input type="text" id="referralLink" readonly>
-                    <button onclick="copyReferralLink()">Copy Link</button>
-                </div>
-                <div class="details-box">
-                    <h3>Referral Details</h3>
-                    <p>Total Tokens Earned: <span id="totalTokens">0</span></p>
-                    <h4>Referred Users:</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Username</th>
-                                <th>Joined Date</th>
-                            </tr>
-                        </thead>
-                        <tbody id="referralTable">
-                            <!-- Referral data will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
+            th {
+                background-color: #007bff;
+                color: white;
+            }
+        </style>
+        <div class="container">
+            <h2>Referral Dashboard</h2>
+            <div class="referral-box">
+                <p>Your Referral Link:</p>
+                {{-- add referral link --}}
+                <input type="text" id="linkInput"
+                    value="{{ route('register', ['referral' => Auth::user()->email]) }}">
+                <button id="copyButton">Copy Link</button>
             </div>
+            <div class="details-box">
+                <h3>Referral Details</h3>
+                <p>Total Tokens Earned: <span id="totalTokens">0</span></p>
+                <h4>Referred Users:</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Joined Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="referralTable">
+                        @foreach ($referrals as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->created_at }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            <script>
-                const username = 'yourUsername'; // Replace with dynamic username
-
-                // Set referral link
-                document.getElementById('referralLink').value = `https://example.com/signup?ref=${username}`;
-
-                // Copy referral link to clipboard
-                function copyReferralLink() {
-                    const referralLink = document.getElementById('referralLink');
-                    referralLink.select();
-                    referralLink.setSelectionRange(0, 99999); // Mobile devices
-                    navigator.clipboard.writeText(referralLink.value)
-                        .then(() => alert('Referral link copied to clipboard!'))
-                        .catch(() => alert('Failed to copy the link.'));
-                }
-
-                // Fetch referral data
-                async function fetchReferralData() {
-                    const response = await fetch(`/api/referrals?ref=${username}`);
-                    const data = await response.json();
-
-                    // Update tokens
-                    document.getElementById('totalTokens').innerText = data.totalTokens;
-
-                    // Update referred users table
-                    const referralTable = document.getElementById('referralTable');
-                    referralTable.innerHTML = '';
-                    data.referrals.forEach((referral, index) => {
-                        const row = `<tr>
-                    <td>${index + 1}</td>
-                    <td>${referral.username}</td>
-                    <td>${referral.joinedDate}</td>
-                </tr>`;
-                        referralTable.innerHTML += row;
-                    });
-                }
-
-                // Load data on page load
-                fetchReferralData();
-            </script>
-        </body>
-
-        </html>
-
-
+        <script>
+            $(document).ready(function() {
+                $('#copyButton').click(function() {
+                    let input = $('#linkInput');
+                    input.select();
+                    document.execCommand('copy');
+                    alert('Link copied to clipboard: ' + input.val());
+                });
+            });
+        </script>
 
         </form>
 
