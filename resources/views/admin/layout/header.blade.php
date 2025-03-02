@@ -124,13 +124,13 @@
                                 <span>KYC</span>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" href="#">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.ContactUs.Request') }}">
                                 <i class="iconoir-task-list menu-icon"></i>
-                                <span>Transactions</span>
+                                <span>Contact Us</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="cards.html">
                                 <i class="iconoir-credit-cards menu-icon"></i>
                                 <span>Cards</span>

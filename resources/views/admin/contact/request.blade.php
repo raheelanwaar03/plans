@@ -10,12 +10,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box d-md-flex justify-content-md-between align-items-center">
-                            <h4 class="page-title">Users</h4>
+                            <h4 class="page-title">Contact Us</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
-                                    <li class="breadcrumb-item active">Users</li>
+                                    <li class="breadcrumb-item active">Contact Us</li>
                                 </ol>
                             </div>
                         </div><!--end page-title-box-->
@@ -28,7 +29,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">Users Details</h4>
+                                        <h4 class="card-title text-center">Pending Requests</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
@@ -39,14 +40,14 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Referral</th>
-                                                <th>Registered On</th>
+                                                <th>Country</th>
+                                                <th>Message</th>
                                                 <th>Status</th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($users as $user)
+                                            @forelse ($request as $item)
                                                 <tr>
                                                     <td class="d-flex align-items-center">
                                                         <div class="d-flex align-items-center">
@@ -54,13 +55,13 @@
                                                                 class="me-2 thumb-md align-self-center rounded"
                                                                 alt="avatar">
                                                             <div class="flex-grow-1 text-truncate">
-                                                                <h6 class="m-0">{{ $user->name }}</h6>
+                                                                <h6 class="m-0">{{ $item->name }}</h6>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>{{ $user->referral }}</td>
-                                                    <td>{{ $user->created_at }}</td>
+                                                    <td>{{ $item->email }}</td>
+                                                    <td>{{ $item->country }}</td>
+                                                    <td>{{ $item->massage }}</td>
                                                     <td><span
                                                             class="badge rounded text-success bg-success-subtle">Active</span>
                                                     </td>

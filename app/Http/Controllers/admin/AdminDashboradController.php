@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\user\UserKycController;
 use App\Models\User;
+use App\Models\user\ContactUs;
 use App\Models\user\KYC;
 use Illuminate\Http\Request;
 
@@ -20,5 +21,11 @@ class AdminDashboradController extends Controller
     {
         $kyc = KYC::get();
         return view('admin.kyc.requests', compact('kyc'));
+    }
+
+    public function contactRequest()
+    {
+        $request = ContactUs::get();
+        return view('admin.contact.request', compact('request'));
     }
 }
