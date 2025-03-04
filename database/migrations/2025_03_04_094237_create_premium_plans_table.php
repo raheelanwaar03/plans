@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('premiumOption');
             $table->string('paymentScreenshot');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

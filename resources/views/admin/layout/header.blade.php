@@ -130,13 +130,13 @@
                                 <span>Contact Us</span>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" href="cards.html">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Premium.Requests') }}">
                                 <i class="iconoir-credit-cards menu-icon"></i>
-                                <span>Cards</span>
+                                <span>Premium</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="taxes.html">
                                 <i class="iconoir-plug-type-l menu-icon"></i>
                                 <span>Texes</span>

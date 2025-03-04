@@ -7,6 +7,7 @@ use App\Http\Controllers\user\UserKycController;
 use App\Models\User;
 use App\Models\user\ContactUs;
 use App\Models\user\KYC;
+use App\Models\user\PremiumPlan;
 use Illuminate\Http\Request;
 
 class AdminDashboradController extends Controller
@@ -27,5 +28,11 @@ class AdminDashboradController extends Controller
     {
         $request = ContactUs::get();
         return view('admin.contact.request', compact('request'));
+    }
+
+    public function pendingPremium()
+    {
+        $premium = PremiumPlan::where('status', 'pending')->get();
+        return view('admin.premium.pending', compact('premium'));
     }
 }
