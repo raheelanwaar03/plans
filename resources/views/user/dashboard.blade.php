@@ -241,8 +241,10 @@
             <li>$5 - 10 PGN</li>
             <li>$10 - 25 PGN</li>
             <li>$15 - 40 PGN</li>
-            <form action="/premium" method="POST" enctype="multipart/form-data" id="premiumForm">
-                <input type="email" name="userEmail" placeholder="Your Email" required>
+            <form action="{{ route('User.Premium.Option') }}" method="POST" enctype="multipart/form-data"
+                id="premiumForm">
+                @csrf
+                <input type="email" name="userEmail" value="{{ auth()->user()->email }}" readonly required>
                 <select name="premiumOption">
                     <option value="$5 - 10 PGN">$5 - 10 PGN</option>
                     <option value="$10 - 25 PGN">$10 - 25 PGN</option>
@@ -253,44 +255,20 @@
 
                 <label for="walletAddress">Trust Wallet Address:</label>
                 <div class="wallet-address">
-                    <input type="text" id="walletAddress" name="walletAddress"
-                        value="0xf574c7c90a86727301D184403cfCB63ca81d4E58" readonly>
+                    <input type="text" id="walletAddress" value="0xf574c7c90a86727301D184403cfCB63ca81d4E58"
+                        readonly>
                     <button type="button" id="copyAddressButton">Copy Address</button>
                 </div>
-
                 <button type="submit">Buy Premium</button>
             </form>
             <script>
-                // Copy Wallet Address to Clipboard
-                document.getElementById("copyAddressButton").addEventListener("click", () => {
-                    const walletAddress = document.getElementById("walletAddress");
-                    navigator.clipboard.writeText(walletAddress.value).then(() => {
-                        alert("Wallet address copied to clipboard!");
+                $(document).ready(function() {
+                    $('#copyAddressButton').click(function() {
+                        let input = $('#walletAddress');
+                        input.select();
+                        document.execCommand('copy');
+                        alert('Link copied to clipboard: ' + input.val());
                     });
-                });
-
-                // Handle Premium Form Submission
-                document.getElementById("premiumForm").addEventListener("submit", async (e) => {
-                    e.preventDefault(); // Prevent default form submission
-
-                    const formData = new FormData(document.getElementById("premiumForm"));
-
-                    try {
-                        const response = await fetch('/premium', {
-                            method: 'POST',
-                            body: formData,
-                        });
-
-                        if (response.ok) {
-                            alert("Your premium purchase has been submitted successfully!");
-                            document.getElementById("premiumForm").reset(); // Reset the form
-                        } else {
-                            alert("Failed to submit. Please try again.");
-                        }
-                    } catch (error) {
-                        console.error("Error submitting premium purchase:", error);
-                        alert("An error occurred. Please try again.");
-                    }
                 });
             </script>
 

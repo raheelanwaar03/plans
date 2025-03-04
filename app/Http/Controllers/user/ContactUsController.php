@@ -24,4 +24,6 @@ class ContactUsController extends Controller
         $contactUs->save();
         return redirect()->back()->with('success', 'Your message has been submitted');
     }
+
+
 }
