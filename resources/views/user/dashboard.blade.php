@@ -130,7 +130,22 @@
         .btn:hover {
             background-color: white;
             color: red;
-            border: 1px solid red
+            border: 1px solid red;
+        }
+
+        .btn-primary {
+            text-decoration: none;
+            margin: 5px;
+            border-radius: 6px;
+            color: white;
+            background-color: #007bff;
+            padding: 7px;
+        }
+
+        .btn-primary:hover {
+            background-color: white;
+            color: blue;
+            border: 1px solid blue;
         }
     </style>
 </head>
@@ -145,14 +160,15 @@
     <main>
         <!-- Mining Section -->
         <div id="miningTimer" class="timer">24:00:00</div>
-        <div id="minedAmount" class="mined-amount">Mined PGN: 0</div>
-        <button id="startButton" class="start-button">Start Mining</button>
+        <div id="minedAmount" class="mined-amount">Mined PGN: {{ auth()->user()->balance }}</div>
+        <a href="{{ route('User.Start.Mine') }}" class="btn-primary">Start Mining</a>
         {{-- add logout button --}}
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-danger">Logout</button>
         </form>
         <!-- Tasks Section -->
+
         <!DOCTYPE html>
         <html lang="en">
 

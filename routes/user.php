@@ -11,4 +11,5 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::post('/KYC/Data', [UserKycController::class, 'index'])->name('KYC.Data');
     Route::post('/ContactUs', [ContactUsController::class, 'contactUs'])->name('Contact.Us');
     Route::post('/Premium/Option', [UserDashboardController::class, 'premium'])->name('Premium.Option');
+    Route::get('/Start/Mining', [UserDashboardController::class, 'mine'])->name('Start.Mine');
 });
