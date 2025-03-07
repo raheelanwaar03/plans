@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-startbar="dark" data-bs-theme="light">
-
-
-<!-- Mirrored from mannatthemes.com/approx/default/users.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 19 Feb 2025 18:15:05 GMT -->
-
 <head>
 
 

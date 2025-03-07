@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('idBack');
             $table->string('selfie');
             $table->string('paymentScreenshot');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

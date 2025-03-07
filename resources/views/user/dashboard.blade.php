@@ -421,21 +421,22 @@
 
                 <label for="walletAddress">Trust Wallet Address:</label>
                 <div class="wallet-address">
-                    <input type="text" id="walletAddress" value="0xf574c7c90a86727301D184403cfCB63ca81d4E58"
+                    <input type="text" id="kycWallet" value="0xf574c7c90a86727301D184403cfCB63ca81d4E58"
                         readonly>
-                    <button type="button" id="copyAddressButton">Copy Address</button>
+                    <button type="button" id="kycCopyButton">Copy Address</button>
                 </div>
                 <input type="submit" value="Submit KYC">
             </form>
         </section>
     </main>
     <script>
-        // Copy Wallet Address
-        const copyAddressButton = document.getElementById('copyAddressButton');
-        const walletAddressInput = document.getElementById('walletAddress');
-        copyAddressButton.addEventListener('click', () => {
-            navigator.clipboard.writeText(walletAddressInput.value);
-            alert('Wallet Address copied to clipboard!');
+        $(document).ready(function() {
+            $('#kycCopyButton').click(function() {
+                let input = $('#kycWallet');
+                input.select();
+                document.execCommand('copy');
+                alert('Link copied to clipboard: ' + input.val());
+            });
         });
     </script>
 </body>

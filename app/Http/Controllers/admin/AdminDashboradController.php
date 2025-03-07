@@ -35,4 +35,20 @@ class AdminDashboradController extends Controller
         $premium = PremiumPlan::where('status', 'pending')->get();
         return view('admin.premium.pending', compact('premium'));
     }
+
+    public function approveKYC($id)
+    {
+        $kyc = KYC::find($id);
+        $kyc->status = 'approved';
+        $kyc->save();
+        return redirect()->back()->with('success', 'KYC approved successfully');
+    }
+
+    public function rejectKYC($id)
+    {
+        $kyc = KYC::find($id);
+        $kyc->status = 'rejected';
+        $kyc->save();
+        return redirect()->back()->with('success', 'KYC rejected successfully');
+    }
 }
