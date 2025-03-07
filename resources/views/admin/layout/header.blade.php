@@ -67,7 +67,7 @@
                             </div>
                             <div class="dropdown-divider mt-0"></div>
                             <small class="text-muted px-2 pb-1 d-block">Account</small>
-                            <a class="dropdown-item" href="pages-profile.html"><i
+                            <a class="dropdown-item" href="#"><i
                                     class="las la-user fs-18 me-1 align-text-bottom"></i> Profile</a>
                             {{-- make a logout function in javascript --}}
                             <a class="dropdown-item text-danger" href="{{ route('logout') }}"
