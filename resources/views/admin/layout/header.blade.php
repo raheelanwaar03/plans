@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-startbar="dark" data-bs-theme="light">
+
 <head>
 
 
@@ -19,10 +20,10 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
-
 </head>
 
 <body>
+    <x-alert />
     <div class="topbar d-print-none">
         <div class="container-fluid">
             <nav class="topbar-custom d-flex justify-content-between" id="topbar-custom">

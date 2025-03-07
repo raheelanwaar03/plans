@@ -62,14 +62,25 @@
                                                         <img src="{{ asset('images/premium/' . $item->paymentScreenshot) }}"
                                                             height="60px" width="60px" alt="$item->idFront">
                                                     </td>
-                                                    <td><span
-                                                            class="badge rounded text-primary bg-success-subtle">{{ $item->status }}</span>
+                                                    <td>
+                                                        @if ($item->status == 'pending')
+                                                            <span
+                                                                class="badge rounded text-primary bg-primary-subtle">Pending</span>
+                                                        @elseif ($item->status == 'approved')
+                                                            <span
+                                                                class="badge rounded text-success bg-success-subtle">Approved</span>
+                                                        @elseif ($item->status == 'rejected')
+                                                            <span
+                                                                class="badge rounded text-danger bg-danger-subtle">Rejected</span>
+                                                        @endif
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="#"><i
-                                                                class="las la-pen text-secondary fs-18"></i></a>
-                                                        <a href="#"><i
-                                                                class="las la-trash-alt text-secondary fs-18"></i></a>
+                                                        <a href="{{ route('Admin.Approve.Premium', $item->id) }}"><i
+                                                                class="las la-check text-secondary fs-18"></i></a>
+                                                        <a href="{{ route('Admin.Rejected.Premium', $item->id) }}">
+                                                            <i class="las la-times text-secondary fs-18"></i></a>
+                                                        <a href="{{ route('Admin.Add.Token', $item->id) }}">
+                                                            <i class="las la-pen text-secondary fs-18"></i></a>
                                                     </td>
                                                 </tr>
                                             @empty

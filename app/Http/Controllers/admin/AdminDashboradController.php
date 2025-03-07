@@ -32,7 +32,7 @@ class AdminDashboradController extends Controller
 
     public function pendingPremium()
     {
-        $premium = PremiumPlan::where('status', 'pending')->get();
+        $premium = PremiumPlan::get();
         return view('admin.premium.pending', compact('premium'));
     }
 
@@ -51,4 +51,35 @@ class AdminDashboradController extends Controller
         $kyc->save();
         return redirect()->back()->with('success', 'KYC rejected successfully');
     }
+
+    public function approvePremium($id)
+    {
+        $premium = PremiumPlan::find($id);
+        $premium->status = 'approved';
+        $premium->save();
+        return redirect()->back()->with('success', 'Premium Plan Approved');
+    }
+
+    public function rejectPremium($id)
+    {
+        $premium = PremiumPlan::find($id);
+        $premium->status = 'rejected';
+        $premium->save();
+        return redirect()->back()->with('success', 'Premium Plan Rejected');
+    }
+
+    public function addToken($id)
+    {
+        $premium = PremiumPlan::find($id);
+        return view('admin.premium.addToken', compact('premium'));
+    }
+
+    public function storeToken(Request $request ,$id)
+    {
+        $user = User::find($request->user_id);
+        $user->balance += $request->amount;
+        $user->save();
+        return redirect()->back()->with('success', 'Token added successfully');
+    }
+
 }

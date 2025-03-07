@@ -39,6 +39,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th>Balance</th>
                                                 <th>Referral</th>
                                                 <th>Registered On</th>
                                                 <th>Status</th>
@@ -59,6 +60,7 @@
                                                         </div>
                                                     </td>
                                                     <td>{{ $user->email }}</td>
+                                                    <td>{{ $user->balance }}</td>
                                                     <td>{{ $user->referral }}</td>
                                                     <td>{{ $user->created_at }}</td>
                                                     <td><span
