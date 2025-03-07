@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use App\Models\user\Links;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
@@ -53,5 +54,45 @@ class clean extends Command
         $user->status = 'active';
         $user->role = 'user';
         $user->save();
+
+        // adding task links
+
+        $link = new Links();
+        $link->title = 'Towel Info';
+        $link->link = 'https://towelinfo.com';
+        $link->amount = 2;
+        $link->save();
+
+        $link = new Links();
+        $link->title = 'All Series Hub';
+        $link->link = 'https://allserieshub.com';
+        $link->amount = 2;
+        $link->save();
+
+        $link = new Links();
+        $link->title = 'AE Recipes';
+        $link->link = 'https://aerecipes.com';
+        $link->amount = 2;
+        $link->save();
+
+        $link = new Links();
+        $link->title = 'Service SH';
+        $link->link = 'https://servicesh.xyz';
+        $link->amount = 2;
+        $link->save();
+
+        $link = new Links();
+        $link->title = 'Earbuds U';
+        $link->link = 'https://earbudsu.com';
+        $link->amount = 2;
+        $link->save();
+
+        $link = new Links();
+        $link->title = 'Name Mean';
+        $link->link = 'https://namemean.xyz';
+        $link->amount = 2;
+        $link->save();
+
+
     }
 }

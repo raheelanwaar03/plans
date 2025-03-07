@@ -211,18 +211,11 @@
             <p>Click on a link, stay for 20 seconds, and earn 2 tokens! You can only visit each site once every 24
                 hours.</p>
             <div id="links">
-                <a href="https://towelinfo.com" class="link" target="_blank" data-url="https://towelinfo.com">Towel
-                    Info</a>
-                <a href="https://allserieshub.com" class="link" target="_blank"
-                    data-url="https://allserieshub.com">All Series Hub</a>
-                <a href="https://aerecipes.com" class="link" target="_blank" data-url="https://aerecipes.com">AE
-                    Recipes</a>
-                <a href="https://servicesh.xyz" class="link" target="_blank" data-url="https://servicesh.xyz">Service
-                    SH</a>
-                <a href="https://earbudsu.com" class="link" target="_blank" data-url="https://earbudsu.com">Earbuds
-                    U</a>
-                <a href="https://namemean.xyz" class="link" target="_blank" data-url="https://namemean.xyz">Name
-                    Mean</a>
+
+                @foreach ($links as $item)
+                    <a href="{{ route('User.Link.Amount', $item->id) }}" class="link"
+                        onclick="window.open('{{ $item->link }}', '_blank')">{{ $item->title }}</a>
+                @endforeach
             </div>
             <div class="tokens">Tokens Earned: <span id="tokenCount">0</span></div>
 
