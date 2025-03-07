@@ -63,8 +63,8 @@
                                                     <td>{{ $user->balance }}</td>
                                                     <td>{{ $user->referral }}</td>
                                                     <td>{{ $user->created_at }}</td>
-                                                    <td><span
-                                                            class="badge rounded text-success bg-success-subtle">Active</span>
+                                                    <td>
+                                                        <span class="badge rounded text-primary bg-primary-subtle">{{ $user->status }}</span>
                                                     </td>
                                                     <td class="text-end">
                                                         <a href="#"><i
