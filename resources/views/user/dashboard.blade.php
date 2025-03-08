@@ -217,13 +217,12 @@
                         onclick="window.open('{{ $item->link }}', '_blank')">{{ $item->title }}</a>
                 @endforeach
             </div>
-            <div class="tokens">Tokens Earned: <span id="tokenCount">0</span></div>
+            <div class="tokens">Tokens Earned: <span id="tokenCount">{{ tokens() }}</span></div>
 
             <script src="script.js"></script>
         </body>
 
         </html>
-
 
         <!-- Boost Section -->
         <ul>
@@ -232,16 +231,16 @@
             <li>300 PGN - 30 fee mon <button>Boost now</button></li>
             <li>50 PGN - 60 fee mon <button>Boost now</button></li>
 
-            <form action="/boost" method="POST">
-                <input type="email" name="userEmail" placeholder="Your Email" required>
-                <select name="boostOption">
+            <form action="{{ route('User.Boost.Token') }}" method="POST">
+                @csrf
+                <input type="email" name="email" value="{{ auth()->user()->email }}" required readonly>
+                <select name="tokens">
                     <option value="100 PGN">100 PGN</option>
                     <option value="300 PGN">300 PGN</option>
                     <option value="500 PGN">500 PGN</option>
                 </select>
                 <button type="submit">Buy Boost</button>
             </form>
-
         </ul>
 
         <!-- Premium Section -->
@@ -421,8 +420,7 @@
 
                 <label for="walletAddress">Trust Wallet Address:</label>
                 <div class="wallet-address">
-                    <input type="text" id="kycWallet" value="0xf574c7c90a86727301D184403cfCB63ca81d4E58"
-                        readonly>
+                    <input type="text" id="kycWallet" value="0xf574c7c90a86727301D184403cfCB63ca81d4E58" readonly>
                     <button type="button" id="kycCopyButton">Copy Address</button>
                 </div>
                 <input type="submit" value="Submit KYC">

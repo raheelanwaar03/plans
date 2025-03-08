@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\user\BoostedUser;
 use App\Models\user\History;
 use App\Models\user\Links;
 use App\Models\user\PremiumPlan;
@@ -40,7 +41,7 @@ class UserDashboardController extends Controller
     {
         $user = User::find(auth()->user()->id);
         // check if user got today's token
-        $token_check = History::where('user_id', auth()->user()->id)->whereDate('created_at', Carbon::today())->first();
+        $token_check = History::where('user_id', auth()->user()->id)->where('type','Mine')->whereDate('created_at', Carbon::today())->first();
         if ($token_check) {
             return redirect()->back()->with('error', 'You got todays token');
         } else {
@@ -72,5 +73,21 @@ class UserDashboardController extends Controller
         $history->amount = 2;
         $history->save();
         return redirect()->back()->with('success', 'You got this task token');
+    }
+
+    public function boost(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        // check if user have enough coins
+        if ($user->balance < $request->tokens) {
+            return redirect()->back()->with('error', 'You have not enough coins');
+        }
+
+        $boost = new BoostedUser();
+        $boost->user_id = auth()->user()->id;
+        $boost->user_email = auth()->user()->email;
+        $boost->tokens = $request->tokens;
+        $boost->save();
+        return redirect()->back()->with('success', 'You have activated booster plan');
     }
 }
