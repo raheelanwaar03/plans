@@ -229,15 +229,15 @@
             <h2>Boost</h2>
             <li>100 PGN - 10 fee mon <button>Boost now</button></li>
             <li>300 PGN - 30 fee mon <button>Boost now</button></li>
-            <li>50 PGN - 60 fee mon <button>Boost now</button></li>
+            <li>500 PGN - 60 fee mon <button>Boost now</button></li>
 
             <form action="{{ route('User.Boost.Token') }}" method="POST">
                 @csrf
                 <input type="email" name="email" value="{{ auth()->user()->email }}" required readonly>
                 <select name="tokens">
-                    <option value="100 PGN">100 PGN</option>
-                    <option value="300 PGN">300 PGN</option>
-                    <option value="500 PGN">500 PGN</option>
+                    <option value="100">100 PGN</option>
+                    <option value="300">300 PGN</option>
+                    <option value="500">500 PGN</option>
                 </select>
                 <button type="submit">Buy Boost</button>
             </form>
