@@ -88,6 +88,9 @@ class UserDashboardController extends Controller
         $boost->user_email = auth()->user()->email;
         $boost->tokens = $request->tokens;
         $boost->save();
+        $user->balance -= $request->tokens;
+        $user->status = 'booster';
+        $user->save();
         return redirect()->back()->with('success', 'You have activated booster plan');
     }
 

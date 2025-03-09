@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\user\History;
+use Carbon\Carbon;
 
 function total_users()
 {
@@ -11,12 +12,11 @@ function total_users()
 
 function tokens()
 {
-    $token = History::where('user_id', auth()->user()->id)->where('type', '!=', 'Mine')->get();
-    $sum = 0;
-    foreach($token as $item)
+    $tokens = History::where('user_id', auth()->user()->id)->where('type', '!=', 'Mine')->whereDate('created_at',Carbon::today())->get();
+    $total_token = 0;
+    foreach($tokens as $token)
     {
-        // sum the amount
-        $total = $sum + $item->amount;
+        $total_token += $token->amount;
     }
-    return $total;
+    return $total_token;
 }
