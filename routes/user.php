@@ -14,4 +14,5 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::get('/Start/Mining', [UserDashboardController::class, 'mine'])->name('Start.Mine');
     Route::get('/Link/Amount/{id}', [UserDashboardController::class, 'link_amount'])->name('Link.Amount');
     Route::post('/Boost/Tokens', [UserDashboardController::class, 'boost'])->name('Boost.Token');
+    Route::post('/Send/Tokens', [UserDashboardController::class, 'sendToken'])->name('Send.Tokens');
 });

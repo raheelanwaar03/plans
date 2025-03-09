@@ -382,6 +382,21 @@
             </div>
         </div>
 
+        {{-- send tokens to eachother --}}
+        <div class="container">
+            <h2>Send Token</h2>
+            <div class="referral-box">
+                <form action="{{ route('User.Send.Tokens') }}" method="POST">
+                    @csrf
+                    <p>User Email</p>
+                    <input type="text" id="email" name="email" placeholder="Reciver Email" required>
+                    <p>Tokens to send</p>
+                    <input type="text" id="token" name="token" placeholder="Token Amount" required>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+
         <script>
             $(document).ready(function() {
                 $('#copyButton').click(function() {

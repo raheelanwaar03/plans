@@ -41,7 +41,7 @@ class UserDashboardController extends Controller
     {
         $user = User::find(auth()->user()->id);
         // check if user got today's token
-        $token_check = History::where('user_id', auth()->user()->id)->where('type','Mine')->whereDate('created_at', Carbon::today())->first();
+        $token_check = History::where('user_id', auth()->user()->id)->where('type', 'Mine')->whereDate('created_at', Carbon::today())->first();
         if ($token_check) {
             return redirect()->back()->with('error', 'You got todays token');
         } else {
@@ -89,5 +89,34 @@ class UserDashboardController extends Controller
         $boost->tokens = $request->tokens;
         $boost->save();
         return redirect()->back()->with('success', 'You have activated booster plan');
+    }
+
+    public function sendToken(Request $request)
+    {
+        $validate = $request->validate([
+            'email' => 'email|required',
+            'token' => 'numeric',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        if ($user->balance < $request->token) {
+            return redirect()->back()->with('error', 'You have not enough tokens');
+        }
+        // find requested user
+        $reciver = User::where('email', $request->email)->first();
+        if (!$reciver) {
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        $reciver->balance += $request->token;
+        $reciver->save();
+        $user->balance -= $request->token;
+        $user->save();
+        $history = new History();
+        $history->user_id = auth()->user()->id;
+        $history->type = 'sent token';
+        $history->amount = $request->token;
+        $history->save();
+        return redirect()->back()->with('success', 'You have sent token to user');
     }
 }
