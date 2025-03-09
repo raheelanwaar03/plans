@@ -217,8 +217,7 @@
                         onclick="window.open('{{ $item->link }}', '_blank')">{{ $item->title }}</a>
                 @endforeach
             </div>
-            <div class="tokens">Tokens Earned: <span id="tokenCount">{{ tokens() }}</span></div>
-
+            {{-- <div class="tokens">Tokens Earned: <span id="tokenCount">{{ tokens() }}</span></div> --}}
             <script src="script.js"></script>
         </body>
 
