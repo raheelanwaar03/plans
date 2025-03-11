@@ -154,12 +154,66 @@
     <x-alert />
     <header>
         <h1>Pigeon Mining</h1>
-        <div id="mainTimer" class="timer">2400:00:00</div>
+        <div id="timer" class="timer">2400:00:00</div>
+        <script>
+            let remainingSeconds = 2400 * 60 * 60; // 2400 hours in seconds
+
+            function start2400HourTimer() {
+                const timerDisplay = document.getElementById('timer');
+
+                function updateTimer() {
+                    const hours = Math.floor(remainingSeconds / 3600);
+                    const minutes = Math.floor((remainingSeconds % 3600) / 60);
+                    const seconds = remainingSeconds % 60;
+
+                    timerDisplay.textContent =
+                        String(hours).padStart(4, '0') + ':' +
+                        String(minutes).padStart(2, '0') + ':' +
+                        String(seconds).padStart(2, '0');
+
+                    if (remainingSeconds > 0) {
+                        remainingSeconds--;
+                    } else {
+                        clearInterval(timerInterval);
+                        alert("Time's up!");
+                    }
+                }
+
+                const timerInterval = setInterval(updateTimer, 1000);
+                updateTimer();
+            }
+
+            start2400HourTimer();
+        </script>
         <h2>First Withdraw</h2>
     </header>
     <main>
         <!-- Mining Section -->
-        <div id="miningTimer" class="timer">24:00:00</div>
+        <div id="24timer" class="timer">24:00:00</div>
+        <script>
+            function start24HourTimer() {
+                const timerDisplay = document.getElementById('24timer');
+
+                function updateTimer() {
+                    const now = new Date();
+                    const hours = 23 - now.getHours();
+                    const minutes = 59 - now.getMinutes();
+                    const seconds = 59 - now.getSeconds();
+
+                    const formattedTime =
+                        String(hours).padStart(2, '0') + ':' +
+                        String(minutes).padStart(2, '0') + ':' +
+                        String(seconds).padStart(2, '0');
+
+                    timerDisplay.textContent = formattedTime;
+                }
+
+                setInterval(updateTimer, 1000);
+                updateTimer();
+            }
+
+            start24HourTimer();
+        </script>
         <div id="minedAmount" class="mined-amount">Mined PGN: {{ auth()->user()->balance }}</div>
         <a href="{{ route('User.Start.Mine') }}" class="btn-primary">Start Mining</a>
         {{-- add logout button --}}
