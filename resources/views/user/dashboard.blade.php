@@ -154,36 +154,45 @@
     <x-alert />
     <header>
         <h1>Pigeon Mining</h1>
-        <div id="timer" class="timer">2400:00:00</div>
+        <div id="timer" class="timer">Loading...</div>
         <script>
-            let remainingSeconds = 2400 * 60 * 60; // 2400 hours in seconds
+            function startTimer() {
+                const totalHours = 2400; // 2400 hours
+                let startTime = localStorage.getItem("timerStart");
 
-            function start2400HourTimer() {
-                const timerDisplay = document.getElementById('timer');
-
-                function updateTimer() {
-                    const hours = Math.floor(remainingSeconds / 3600);
-                    const minutes = Math.floor((remainingSeconds % 3600) / 60);
-                    const seconds = remainingSeconds % 60;
-
-                    timerDisplay.textContent =
-                        String(hours).padStart(4, '0') + ':' +
-                        String(minutes).padStart(2, '0') + ':' +
-                        String(seconds).padStart(2, '0');
-
-                    if (remainingSeconds > 0) {
-                        remainingSeconds--;
-                    } else {
-                        clearInterval(timerInterval);
-                        alert("Time's up!");
-                    }
+                // Initialize start time if not set
+                if (!startTime) {
+                    startTime = Date.now();
+                    localStorage.setItem("timerStart", startTime);
+                } else {
+                    startTime = parseInt(startTime);
                 }
 
-                const timerInterval = setInterval(updateTimer, 1000);
+                function updateTimer() {
+                    const currentTime = Date.now();
+                    const elapsedTime = (currentTime - startTime) / 1000; // in seconds
+                    const remainingTime = (totalHours * 3600) - elapsedTime; // total seconds remaining
+
+                    if (remainingTime <= 0) {
+                        document.getElementById("timer").textContent = "Time's up!";
+                        localStorage.removeItem("timerStart");
+                        return;
+                    }
+
+                    const hours = Math.floor(remainingTime / 3600);
+                    const minutes = Math.floor((remainingTime % 3600) / 60);
+                    const seconds = Math.floor(remainingTime % 60);
+
+                    document.getElementById("timer").textContent =
+                        `${hours}h ${minutes}m ${seconds}s`;
+
+                    requestAnimationFrame(updateTimer);
+                }
+
                 updateTimer();
             }
 
-            start2400HourTimer();
+            window.onload = startTimer;
         </script>
         <h2>First Withdraw</h2>
     </header>
