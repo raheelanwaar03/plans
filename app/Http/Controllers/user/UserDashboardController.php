@@ -93,6 +93,7 @@ class UserDashboardController extends Controller
         if ($history) {
             return redirect()->back()->with('error', 'You already got todays token');
         }
+        sleep(20);
         $user = User::find(auth()->user()->id);
         $user->balance += $link->amount;
         $user->save();
