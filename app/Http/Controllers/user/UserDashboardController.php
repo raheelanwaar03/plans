@@ -45,12 +45,13 @@ class UserDashboardController extends Controller
         if ($token_check) {
             return redirect()->back()->with('error', 'You got todays token');
         } else {
-            if ($user->status = 'booster') {
+            if ($user->status == 'booster') {
                 $booster_plan = History::where('user_id', auth()->user()->id)->where('type', 'boost')->get();
                 $total_amount = 0;
                 foreach ($booster_plan as $boost) {
                     $total_amount += $boost->amount;
                 }
+                return $total_amount;
                 if ($total_amount = 100) {
                     $user->balance += 10;
                     $user->save();
@@ -81,6 +82,15 @@ class UserDashboardController extends Controller
                     $history->save();
                     return redirect()->back()->with('success', 'You Mined PGN Successfully');
                 }
+            } else {
+                $user->balance += 2;
+                $user->save();
+                $history = new History();
+                $history->user_id = auth()->user()->id;
+                $history->type = 'Mine';
+                $history->amount = 2;
+                $history->save();
+                return redirect()->back()->with('success', 'You Mined PGN Successfully');
             }
         }
     }
