@@ -51,7 +51,6 @@ class UserDashboardController extends Controller
                 foreach ($booster_plan as $boost) {
                     $total_amount += $boost->amount;
                 }
-                return $total_amount;
                 if ($total_amount = 100) {
                     $user->balance += 10;
                     $user->save();
