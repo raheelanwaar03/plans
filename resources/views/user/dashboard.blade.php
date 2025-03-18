@@ -301,7 +301,7 @@
 
                 <label for="walletAddress">Trust Wallet Address:</label>
                 <div class="wallet-address">
-                    <input type="text" id="walletAddress" value="0xf574c7c90a86727301D184403cfCB63ca81d4E58"
+                    <input type="text" id="walletAddress" value="0x7129C2aa9750BFf9d2C77C55A08f538b2d768c78"
                         readonly>
                     <button type="button" id="copyAddressButton">Copy Address</button>
                 </div>
@@ -473,7 +473,7 @@
 
                 <label for="walletAddress">Trust Wallet Address:</label>
                 <div class="wallet-address">
-                    <input type="text" id="kycWallet" value="0xf574c7c90a86727301D184403cfCB63ca81d4E58" readonly>
+                    <input type="text" id="kycWallet" value="0x7129C2aa9750BFf9d2C77C55A08f538b2d768c78" readonly>
                     <button type="button" id="kycCopyButton">Copy Address</button>
                 </div>
                 <input type="submit" value="Submit KYC">
