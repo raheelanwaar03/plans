@@ -156,21 +156,43 @@
         <h1 style="color: rgb(189, 185, 185)">Pigeon Mining</h1>
         <div id="timer" class="timer">Loading...</div>
         <script>
-            // start timer of 2400 hours
-            let timer = 2400 * 60 * 60 * 1000;
-            let interval = setInterval(() => {
-                timer -= 1000;
-                let hours = Math.floor(timer / (60 * 60 * 1000));
-                let minutes = Math.floor((timer % (60 * 60 * 1000)) /
-                    (60 * 1000));
-                let seconds = Math.floor((timer % (60 * 1000)) / 1000);
-                document.getElementById("timer").innerHTML = `Time Left: ${hours}h ${minutes}m
-                ${seconds}s`;
-                if (timer <= 0) {
-                    clearInterval(interval);
-                    document.getElementById("timer").innerHTML = "Time's Up!";
+            function startTimer() {
+                const totalHours = 2400; // 2400 hours
+                let startTime = localStorage.getItem("timerStart");
+
+                // Initialize start time if not set
+                if (!startTime) {
+                    startTime = Date.now();
+                    localStorage.setItem("timerStart", startTime);
+                } else {
+                    startTime = parseInt(startTime);
                 }
-            }, 1000);
+
+                function updateTimer() {
+                    const currentTime = Date.now();
+                    const elapsedTime = (currentTime - startTime) / 1000; // in seconds
+                    const remainingTime = (totalHours * 3600) - elapsedTime; // total seconds remaining
+
+                    if (remainingTime <= 0) {
+                        document.getElementById("timer").textContent = "Time's up!";
+                        localStorage.removeItem("timerStart");
+                        return;
+                    }
+
+                    const hours = Math.floor(remainingTime / 3600);
+                    const minutes = Math.floor((remainingTime % 3600) / 60);
+                    const seconds = Math.floor(remainingTime % 60);
+
+                    document.getElementById("timer").textContent =
+                        `${hours}h ${minutes}m ${seconds}s`;
+
+                    requestAnimationFrame(updateTimer);
+                }
+
+                updateTimer();
+            }
+
+            window.onload = startTimer;
         </script>
         <h2 style="color: rgb(189, 185, 185)">First Withdraw</h2>
     </header>
