@@ -16,10 +16,9 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
                 autocomplete="current-password" />
-
+            <i class="bi bi-eye" style="float:right;margin-top:-32px;margin-right:10px;" id="togglePassword"></i>
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -47,4 +46,17 @@
                 class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Register</a>
         </div>
     </form>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+
+        toggleButton.addEventListener('click', () => {
+            // Toggle the type attribute
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+
+        });
+    </script>
+
 </x-guest-layout>

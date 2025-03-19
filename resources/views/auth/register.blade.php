@@ -22,8 +22,10 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="new-password" />
+            <x-text-input class="block mt-1 w-full" id="password" type="password" name="password"
+                required autocomplete="new-password" />
+            <i class="bi bi-eye" style="float:right;margin-top:-32px;margin-right:10px;"
+                onclick="togglePasswordVisibility('password')"></i>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -32,8 +34,10 @@
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
+            <x-text-input id="confirm_password" class="block mt-1 w-full" type="password"
                 name="password_confirmation" required autocomplete="new-password" />
+            <i class="bi bi-eye" style="float:right;margin-top:-32px;margin-right:10px;"
+                onclick="togglePasswordVisibility('confirm_password')"></i>
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
@@ -56,4 +60,12 @@
             </x-primary-button>
         </div>
     </form>
+
+    <script>
+        function togglePasswordVisibility(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.type = field.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+
 </x-guest-layout>
