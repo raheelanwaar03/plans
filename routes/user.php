@@ -6,6 +6,8 @@ use App\Http\Controllers\user\UserKycController;
 use App\Models\user\ContactUs;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/',[UserDashboardController::class,'welcome'])->name('Welcom');
+
 Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function () {
     Route::get('/Dashboard', [UserDashboardController::class, 'index'])->name('Dashboard');
     Route::post('/KYC/Data', [UserKycController::class, 'index'])->name('KYC.Data');

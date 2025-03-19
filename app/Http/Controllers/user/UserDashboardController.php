@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
 {
+
+    public function welcome()
+    {
+        if (auth()->user()) {
+            return redirect()->route('User.Dashboard');
+        } else {
+            return view('welcome');
+        }
+    }
+
     public function index()
     {
         $referrals = User::where('referral', auth()->user()->email)->get();
