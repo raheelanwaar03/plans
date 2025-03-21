@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\user\BoostedUser;
 use App\Models\user\History;
+use App\Models\user\KYC;
 use App\Models\user\Links;
 use App\Models\user\PremiumPlan;
 use Carbon\Carbon;
@@ -166,7 +167,23 @@ class UserDashboardController extends Controller
         if (!$reciver) {
             return redirect()->back()->with('error', 'User not found');
         }
-
+        // check kyc
+        $reciver_kyc = KYC::where('user_id', $reciver->id)->first();
+        if ($reciver_kyc == '') {
+            return redirect()->back()->with('error', 'User KYC is not verified');
+        }
+        if ($reciver->status == 'pending') {
+            return redirect()->back()->with('error', 'Wait for your KYC approval');
+        }
+        // check user kyc
+        $user_kyc = KYC::where('user_id', auth()->user()->id)->first();
+        if ($user_kyc == '') {
+            return redirect()->back()->with('error', 'Your KYC is not verified');
+        }
+        // check user status
+        if ($user_kyc->status == 'pending') {
+            return redirect()->back()->with('error', 'Wait for your KYC approval');
+        }
         $reciver->balance += $request->token;
         $reciver->save();
         $user->balance -= $request->token;
