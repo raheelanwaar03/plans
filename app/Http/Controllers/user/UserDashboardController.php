@@ -24,6 +24,14 @@ class UserDashboardController extends Controller
         }
     }
 
+    public function test()
+    {
+        $referrals = User::where('referral', auth()->user()->email)->get();
+        $links = Links::get();
+        return view('user.dashboard2', compact('referrals', 'links'));
+    }
+
+
     public function index()
     {
         $referrals = User::where('referral', auth()->user()->email)->get();

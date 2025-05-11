@@ -4,820 +4,642 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <title>USVentures | User Dashboard</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
     <style>
-        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
             margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        header,
-        footer {
-            background: #333;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             color: #fff;
-            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-x: hidden;
         }
 
-        .timer {
-            font-size: 1.5em;
-            color: #555;
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #2e3b4e;
         }
 
-        button {
-            margin: 5px;
-            padding: 5px 10px;
-            background-color: #28a745;
+        header .icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        header .icons .menu-icon {
+            font-size: 24px;
             color: #fff;
-            border: none;
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #218838;
+        main {
+            flex: 1;
+            font-size: 15px;
+            padding: 20px;
         }
 
-        textarea {
-            width: 80%;
-            margin: 10px 0;
+        footer {
+            background-color: #2e3b4e;
+            color: #fff;
+            padding: 10px 20px;
         }
 
-        /* Links Section */
-        .links a {
-            text-decoration: none;
-            color: #007BFF;
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+            overflow-y: auto;
         }
 
-        .links a:hover {
-            text-decoration: underline;
+        .sidebar.active {
+            left: 0;
         }
 
-        /* List Styling */
-        ul {
+        .sidebar header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar header .close-icon {
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .sidebar section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar section h3 {
+            font-size: 16px;
+            color: #2e3b4e;
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul {
             list-style: none;
             padding: 0;
         }
 
-        /* KYC Form */
-        .kyc-form {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border: 1px solid #ddd;
-            margin: 20px auto;
-            width: 80%;
-            text-align: left;
+        .sidebar ul li {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .kyc-form h2 {
-            text-align: center;
-        }
-
-        .kyc-form label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
-        .kyc-form input[type="file"],
-        .kyc-form input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-
-        .kyc-form .wallet-address {
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            margin: 10px 0;
+            gap: 10px;
         }
 
-        .kyc-form .wallet-address input {
-            width: calc(100% - 110px);
-            padding: 8px;
+        .sidebar ul li .fa-chevron-right {
+            color: #ccc;
         }
 
-        .kyc-form .wallet-address button {
-            width: 100px;
-            margin-left: 10px;
-        }
-
-        .kyc-form input[type="submit"] {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .kyc-form input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        .btn {
-            padding: 8px;
-            background-color: red;
-            text-decoration: none;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: white;
+        .sidebar .logout {
             color: red;
-            border: 1px solid red;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
         }
 
-        .btn-primary {
+        .sidebar .logout a {
+            color: red;
             text-decoration: none;
-            margin: 5px;
-            border-radius: 6px;
-            color: white;
-            background-color: #007bff;
-            padding: 7px;
+            font-weight: bold;
         }
 
-        .btn-primary:hover {
+        .icon-style {
             background-color: white;
-            color: blue;
-            border: 1px solid blue;
+            font-size: 20px;
+            color: #00a99d;
+            padding: 15px;
+            border-radius: 40px;
+        }
+
+        .font-2 {
+            font-size: 13px;
+        }
+
+        .pointer {
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <x-alert />
+    <!-- Header -->
     <header>
-        <h1 style="color: rgb(189, 185, 185)">Pigeon Mining</h1>
-        <div id="timer" class="timer">Loading...</div>
-        <script>
-            function startTimer() {
-                const totalHours = 2400; // 2400 hours
-                let startTime = localStorage.getItem("timerStart");
-
-                // Initialize start time if not set
-                if (!startTime) {
-                    startTime = Date.now();
-                    localStorage.setItem("timerStart", startTime);
-                } else {
-                    startTime = parseInt(startTime);
-                }
-
-                function updateTimer() {
-                    const currentTime = Date.now();
-                    const elapsedTime = (currentTime - startTime) / 1000; // in seconds
-                    const remainingTime = (totalHours * 3600) - elapsedTime; // total seconds remaining
-
-                    if (remainingTime <= 0) {
-                        document.getElementById("timer").textContent = "Time's up!";
-                        localStorage.removeItem("timerStart");
-                        return;
-                    }
-
-                    const hours = Math.floor(remainingTime / 3600);
-                    const minutes = Math.floor((remainingTime % 3600) / 60);
-                    const seconds = Math.floor(remainingTime % 60);
-
-                    document.getElementById("timer").textContent =
-                        `${hours}h ${minutes}m ${seconds}s`;
-
-                    requestAnimationFrame(updateTimer);
-                }
-
-                updateTimer();
-            }
-
-            window.onload = startTimer;
-        </script>
-        <h2 style="color: rgb(189, 185, 185)">First Withdraw</h2>
+        <div class=" icons">
+            <!-- Menu/Profile Icon -->
+            <i class="fa-solid fa-user menu-icon" id="profile-icon"></i>
+        </div>
+        <span>Language</span>
     </header>
-    <main>
-        <!-- Mining Section -->
-        <div id="24timer" class="timer">24:00:00</div>
-        <script>
-            function start24HourTimer() {
-                const timerDisplay = document.getElementById('24timer');
 
-                function updateTimer() {
-                    const now = new Date();
-                    const hours = 23 - now.getHours();
-                    const minutes = 59 - now.getMinutes();
-                    const seconds = 59 - now.getSeconds();
-
-                    const formattedTime =
-                        String(hours).padStart(2, '0') + ':' +
-                        String(minutes).padStart(2, '0') + ':' +
-                        String(seconds).padStart(2, '0');
-
-                    timerDisplay.textContent = formattedTime;
-                }
-
-                setInterval(updateTimer, 1000);
-                updateTimer();
-            }
-
-            start24HourTimer();
-        </script>
-        <div id="minedAmount" class="mined-amount">Mined PGN: {{ auth()->user()->balance }}</div>
-        <a href="{{ route('User.Start.Mine') }}" class="btn-primary">Start Mining</a>
-        {{-- add logout button --}}
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-danger">Logout</button>
-        </form>
-        <!-- Tasks Section -->
-
-        <!DOCTYPE html>
-        <html lang="en">
-
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Token Earning Program</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    text-align: center;
-                    background-color: #f4f4f9;
-                    padding: 20px;
-                }
-
-                .link {
-                    margin: 10px 0;
-                    display: inline-block;
-                    padding: 10px 20px;
-                    background-color: #007bff;
-                    color: #fff;
-                    text-decoration: none;
-                    border-radius: 5px;
-                }
-
-                .link:hover {
-                    background-color: #0056b3;
-                }
-
-                .tokens {
-                    margin-top: 20px;
-                    font-size: 18px;
-                    color: green;
-                }
-            </style>
-        </head>
-
-        <body>
-            <h1>Earn Tokens</h1>
-            <p>Click on a link, stay for 20 seconds, and earn 2 tokens! You can only visit each site once every 24
-                hours.</p>
-            <div id="links">
-
-                @foreach ($links as $item)
-                    <a href="{{ route('User.Link.Amount', $item->id) }}" class="link"
-                        onclick="window.open('{{ $item->link }}', '_blank',alert('wait for 30 Second to given link to earn token'))">{{ $item->title }}</a>
-                @endforeach
-            </div>
-        </body>
-
-        </html>
-
-        <!-- Boost Section -->
-        <ul>
-            <h2>Boost</h2>
-            <li>100 PGN - 10 fee mon <button>Boost now</button></li>
-            <li>300 PGN - 30 fee mon <button>Boost now</button></li>
-            <li>500 PGN - 60 fee mon <button>Boost now</button></li>
-
-            <form action="{{ route('User.Boost.Token') }}" method="POST">
-                @csrf
-                <input type="email" name="email" value="{{ auth()->user()->email }}" required readonly>
-                <select name="tokens">
-                    <option value="100">100 PGN</option>
-                    <option value="300">300 PGN</option>
-                    <option value="500">500 PGN</option>
-                </select>
-                <button type="submit">Buy Boost</button>
-            </form>
-        </ul>
-
-        <!-- Premium Section -->
-        <ul>
-            <h2>Premium</h2>
-            <li>$5 - 10 PGN</li>
-            <li>$10 - 25 PGN</li>
-            <li>$15 - 40 PGN</li>
-            <form action="{{ route('User.Premium.Option') }}" method="POST" enctype="multipart/form-data"
-                id="premiumForm">
-                @csrf
-                <input type="email" name="userEmail" value="{{ auth()->user()->email }}" readonly required>
-                <select name="premiumOption">
-                    <option value="$5 - 10 PGN">$5 - 10 PGN</option>
-                    <option value="$10 - 25 PGN">$10 - 25 PGN</option>
-                    <option value="$15 - 40 PGN">$15 - 40 PGN</option>
-                </select>
-                <label for="paymentScreenshot">Payment Screenshot:</label>
-                <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" required>
-
-                <label for="walletAddress">Trust Wallet Address:</label>
-                <div class="wallet-address">
-                    <input type="text" id="walletAddress" value="0x7129C2aa9750BFf9d2C77C55A08f538b2d768c78"
-                        readonly>
-                    <button type="button" id="copyAddressButton">Copy Address</button>
-                </div>
-                <button type="submit">Buy Premium</button>
-            </form>
-            <script>
-                $(document).ready(function() {
-                    $('#copyAddressButton').click(function() {
-                        let input = $('#walletAddress');
-                        input.select();
-                        document.execCommand('copy');
-                        alert('Link copied to clipboard: ' + input.val());
-                    });
-                });
-            </script>
-
-        </ul>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f9f9f9;
-                padding: 20px;
-            }
-
-            .container {
-                max-width: 800px;
-                margin: auto;
-                background: #fff;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-
-            h2 {
-                text-align: center;
-                color: #333;
-            }
-
-            .referral-box,
-            .details-box {
-                margin-top: 20px;
-                padding: 15px;
-                background: #f4f4f9;
-                border: 1px dashed #007bff;
-                border-radius: 5px;
-            }
-
-            button {
-                margin-top: 10px;
-                padding: 10px 20px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            button:hover {
-                background-color: #0056b3;
-            }
-
-            table {
-                width: 100%;
-                \n margin-top: 20px;
-                border-collapse: collapse;
-            }
-
-            table,
-            th,
-            td {
-                border: 1px solid #ddd;
-            }
-
-            th,
-            td {
-                padding: 10px;
-                text-align: center;
-            }
-
-            th {
-                background-color: #007bff;
-                color: white;
-            }
-        </style>
-        <div class="container">
-            <h2>Referral Dashboard</h2>
-            <div class="referral-box">
-                <p>Your Referral Link:</p>
-                {{-- add referral link --}}
-                <input type="text" id="linkInput"
-                    value="{{ route('register', ['referral' => Auth::user()->email]) }}">
-                <button id="copyButton">Copy Link</button>
-            </div>
-            <div class="details-box">
-                <h3>Referral Details</h3>
-                <p>Total Tokens Earned: <span id="totalTokens">0</span></p>
-                <h4>Referred Users:</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>Joined Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="referralTable">
-                        @foreach ($referrals as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->created_at }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        {{-- send tokens to eachother --}}
-        <div class="container">
-            <h2>Send Token</h2>
-            <div class="referral-box">
-                <form action="{{ route('User.Send.Tokens') }}" method="POST">
-                    @csrf
-                    <p>User Email</p>
-                    <input type="text" id="email" name="email" placeholder="Reciver Email" required>
-                    <p>Tokens to send</p>
-                    <input type="text" id="token" name="token" placeholder="Token Amount" required>
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-        </div>
-
-        <script>
-            $(document).ready(function() {
-                $('#copyButton').click(function() {
-                    let input = $('#linkInput');
-                    input.select();
-                    document.execCommand('copy');
-                    alert('Link copied to clipboard: ' + input.val());
-                });
-            });
-        </script>
-
-        </form>
-
-        <!-- KYC Form -->
-        <section class="kyc-form">
-            <h2>KYC Verification</h2>
-            <form action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <label for="fullName">Full Name:</label>
-                <input type="text" id="fullName" name="name" required>
-
-                <label for="mobileNumber">Mobile Number:</label>
-                <input type="text" id="mobileNumber" name="number" required>
-
-                <label for="idFront">ID Card (Front):</label>
-                <input type="file" id="idFront" name="idFront" accept="image/*" required>
-
-                <label for="idBack">ID Card (Back):</label>
-                <input type="file" id="idBack" name="idBack" accept="image/*" required>
-
-                <label for="selfie">Selfie:</label>
-                <input type="file" id="selfie" name="selfie" accept="image/*" required>
-
-                <label for="paymentScreenshot">Payment Screenshot:</label>
-                <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" required>
-
-                <label for="walletAddress">Trust Wallet Address:</label>
-                <div class="wallet-address">
-                    <input type="text" id="kycWallet" value="0x7129C2aa9750BFf9d2C77C55A08f538b2d768c78" readonly>
-                    <button type="button" id="kycCopyButton">Copy Address</button>
-                </div>
-                <input type="submit" value="Submit KYC">
-            </form>
-        </section>
-    </main>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#kycCopyButton').click(function() {
-                let input = $('#kycWallet');
-                input.select();
-                document.execCommand('copy');
-                alert('Link copied to clipboard: ' + input.val());
-            });
+        window.addEventListener('showAlert', event => {
+            swal("Success!", event.detail.message, "success");
+        })
+    </script>
+
+    <main>
+        <x-alert />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-dark d-flex justify-content-between align-items-center">
+                        <p style="font-size: 20px;margin-top:10px;"><b>Pigeon Mining</b></p>
+                        <div id="timer" class="timer text-white">Loading...</div>
+                        <script>
+                            function startTimer() {
+                                const totalHours = 2400; // 2400 hours
+                                let startTime = localStorage.getItem("timerStart");
+
+                                // Initialize start time if not set
+                                if (!startTime) {
+                                    startTime = Date.now();
+                                    localStorage.setItem("timerStart", startTime);
+                                } else {
+                                    startTime = parseInt(startTime);
+                                }
+
+                                function updateTimer() {
+                                    const currentTime = Date.now();
+                                    const elapsedTime = (currentTime - startTime) / 1000; // in seconds
+                                    const remainingTime = (totalHours * 3600) - elapsedTime; // total seconds remaining
+
+                                    if (remainingTime <= 0) {
+                                        document.getElementById("timer").textContent = "Time's up!";
+                                        localStorage.removeItem("timerStart");
+                                        return;
+                                    }
+
+                                    const hours = Math.floor(remainingTime / 3600);
+                                    const minutes = Math.floor((remainingTime % 3600) / 60);
+                                    const seconds = Math.floor(remainingTime % 60);
+
+                                    document.getElementById("timer").textContent =
+                                        `(${hours}h ${minutes}m ${seconds}s)`;
+
+                                    requestAnimationFrame(updateTimer);
+                                }
+
+                                updateTimer();
+                            }
+
+                            window.onload = startTimer;
+                        </script>
+                    </div>
+                    <p style="font-size:10px;float: right;margin-top:-10px;color:black">First Withdraw</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-between align-items-center my-4 text-center">
+                <div class="col-12 bg-white text-dark text-center p-4 mb-3" style="border-radius: 10px;">
+                    <h3>
+                        <i class="bi bi-coin"></i>
+                    </h3>
+                    <p><span style="font-size: 12px;">Mined PGN</span> <br>
+                        <span><b>{{ auth()->user()->balance }} PGN</b></span>
+                    </p>
+                </div>
+                <div class="col-12 bg-white text-dark text-center p-4" style="border-radius: 10px;">
+                    <h3>
+                        <i class="bi bi-alarm"></i>
+                    </h3>
+                    <p><span style="font-size: 12px;">Today Timmer</span>
+                    <div id="24timer" class="timer" style="margin-top:-15px">24:00:00</div>
+                    <script>
+                        function start24HourTimer() {
+                            const timerDisplay = document.getElementById('24timer');
+
+                            function updateTimer() {
+                                const now = new Date();
+                                const hours = 23 - now.getHours();
+                                const minutes = 59 - now.getMinutes();
+                                const seconds = 59 - now.getSeconds();
+
+                                const formattedTime =
+                                    String(hours).padStart(2, '0') + ':' +
+                                    String(minutes).padStart(2, '0') + ':' +
+                                    String(seconds).padStart(2, '0');
+
+                                timerDisplay.textContent = formattedTime;
+                            }
+                            setInterval(updateTimer, 1000);
+                            updateTimer();
+                        }
+                        start24HourTimer();
+                    </script>
+                    <a href="{{ route('User.Start.Mine') }}" class="btn btn-primary">Start Mining</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <p class="text-dark">Important Notice
+                    <br>
+                    <small>For any query, contact CS</small>
+                </p>
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+    <footer>
+        <nav class="d-flex justify-content-around align-items-center">
+            <a href="{{ route('User.Dashboard') }}" style="color: white;text-decoration: none;"><i class="bi bi-house"
+                    style="font-size: 20px;"></i><br><span style="font-size:13px;margin-left: -7px;">Home</span></a>
+            <a href="{{ route('User.Boost.Token') }}" style="color: white;text-decoration: none;">
+                <i class="bi bi-rocket" style="font-size: 20px;"></i>
+                <br><span style="font-size:13px;margin-left: -7px;">Booster</span></a>
+            <a href="{{ route('User.KYC.Data') }}" style="color: white;text-decoration: none;">
+                <i class="bi bi-patch-question" style="font-size: 20px;"></i><br><span
+                    style="font-size:13px;margin-left: -3px;">KYC</span></a>
+        </nav>
+
+
+
+        <div class="modal fade" id="faq" tabindex="-1" role="dialog" aria-labelledby="faq" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLongTitle">Faq's</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-dark">
+                            Q: What is the minimum account balance required to start submitting products?
+                            A: A minimum advance payment of 100 USDT is required to start submitting tasks. After
+                            completing
+                            the daily task, users must apply for a full withdrawal and receive the withdrawal amount
+                            before
+                            resetting tasks.
+                            <br><br>
+                            Q: Can users request an account reset?
+                            A: Yes, users can request an account reset from customer service after completing the first
+                            set
+                            of data.
+                            <br><br>
+                            Q: Can users request a withdrawal after completing both product sets?
+                            A: Yes, users can request a withdrawal only after completing the entire data set.
+                            <br><br>
+                            Q: Can a withdrawal or refund be requested if a user withdraws or gives up in the middle of
+                            product optimization?
+                            A: No, withdrawals or refunds cannot be requested in such cases. Users must complete all
+                            product
+                            submissions before requesting a withdrawal.
+                            <br><br>
+                            Q: How are funds held in the user’s account?
+                            A: All funds are securely held in the user's account and can be withdrawn in full with no
+                            processing fee once all data tasks are completed.
+                            <br><br>
+                            Q: What precautions should users take regarding account security?
+                            A: Users should never disclose their login or withdrawal password to others. The platform is
+                            not
+                            responsible for any loss in such cases. Avoid using personal information like birthdays or
+                            phone
+                            numbers in passwords.
+                            <br><br>
+                            Q: What should users do if they forget their login or withdrawal password?
+                            A: Users should contact Customer Service for a password reset.
+                            <br><br>
+                            Q: Can product data that has been assigned to the user’s account be canceled or edited?
+                            A: No, once product data has been assigned to your account, it cannot be canceled or edited.
+                            <br><br>
+                            Q: What is a Combination Product?
+                            A: A Combination Product consists of 1 to 3 merged products randomly allocated to the user's
+                            account based on availability.
+                            <br><br>
+                            Q: What is the commission rate for combination products compared to regular products?
+                            A: Users can earn 10-100 times the commission rate on combination products compared to
+                            regular
+                            products.
+                            <br><br>
+                            Q: Can the combination product be canceled or edited after allocation?
+                            A: No, due to contractual obligations with merchants/vendors, combination products cannot be
+                            canceled or edited once allocated.
+                            <br><br>
+                            Q: Is the deposit amount determined by the platform?
+                            A: No, the deposit amount is chosen by the user based on their preferences and experience
+                            with
+                            the platform.
+                            <br><br>
+                            Q: How can users ensure the accuracy of deposit details?
+                            A: Users should always confirm deposit details with Customer Service before making a
+                            deposit.
+                            <br><br>
+                            Q: What happens if a user makes a deposit to the wrong details?
+                            A: The platform is not responsible for any deposits made to incorrect details.
+                            <br><br>
+                            Q: How does delaying product completion affect merchants/vendors?
+                            A: Delays can harm vendor progress, product sales, and affect user credibility. Timely
+                            completion is crucial for maintaining a positive reputation.
+                            <br><br>
+                            Q: Can users invite others to join their team?
+                            A: Yes, users at VIP3 or higher can invite others using an invitation code and receive about
+                            20%
+                            of the recommended user’s daily income.
+                            <br><br>
+                            Q: How much funds are needed on this platform?
+                            A: There is no specific amount required. Users are encouraged to manage their funds
+                            responsibly.
+                            <br><br>
+                            Notice: For more details, please click "Contact Us" on the platform to reach our online
+                            customer
+                            service!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">okay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="t&C" tabindex="-1" role="dialog" aria-labelledby="t&C" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLongTitle">T&C</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-dark">
+                            By accessing and using our services, you agree to comply with these terms and conditions.
+                            <br><br>
+                            Use of Services:
+                            <br><br>
+                            Our services are provided for informational and transactional purposes only. You agree to
+                            use
+                            them in accordance with applicable laws and regulations.
+                            <br><br>
+                            Intellectual Property:
+                            <br><br>
+                            All intellectual property rights related to our services, including trademarks, copyrights,
+                            and
+                            patents, are owned by our company. Unauthorized use or reproduction is strictly prohibited.
+                            <br><br>
+                            Privacy and Data Protection:
+                            <br><br>
+                            We prioritize your privacy and handle your personal information as outlined in our Privacy
+                            Policy. By using our services, you consent to the collection, use, and disclosure of your
+                            data
+                            as specified in the Privacy Policy.
+                            <br><br>
+                            Limitation of Liability:
+                            <br><br>
+                            While we aim to provide accurate and reliable information, we do not guarantee the
+                            completeness
+                            or accuracy of the content on our platform. We are not liable for any direct or indirect
+                            damages
+                            arising from your use of our services.
+                            <br><br>
+                            Third-Party Links:
+                            <br><br>
+                            Our platform may include links to third-party websites or resources. We do not endorse or
+                            assume
+                            responsibility for the content, products, or services provided by third parties. Use of
+                            these
+                            links is at your own risk.
+                            <br><br>
+                            Termination:
+                            <br><br>
+                            We reserve the right to suspend or terminate your access to our services at any time,
+                            without
+                            notice, for any reason we deem necessary.
+                            <br><br>
+                            Modifications:
+                            <br><br>
+                            We may update these terms periodically. Any changes will take effect immediately upon
+                            posting.
+                            It is your responsibility to review these terms regularly to stay informed of the most
+                            current
+                            version.
+                            <br><br>
+                            Governing Law:
+                            <br><br>
+                            These terms are governed by the laws of the CA. Any disputes arising from your use of our
+                            services will be resolved in the exclusive jurisdiction of CA courts.
+                            <br><br>
+                            Severability:
+                            <br><br>
+                            If any provision of these terms is deemed invalid or unenforceable, the remaining provisions
+                            will remain valid and enforceable to the fullest extent allowed by law.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">okay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="event" tabindex="-1" role="dialog" aria-labelledby="event" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLongTitle">Events</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-dark">
+                            If your withdrawal amount exceeds your current membership level, you must deposit and
+                            upgrade to
+                            the corresponding level for approval from the platform and financial department.
+                            <br><br>
+                            Upgrade Deposit: 5,000 USDT per membership level.
+                            Any deposits made will be refunded to your binding address along with the withdrawal amount
+                            after the upgrade.
+                            Credit Score Policy:
+                            <br><br>
+                            To maintain a 100% credit score, users must complete all product submissions.
+                            Failing to complete tasks on the same day will result in a reduction of your credit score.
+                            Your credit score is based on the number of unfinished orders and the completion time.
+                            A decreased credit score may affect your ability to process withdrawal requests.
+                            Tax Regulations:
+                            <br><br>
+                            Users with personal funds exceeding 10,000 USDT are required to pay a 35% personal income
+                            tax
+                            before withdrawing funds.
+                            The personal income tax will be refunded 2 hours after the withdrawal is processed.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">okay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="about"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLongTitle">About</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-dark">
+                            We transform complex business challenges into technology solutions to support the growth of
+                            your
+                            eCommerce brand.
+                            <br><br>
+                            ASO (App Store Optimization) is the process of enhancing the visibility and ranking of
+                            mobile
+                            applications in app store search results, such as the App Store for iOS and Google Play for
+                            Android. By optimizing key elements of your app, the aim is to attract more users and
+                            increase
+                            downloads. Think of ASO as SEO (Search Engine Optimization) for mobile apps.
+                            <br><br>
+                            ASO is an ongoing effort that involves continuously evaluating and adjusting strategies to
+                            keep
+                            up with changes in app store algorithms and shifting user needs. A strong ASO strategy not
+                            only
+                            boosts your app's visibility but also helps attract more users and drive revenue growth.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">okay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="walletAddress" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLongTitle">Add Wallet Details</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form action="https://usventurs.com/User/Add/Wallet" method="POST">
+                            <input type="hidden" name="_token" value="CdZhgKSibdPF5rFR6AUKgun1rtrXt75zTYQFA5wu"
+                                autocomplete="off">
+                            <div class="form-group" class="form-label">
+                                <label for="address" class="form-label text-dark">Wallet Address</label>
+                                <input type="text" class="form-control" name="address" id="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="form-label text-dark">Username</label>
+                                <input type="text" class="form-control" name="name" id="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="wallet_type" class="form-label text-dark">Wallet Type</label>
+                                <select class="form-control" name="wallet_type" id="wallet_type">
+                                    <option value="BTC">BTC</option>
+                                    <option value="ETH">ETH</option>
+                                    <option value="TRC">USDT</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Wallet</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <header>
+            <span class="text-white">Profile</span>
+            <!-- Close Icon -->
+            <i class="fa-solid fa-arrow-left close-icon text-white" id="close-icon"></i>
+        </header>
+        <section>
+            <h3>My Financial</h3>
+            <ul>
+
+                <li><a href="https://usventurs.com/User/Deposit"><i class="fa-solid fa-dollar-sign"></i> Deposit</a><i
+                        class="fa-solid fa-chevron-right"></i></li>
+                <li><a href="https://usventurs.com/User/Withdraw"><i class="fa-solid fa-money-bill"></i>
+                        Withdraw</a><i class="fa-solid fa-chevron-right"></i></li>
+                <li><a href="https://usventurs.com/User/Transactions"><i class="fa-solid fa-list"></i>
+                        Transaction</a><i class="fa-solid fa-chevron-right"></i></li>
+            </ul>
+        </section>
+        <section>
+            <h3>My Detail</h3>
+            <ul>
+                <li><a href="https://usventurs.com/profile"><i class="fa-solid fa-user"></i> Personal Info</a><i
+                        class="fa-solid fa-chevron-right"></i></li>
+            </ul>
+        </section>
+        <section>
+            <h3>Platform Detail</h3>
+            <ul>
+                <li><a href="https://t.me/Csupport10" target="_blank"><i class="fa-solid fa-headset"></i> Customer
+                        Service</a><i class="fa-solid fa-chevron-right"></i></li>
+            </ul>
+        </section>
+        <div class="logout">
+            <form action="https://usventurs.com/logout" method="POST">
+                <input type="hidden" name="_token" value="CdZhgKSibdPF5rFR6AUKgun1rtrXt75zTYQFA5wu"
+                    autocomplete="off"> <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JavaScript for Sidebar -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        const profileIcon = document.getElementById('profile-icon');
+        const sidebar = document.getElementById('sidebar');
+        const closeIcon = document.getElementById('close-icon');
+
+        // Toggle Sidebar
+        profileIcon.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        // Hide Sidebar
+        closeIcon.addEventListener('click', () => {
+            sidebar.classList.remove('active');
         });
     </script>
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            width: 60%;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        input[type="file"] {
-            margin-top: 10px;
-        }
-
-        .submit-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container">
-        <h1>Contact Us</h1>
-        <form action="{{ route('User.Contact.Us') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="country">Country</label>
-                <select id="country" name="country" required>
-                    <option value="">Select your country</option>
-                    <option value="Afghanistan">Afghanistan</option>
-                    <option value="Albania">Albania</option>
-                    <option value="Algeria">Algeria</option>
-                    <option value="Andorra">Andorra</option>
-                    <option value="Angola">Angola</option>
-                    <option value="Antigua and Barbuda">Antigua and Barbuda</option>
-                    <option value="Argentina">Argentina</option>
-                    <option value="Armenia">Armenia</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Austria">Austria</option>
-                    <option value="Azerbaijan">Azerbaijan</option>
-                    <option value="Bahamas">Bahamas</option>
-                    <option value="Bahrain">Bahrain</option>
-                    <option value="Bangladesh">Bangladesh</option>
-                    <option value="Barbados">Barbados</option>
-                    <option value="Belarus">Belarus</option>
-                    <option value="Belgium">Belgium</option>
-                    <option value="Belize">Belize</option>
-                    <option value="Benin">Benin</option>
-                    <option value="Bhutan">Bhutan</option>
-                    <option value="Bolivia">Bolivia</option>
-                    <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-                    <option value="Botswana">Botswana</option>
-                    <option value="Brazil">Brazil</option>
-                    <option value="Brunei">Brunei</option>
-                    <option value="Bulgaria">Bulgaria</option>
-                    <option value="Burkina Faso">Burkina Faso</option>
-                    <option value="Burundi">Burundi</option>
-                    <option value="Cambodia">Cambodia</option>
-                    <option value="Cameroon">Cameroon</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Cape Verde">Cape Verde</option>
-                    <option value="Central African Republic">Central African Republic</option>
-                    <option value="Chad">Chad</option>
-                    <option value="Chile">Chile</option>
-                    <option value="China">China</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="Comoros">Comoros</option>
-                    <option value="Congo">Congo</option>
-                    <option value="Costa Rica">Costa Rica</option>
-                    <option value="Croatia">Croatia</option>
-                    <option value="Cuba">Cuba</option>
-                    <option value="Cyprus">Cyprus</option>
-                    <option value="Czech Republic">Czech Republic</option>
-                    <option value="Denmark">Denmark</option>
-                    <option value="Djibouti">Djibouti</option>
-                    <option value="Dominica">Dominica</option>
-                    <option value="Dominican Republic">Dominican Republic</option>
-                    <option value="Ecuador">Ecuador</option>
-                    <option value="Egypt">Egypt</option>
-                    <option value="El Salvador">El Salvador</option>
-                    <option value="Equatorial Guinea">Equatorial Guinea</option>
-                    <option value="Eritrea">Eritrea</option>
-                    <option value="Estonia">Estonia</option>
-                    <option value="Eswatini">Eswatini</option>
-                    <option value="Ethiopia">Ethiopia</option>
-                    <option value="Fiji">Fiji</option>
-                    <option value="Finland">Finland</option>
-                    <option value="France">France</option>
-                    <option value="Gabon">Gabon</option>
-                    <option value="Gambia">Gambia</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Ghana">Ghana</option>
-                    <option value="Greece">Greece</option>
-                    <option value="Grenada">Grenada</option>
-                    <option value="Guatemala">Guatemala</option>
-                    <option value="Guinea">Guinea</option>
-                    <option value="Guinea-Bissau">Guinea-Bissau</option>
-                    <option value="Guyana">Guyana</option>
-                    <option value="Haiti">Haiti</option>
-                    <option value="Honduras">Honduras</option>
-                    <option value="Hungary">Hungary</option>
-                    <option value="Iceland">Iceland</option>
-                    <option value="India">India</option>
-                    <option value="Indonesia">Indonesia</option>
-                    <option value="Iran">Iran</option>
-                    <option value="Iraq">Iraq</option>
-                    <option value="Ireland">Ireland</option>
-                    <option value="Israel">Israel</option>
-                    <option value="Italy">Italy</option>
-                    <option value="Jamaica">Jamaica</option>
-                    <option value="Japan">Japan</option>
-                    <option value="Jordan">Jordan</option>
-                    <option value="Kazakhstan">Kazakhstan</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="Kiribati">Kiribati</option>
-                    <option value="Korea, North">Korea, North</option>
-                    <option value="Korea, South">Korea, South</option>
-                    <option value="Kuwait">Kuwait</option>
-                    <option value="Kyrgyzstan">Kyrgyzstan</option>
-                    <option value="Laos">Laos</option>
-                    <option value="Latvia">Latvia</option>
-                    <option value="Lebanon">Lebanon</option>
-                    <option value="Lesotho">Lesotho</option>
-                    <option value="Liberia">Liberia</option>
-                    <option value="Libya">Libya</option>
-                    <option value="Liechtenstein">Liechtenstein</option>
-                    <option value="Lithuania">Lithuania</option>
-                    <option value="Luxembourg">Luxembourg</option>
-                    <option value="Madagascar">Madagascar</option>
-                    <option value="Malawi">Malawi</option>
-                    <option value="Malaysia">Malaysia</option>
-                    <option value="Maldives">Maldives</option>
-                    <option value="Mali">Mali</option>
-                    <option value="Malta">Malta</option>
-                    <option value="Marshall Islands">Marshall Islands</option>
-                    <option value="Mauritania">Mauritania</option>
-                    <option value="Mauritius">Mauritius</option>
-                    <option value="Mexico">Mexico</option>
-                    <option value="Micronesia">Micronesia</option>
-                    <option value="Moldova">Moldova</option>
-                    <option value="Monaco">Monaco</option>
-                    <option value="Mongolia">Mongolia</option>
-                    <option value="Montenegro">Montenegro</option>
-                    <option value="Morocco">Morocco</option>
-                    <option value="Mozambique">Mozambique</option>
-                    <option value="Myanmar">Myanmar</option>
-                    <option value="Namibia">Namibia</option>
-                    <option value="Nauru">Nauru</option>
-                    <option value="Nepal">Nepal</option>
-                    <option value="Netherlands">Netherlands</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="Nicaragua">Nicaragua</option>
-                    <option value="Niger">Niger</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="North Macedonia">North Macedonia</option>
-                    <option value="Norway">Norway</option>
-                    <option value="Oman">Oman</option>
-                    <option value="Pakistan">Pakistan</option>
-                    <option value="Palau">Palau</option>
-                    <option value="Panama">Panama</option>
-                    <option value="Papua New Guinea">Papua New Guinea</option>
-                    <option value="Paraguay">Paraguay</option>
-                    <option value="Peru">Peru</option>
-                    <option value="Philippines">Philippines</option>
-                    <option value="Poland">Poland</option>
-                    <option value="Portugal">Portugal</option>
-                    <option value="Qatar">Qatar</option>
-                    <option value="Romania">Romania</option>
-                    <option value="Russia">Russia</option>
-                    <option value="Rwanda">Rwanda</option>
-                    <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
-                    <option value="Saint Lucia">Saint Lucia</option>
-                    <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
-                    <option value="Samoa">Samoa</option>
-                    <option value="San Marino">San Marino</option>
-                    <option value="Sao Tome and Principe">Sao Tome and Principe</option>
-                    <option value="Saudi Arabia">Saudi Arabia</option>
-                    <option value="Senegal">Senegal</option>
-                    <option value="Serbia">Serbia</option>
-                    <option value="Seychelles">Seychelles</option>
-                    <option value="Sierra Leone">Sierra Leone</option>
-                    <option value="Singapore">Singapore</option>
-                    <option value="Slovakia">Slovakia</option>
-                    <option value="Slovenia">Slovenia</option>
-                    <option value="Solomon Islands">Solomon Islands</option>
-                    <option value="Somalia">Somalia</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="South Sudan">South Sudan</option>
-                    <option value="Spain">Spain</option>
-                    <option value="Sri Lanka">Sri Lanka</option>
-                    <option value="Sudan">Sudan</option>
-                    <option value="Suriname">Suriname</option>
-                    <option value="Sweden">Sweden</option>
-                    <option value="Switzerland">Switzerland</option>
-                    <option value="Syria">Syria</option>
-                    <option value="Taiwan">Taiwan</option>
-                    <option value="Tajikistan">Tajikistan</option>
-                    <option value="Tanzania">Tanzania</option>
-                    <option value="Thailand">Thailand</option>
-                    <option value="Timor-Leste">Timor-Leste</option>
-                    <option value="Togo">Togo</option>
-                    <option value="Tonga">Tonga</option>
-                    <option value="Trinidad and Tobago">Trinidad and Tobago</option>
-                    <option value="Tunisia">Tunisia</option>
-                    <option value="Turkey">Turkey</option>
-                    <option value="Turkmenistan">Turkmenistan</option>
-                    <option value="Tuvalu">Tuvalu</option>
-                    <option value="Uganda">Uganda</option>
-                    <option value="Ukraine">Ukraine</option>
-                    <option value="United Arab Emirates">United Arab Emirates</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="United States">United States</option>
-                    <option value="Uruguay">Uruguay</option>
-                    <option value="Uzbekistan">Uzbekistan</option>
-                    <option value="Vanuatu">Vanuatu</option>
-                    <option value="Vatican City">Vatican City</option>
-                    <option value="Venezuela">Venezuela</option>
-                    <option value="Vietnam">Vietnam</option>
-                    <option value="Yemen">Yemen</option>
-                    <option value="Zambia">Zambia</option>
-                    <option value="Zimbabwe">Zimbabwe</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pick">Pick (Optional)</label>
-                <input type="file" id="pick" name="pic">
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Submit</button>
-        </form>
-    </div>
 
 </body>
 
