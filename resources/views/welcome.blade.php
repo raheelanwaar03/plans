@@ -1,62 +1,234 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ env('APP_NAME') }} | Authentication</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            /* add gradient color to the body with #00a99d */
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-x: hidden;
+        }
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #2e3b4e;
+        }
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" />
-            <i class="bi bi-eye" style="float:right;margin-top:-32px;margin-right:10px;" id="togglePassword"></i>
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        header .icons {
+            display: flex;
+            gap: 15px;
+        }
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+        header .icons .menu-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+        main {
+            flex: 1;
+            font-size: 15px;
+            padding: 20px;
+        }
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-            <a href="{{ route('register') }}" style="margin-left: 8px;"
-                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Register</a>
-        </div>
-    </form>
+        footer {
+            background-color: #2e3b4e;
+            color: #fff;
+            padding: 10px 20px;
+        }
 
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar header .close-icon {
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .sidebar section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar section h3 {
+            font-size: 16px;
+            color: #2e3b4e;
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar ul li .fa-chevron-right {
+            color: #ccc;
+        }
+
+        .sidebar .logout {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .sidebar .logout a {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .icon-style {
+            background-color: white;
+            font-size: 20px;
+            color: #00a99d;
+            padding: 15px;
+            border-radius: 40px;
+        }
+
+        .font-2 {
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        const passwordInput = document.getElementById('password');
-        const toggleButton = document.getElementById('togglePassword');
-
-        toggleButton.addEventListener('click', () => {
-            // Toggle the type attribute
-            const isPassword = passwordInput.type === 'password';
-            passwordInput.type = isPassword ? 'text' : 'password';
-
-        });
+        window.addEventListener('showAlert', event => {
+            swal("Success!", event.detail.message, "success");
+        })
     </script>
+    <!-- Header -->
+    <header>
+        <div class="icons">
+        </div>
+        <span>Language</span>
+    </header>
 
-</x-guest-layout>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="col-12 text-center">
+                <h1>USVentures</h1>
+            </div>
+            <div class="row alin-items-center">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row p-3">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <h5>Login Now</h5>
+                                </div>
+                                <div class="">
+                                    <a href="{{ route('register') }}">Register Now?</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <x-auth-session-status class="mb-4" :status="session('status')" />
+                            <form action="{{ route('login') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" id="name" class="form-control"
+                                        placeholder="Enter your email">
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <div class="d-flex">
+                                        <input type="password" name="password" id="password" class="form-control"
+                                            placeholder="Enter your password">
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        <i class="bi bi-eye" style="margin-left: -28px;margin-top:8px"
+                                            id="togglePassword"></i>
+                                    </div>
+                                </div>
+                                <div class="mt-2 d-flex justify-content-between align-items-center">
+                                    <button type="submit" class="btn btn-info text-white">Login</button>
+                                    <a href="#" class="btn btn-outline-info text-dark">Forgot Password</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <script>
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.getElementById('togglePassword');
+
+            toggleButton.addEventListener('click', () => {
+                // Toggle the type attribute
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
+
+            });
+        </script>
+    </footer>
+
+</body>
+
+</html>
