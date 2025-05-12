@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USVentures | User Dashboard</title>
+    <title>{{ env('APP_NAME') }} | User Dashboard</title>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -160,7 +160,6 @@
             <!-- Menu/Profile Icon -->
             <i class="fa-solid fa-user menu-icon" id="profile-icon"></i>
         </div>
-        <span>Language</span>
     </header>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -270,11 +269,7 @@
                     <small>For any query, contact CS</small>
                 </p>
             </div>
-
-
         </div>
-
-
     </main>
 
     <footer>
@@ -579,46 +574,8 @@
     </footer>
 
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <header>
-            <span class="text-white">Profile</span>
-            <!-- Close Icon -->
-            <i class="fa-solid fa-arrow-left close-icon text-white" id="close-icon"></i>
-        </header>
-        <section>
-            <h3>My Financial</h3>
-            <ul>
 
-                <li><a href="https://usventurs.com/User/Deposit"><i class="fa-solid fa-dollar-sign"></i> Deposit</a><i
-                        class="fa-solid fa-chevron-right"></i></li>
-                <li><a href="https://usventurs.com/User/Withdraw"><i class="fa-solid fa-money-bill"></i>
-                        Withdraw</a><i class="fa-solid fa-chevron-right"></i></li>
-                <li><a href="https://usventurs.com/User/Transactions"><i class="fa-solid fa-list"></i>
-                        Transaction</a><i class="fa-solid fa-chevron-right"></i></li>
-            </ul>
-        </section>
-        <section>
-            <h3>My Detail</h3>
-            <ul>
-                <li><a href="https://usventurs.com/profile"><i class="fa-solid fa-user"></i> Personal Info</a><i
-                        class="fa-solid fa-chevron-right"></i></li>
-            </ul>
-        </section>
-        <section>
-            <h3>Platform Detail</h3>
-            <ul>
-                <li><a href="https://t.me/Csupport10" target="_blank"><i class="fa-solid fa-headset"></i> Customer
-                        Service</a><i class="fa-solid fa-chevron-right"></i></li>
-            </ul>
-        </section>
-        <div class="logout">
-            <form action="https://usventurs.com/logout" method="POST">
-                <input type="hidden" name="_token" value="CdZhgKSibdPF5rFR6AUKgun1rtrXt75zTYQFA5wu"
-                    autocomplete="off"> <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        </div>
-    </div>
-
+    @include('layouts.sidebar')
 
     <!-- JavaScript for Sidebar -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
