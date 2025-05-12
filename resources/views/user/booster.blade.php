@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ env('APP_NAME') }} | User Dashboard</title>
+    <title>USVentures | User Dashboard</title>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
     <style>
         body {
             margin: 0;
@@ -154,116 +158,110 @@
 </head>
 
 <body>
-    <!-- Header -->
+    <x-alert />
     <header>
         <div class=" icons">
             <!-- Menu/Profile Icon -->
             <i class="fa-solid fa-user menu-icon" id="profile-icon"></i>
         </div>
     </header>
-    <x-alert />
 
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-dark d-flex justify-content-between align-items-center">
-                        <p style="font-size: 20px;margin-top:10px;"><b>Pigeon Mining</b></p>
-                        <div id="timer" class="timer text-white">Loading...</div>
-                        <script>
-                            function startTimer() {
-                                const totalHours = 2400; // 2400 hours
-                                let startTime = localStorage.getItem("timerStart");
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        window.addEventListener('showAlert', event => {
+            swal("Success!", event.detail.message, "success");
+        })
+    </script>
 
-                                // Initialize start time if not set
-                                if (!startTime) {
-                                    startTime = Date.now();
-                                    localStorage.setItem("timerStart", startTime);
-                                } else {
-                                    startTime = parseInt(startTime);
-                                }
+    <style>
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
 
-                                function updateTimer() {
-                                    const currentTime = Date.now();
-                                    const elapsedTime = (currentTime - startTime) / 1000; // in seconds
-                                    const remainingTime = (totalHours * 3600) - elapsedTime; // total seconds remaining
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-                                    if (remainingTime <= 0) {
-                                        document.getElementById("timer").textContent = "Time's up!";
-                                        localStorage.removeItem("timerStart");
-                                        return;
-                                    }
+        .wallet-logo {
+            width: 50px;
+            height: 50px;
+        }
 
-                                    const hours = Math.floor(remainingTime / 3600);
-                                    const minutes = Math.floor((remainingTime % 3600) / 60);
-                                    const seconds = Math.floor(remainingTime % 60);
+        .copy-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-                                    document.getElementById("timer").textContent =
-                                        `(${hours}h ${minutes}m ${seconds}s)`;
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 
-                                    requestAnimationFrame(updateTimer);
-                                }
+    <div class="container mt-5">
+        <div class="card p-4 mb-4" style="border-radius: 15px">
+            <h5>Account Amount</h5>
+            <h3>PGN {{ auth()->user()->balance }}</h3>
+        </div>
 
-                                updateTimer();
-                            }
-
-                            window.onload = startTimer;
-                        </script>
-                    </div>
-                    <p style="font-size:10px;float: right;margin-top:-10px;color:black">First Withdraw</p>
-                </div>
-            </div>
-
-            <div class="row justify-content-between align-items-center my-4 text-center">
-                <div class="col-12 bg-white text-dark text-center p-4 mb-3" style="border-radius: 10px;">
-                    <h3>
-                        <i class="bi bi-coin"></i>
-                    </h3>
-                    <p><span style="font-size: 12px;">Mined PGN</span> <br>
-                        <span><b>{{ auth()->user()->balance }} PGN</b></span>
-                    </p>
-                </div>
-                <div class="col-12 bg-white text-dark text-center p-4" style="border-radius: 10px;">
-                    <h3>
-                        <i class="bi bi-alarm"></i>
-                    </h3>
-                    <p><span style="font-size: 12px;">Today Timmer</span>
-                    <div id="24timer" class="timer" style="margin-top:-15px">24:00:00</div>
-                    <script>
-                        function start24HourTimer() {
-                            const timerDisplay = document.getElementById('24timer');
-
-                            function updateTimer() {
-                                const now = new Date();
-                                const hours = 23 - now.getHours();
-                                const minutes = 59 - now.getMinutes();
-                                const seconds = 59 - now.getSeconds();
-
-                                const formattedTime =
-                                    String(hours).padStart(2, '0') + ':' +
-                                    String(minutes).padStart(2, '0') + ':' +
-                                    String(seconds).padStart(2, '0');
-
-                                timerDisplay.textContent = formattedTime;
-                            }
-                            setInterval(updateTimer, 1000);
-                            updateTimer();
-                        }
-                        start24HourTimer();
-                    </script>
-                    <a href="{{ route('User.Start.Mine') }}" class="btn btn-primary">Start Mining</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <p class="text-dark">Important Notice
-                    <br>
-                    <small>For any query, contact CS</small>
-                </p>
+        <div class="container py-5">
+            <div class="row g-4 justify-content-center">
             </div>
         </div>
-    </main>
+
+
+        <!-- Deposit Amount Section -->
+        <h5>Deposit Amount</h5>
+        <div class="row justify-content-around g-3">
+            <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
+                <div class="deposit-option" onclick="setDepositAmount(100)">
+                    <p>100 PGN - 10 fee mon</p>
+                    <p><b>100.00</b></p>
+                    <small>Receive 100.00</small>
+                </div>
+            </div>
+            <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
+                <div class="deposit-option" onclick="setDepositAmount(300)">
+                    <p>300 PGN - 30 fee mon</p>
+                    <p><b>300.00</b></p>
+                    <small>Receive 300.00</small>
+                </div>
+            </div>
+            <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
+                <div class="deposit-option" onclick="setDepositAmount(500)">
+                    <p>500 PGN - 60 fee mon</p>
+                    <p><b>500.00</b></p>
+                    <small>Receive 500.00</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Deposit Amount -->
+        <form action="{{ route('User.Boost.Token') }}" method="POST">
+            @csrf
+            <div class="mt-4">
+                <label for="tokens" class="form-label">Deposit Amount</label>
+                <input type="number" name="tokens" class="form-control" id="tokens" placeholder="100.00">
+            </div>
+            <div class="text-center m-4">
+                <button class="btn btn-dark">Boost Now</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Function to set the deposit amount
+        function setDepositAmount(amount) {
+            const inputField = document.getElementById('tokens');
+            inputField.value = amount; // Set the clicked amount in the input field
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <footer>
         <nav class="d-flex justify-content-around align-items-center">
@@ -279,8 +277,8 @@
     </footer>
 
     <!-- Sidebar -->
-
     @include('layouts.sidebar')
+
 
     <!-- JavaScript for Sidebar -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

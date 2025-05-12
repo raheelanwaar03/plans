@@ -45,6 +45,14 @@ class UserDashboardController extends Controller
         return view('user.dashboard', compact('referrals', 'links'));
     }
 
+
+    public function booster()
+    {
+        $referrals = User::where('referral', auth()->user()->email)->get();
+        $links = Links::get();
+        return view('user.booster', compact('referrals', 'links'));
+    }
+
     public function premium(Request $request)
     {
         // save image into public folder
