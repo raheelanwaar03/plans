@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class UserKycController extends Controller
 {
+    public function kyc()
+    {
+        return view('user.kyc');
+    }
+
     public function index(Request $request)
     {
         $request->validate([

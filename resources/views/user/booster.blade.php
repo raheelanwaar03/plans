@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USVentures | User Dashboard</title>
+    <title>{{ env('APP_NAME') }} | User Dashboard</title>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -216,7 +216,7 @@
 
 
         <!-- Deposit Amount Section -->
-        <h5>Deposit Amount</h5>
+        <h5>PGN Amount</h5>
         <div class="row justify-content-around g-3">
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount(100)">
@@ -245,7 +245,7 @@
         <form action="{{ route('User.Boost.Token') }}" method="POST">
             @csrf
             <div class="mt-4">
-                <label for="tokens" class="form-label">Deposit Amount</label>
+                <label for="tokens" class="form-label">Boost Amount</label>
                 <input type="number" name="tokens" class="form-control" id="tokens" placeholder="100.00">
             </div>
             <div class="text-center m-4">
@@ -270,7 +270,7 @@
             <a href="{{ route('User.Booster') }}" style="color: white;text-decoration: none;">
                 <i class="bi bi-rocket" style="font-size: 20px;"></i>
                 <br><span style="font-size:13px;margin-left: -7px;">Booster</span></a>
-            <a href="{{ route('User.KYC.Data') }}" style="color: white;text-decoration: none;">
+            <a href="{{ route('User.KYC') }}" style="color: white;text-decoration: none;">
                 <i class="bi bi-patch-question" style="font-size: 20px;"></i><br><span
                     style="font-size:13px;margin-left: -3px;">KYC</span></a>
         </nav>

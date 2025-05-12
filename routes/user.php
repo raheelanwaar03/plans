@@ -13,8 +13,10 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::get('/Tasks', [UserDashboardController::class, 'tasks'])->name('Tasks');
     Route::get('/Booster', [UserDashboardController::class, 'booster'])->name('Booster');
     Route::get('/Test', [UserDashboardController::class, 'test'])->name('Test');
+    Route::get('/KYC', [UserKycController::class, 'kyc'])->name('KYC');
     Route::post('/KYC/Data', [UserKycController::class, 'index'])->name('KYC.Data');
     Route::post('/ContactUs', [ContactUsController::class, 'contactUs'])->name('Contact.Us');
+    Route::get('/Premium', [UserDashboardController::class, 'premium_page'])->name('Premium');
     Route::post('/Premium/Option', [UserDashboardController::class, 'premium'])->name('Premium.Option');
     Route::get('/Start/Mining', [UserDashboardController::class, 'mine'])->name('Start.Mine');
     Route::get('/Link/Amount/{id}', [UserDashboardController::class, 'link_amount'])->name('Link.Amount');

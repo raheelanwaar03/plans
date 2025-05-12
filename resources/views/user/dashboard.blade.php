@@ -272,7 +272,7 @@
             <a href="{{ route('User.Booster') }}" style="color: white;text-decoration: none;">
                 <i class="bi bi-rocket" style="font-size: 20px;"></i>
                 <br><span style="font-size:13px;margin-left: -7px;">Booster</span></a>
-            <a href="{{ route('User.KYC.Data') }}" style="color: white;text-decoration: none;">
+            <a href="{{ route('User.KYC') }}" style="color: white;text-decoration: none;">
                 <i class="bi bi-patch-question" style="font-size: 20px;"></i><br><span
                     style="font-size:13px;margin-left: -3px;">KYC</span></a>
         </nav>

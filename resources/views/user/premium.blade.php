@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
     <style>
         body {
             margin: 0;
@@ -154,13 +158,6 @@
 </head>
 
 <body>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        window.addEventListener('showAlert', event => {
-            swal("Success!", event.detail.message, "success");
-        })
-    </script>
     <x-alert />
     <header>
         <div class=" icons">
@@ -169,29 +166,116 @@
         </div>
     </header>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 mt-4">
-                <h3 class="text-center">Earn Tokens</h3>
-                <h4 class="text-center">{{ auth()->user()->balance}}PGN</h4>
-            </div>
-        </div>
-    </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        window.addEventListener('showAlert', event => {
+            swal("Success!", event.detail.message, "success");
+        })
+    </script>
 
-    <main>
-        <div class="container-fluid">
-            <div class="row mt-3 text-center">
-                <p>Click on a link, stay for 20 seconds, and earn 2 tokens! You can only visit each site once every 24
-                    hours.</p>
-                <div id="links" class="text-center">
-                    @foreach ($links as $item)
-                        <a href="{{ route('User.Link.Amount', $item->id) }}" class="btn btn-primary m-2"
-                            onclick="window.open('{{ $item->link }}', '_blank',alert('wait for 30 Second to given link to earn token'))">{{ $item->title }}</a>
-                    @endforeach
+    <style>
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .wallet-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .copy-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-dark text-center">
+                    <h3 style="font-size: 30px;"><b>Premium</b></h3>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="walletAddress" class="form-label">Trust Wallet Address:</label>
+                        <div class="wallet-address">
+                            <input type="text" class="form-control" id="kycWallet"
+                                value="0x7129C2aa9750BFf9d2C77C55A08f538b2d768c78" readonly>
+                            <i style="margin-top:-30px;margin-right:10px;float:right;color:blue" class="bi bi-clipboard"
+                                id="kycCopyButton"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+
+
+        <!-- Deposit Amount Section -->
+        <h5>PGN Amount</h5>
+        <div class="row justify-content-around align-items-center my-3">
+            <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
+                <div class="deposit-option" onclick="setDepositAmount($5 - 10 PGN)">
+                    <p>$5 - 10 PGN</p>
+                </div>
+            </div>
+            <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
+                <div class="deposit-option" onclick="setDepositAmount($10 - 25 PGN)">
+                    <p>$10 - 25 PGN</p>
+
+                </div>
+            </div>
+            <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
+                <div class="deposit-option" onclick="setDepositAmount($15 - 40 PGN)">
+                    <p>$15 - 40 PGN</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Deposit Amount -->
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('User.Premium.Option') }}" method="POST" enctype="multipart/form-data"
+                    id="premiumForm">
+                    @csrf
+                    <div class="form-group mb-2">
+                        <input type="email" class="form-control" name="userEmail" value="{{ auth()->user()->email }}"
+                            readonly required>
+                    </div>
+                    <div class="form-group">
+                        <select name="premiumOption" class="form-control">
+                            <option value="$5 - 10 PGN">$5 - 10 PGN</option>
+                            <option value="$10 - 25 PGN">$10 - 25 PGN</option>
+                            <option value="$15 - 40 PGN">$15 - 40 PGN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentScreenshot" class="form-label">Payment Screenshot:</label>
+                        <input type="file" id="paymentScreenshot" class="form-control" name="paymentScreenshot"
+                            accept="image/*" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button type="submit" class="btn btn-sm btn-primary">Buy Premium</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <nav class="d-flex justify-content-around align-items-center">
@@ -207,8 +291,8 @@
     </footer>
 
     <!-- Sidebar -->
-
     @include('layouts.sidebar')
+
 
     <!-- JavaScript for Sidebar -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
