@@ -8,8 +8,8 @@
         <h3>My Financial</h3>
         <ul>
 
-            {{-- <li><a href="#"><i class="fa-solid fa-dollar-sign"></i>Task</a><i
-                        class="fa-solid fa-chevron-right"></i></li> --}}
+            <li><a href="{{ route('User.Transfer') }}"><i class="fa-solid fa-dollar-sign"></i>Transfer Tokens</a><i
+                    class="fa-solid fa-chevron-right"></i></li>
             <li><a href="{{ route('User.Premium') }}"><i class="fa-solid fa-money-bill"></i>
                     Premium</a><i class="fa-solid fa-chevron-right"></i></li>
             <li><a href="{{ route('User.Tasks') }}"><i class="fa-solid fa-list"></i>
@@ -26,13 +26,13 @@
     <section>
         <h3>Platform Detail</h3>
         <ul>
-            <li><a href="https://t.me/Csupport10" target="_blank"><i class="fa-solid fa-headset"></i> Customer
+            <li><a href="{{ route('User.Contact') }}"><i class="fa-solid fa-headset"></i> Customer
                     Service</a><i class="fa-solid fa-chevron-right"></i></li>
         </ul>
     </section>
     <div class="logout">
-        <form action="https://usventurs.com/logout" method="POST">
-            <input type="hidden" name="_token" value="CdZhgKSibdPF5rFR6AUKgun1rtrXt75zTYQFA5wu" autocomplete="off">
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
             <button type="submit" class="btn btn-danger">Logout</button>
         </form>
     </div>

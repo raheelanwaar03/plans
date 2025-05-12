@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class ContactUsController extends Controller
 {
+
+    public function index()
+    {
+        return view('user.contact');
+    }
+
+    public function transfer()
+    {
+        return view('user.transfer');
+    }
+
     public function contactUs(Request $request)
     {
         //check if request have file
@@ -24,6 +35,4 @@ class ContactUsController extends Controller
         $contactUs->save();
         return redirect()->back()->with('success', 'Your message has been submitted');
     }
-
-
 }

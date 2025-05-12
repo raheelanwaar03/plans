@@ -224,4 +224,6 @@ class UserDashboardController extends Controller
         $history->save();
         return redirect()->back()->with('success', 'You have sent token to user');
     }
+
+
 }
