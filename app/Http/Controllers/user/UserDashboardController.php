@@ -31,6 +31,12 @@ class UserDashboardController extends Controller
         return view('user.dashboard2', compact('referrals', 'links'));
     }
 
+    public function tasks()
+    {
+        $referrals = User::where('referral', auth()->user()->email)->get();
+        $links = Links::get();
+        return view('user.task', compact('referrals', 'links'));
+    }
 
     public function index()
     {
@@ -130,7 +136,7 @@ class UserDashboardController extends Controller
         $history->type = $link->title;
         $history->amount = 2;
         $history->save();
-        return redirect()->back()->with('success', 'You got this task token');
+        return redirect()->back()->with('success', 'You got this task tokens');
     }
 
     public function boost(Request $request)

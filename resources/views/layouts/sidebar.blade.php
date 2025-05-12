@@ -8,12 +8,12 @@
             <h3>My Financial</h3>
             <ul>
 
-                <li><a href="{{ route() }}"><i class="fa-solid fa-dollar-sign"></i>Task</a><i
+                {{-- <li><a href="#"><i class="fa-solid fa-dollar-sign"></i>Task</a><i
                         class="fa-solid fa-chevron-right"></i></li>
                 <li><a href="https://usventurs.com/User/Withdraw"><i class="fa-solid fa-money-bill"></i>
-                        Withdraw</a><i class="fa-solid fa-chevron-right"></i></li>
-                <li><a href="https://usventurs.com/User/Transactions"><i class="fa-solid fa-list"></i>
-                        Transaction</a><i class="fa-solid fa-chevron-right"></i></li>
+                        Withdraw</a><i class="fa-solid fa-chevron-right"></i></li> --}}
+                <li><a href="{{ route('User.Tasks') }}"><i class="fa-solid fa-list"></i>
+                        Tasks</a><i class="fa-solid fa-chevron-right"></i></li>
             </ul>
         </section>
         <section>
