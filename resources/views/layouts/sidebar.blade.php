@@ -1,6 +1,6 @@
 <div class="sidebar" id="sidebar">
         <header>
-            <span class="text-white">Profile</span>
+            <span class="text-white">Pigeon Mining</span>
             <!-- Close Icon -->
             <i class="fa-solid fa-arrow-left close-icon text-white" id="close-icon"></i>
         </header>
@@ -13,7 +13,7 @@
                 <li><a href="https://usventurs.com/User/Withdraw"><i class="fa-solid fa-money-bill"></i>
                         Withdraw</a><i class="fa-solid fa-chevron-right"></i></li> --}}
                 <li><a href="{{ route('User.Tasks') }}"><i class="fa-solid fa-list"></i>
-                        Tasks</a><i class="fa-solid fa-chevron-right"></i></li>
+                        Earn Tokens</a><i class="fa-solid fa-chevron-right"></i></li>
             </ul>
         </section>
         <section>
