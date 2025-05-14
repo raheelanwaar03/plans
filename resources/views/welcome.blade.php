@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
     <style>
         body {
             margin: 0;
@@ -151,6 +152,7 @@
 </head>
 
 <body>
+    <x-alert />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         window.addEventListener('showAlert', event => {
@@ -166,8 +168,8 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-            <div class="col-12 text-center">
-                <h1>{{ env('APP_NAME') }}</h1>
+            <div class="col-md-12 text-center">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="logo" height="80px" width="180px">
             </div>
             <div class="row alin-items-center">
                 <div class="col-12">
