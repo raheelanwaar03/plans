@@ -140,7 +140,7 @@
                         class="bi bi-arrow-left-circle"></i></a>
             </div>
 
-            <img src="http://usventures.test/assets/images/user.png" alt="Profile Picture">
+            <img src="{{ asset('images/user.png') }}" alt="Profile Picture">
             <h2 class="text-capitalize">User</h2>
             <p></p>
         </div>
@@ -183,11 +183,36 @@
                 <div id="successMessage" class="success-message">Referral code copied to clipboard!</div>
             </div>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        © 2025 Profile Page. All rights reserved.
+        <div class="details-box text-dark text-center">
+            <h4>Referred Users:</h4>
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($referrals as $item)
+
+                                @endforeach
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                </tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>

@@ -248,7 +248,7 @@
         </div>
 
         <!-- Custom Deposit Amount -->
-        <div class="card">
+        <div class="card my-2">
             <div class="card-body">
                 <form action="{{ route('User.Premium.Option') }}" method="POST" enctype="multipart/form-data"
                     id="premiumForm">
@@ -299,7 +299,16 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 
-    <script>
+     <script>
+        $(document).ready(function() {
+            $('#kycCopyButton').click(function() {
+                let input = $('#kycWallet');
+                input.select();
+                document.execCommand('copy');
+                alert('Link copied to clipboard: ' + input.val());
+            });
+        });
+
         const profileIcon = document.getElementById('profile-icon');
         const sidebar = document.getElementById('sidebar');
         const closeIcon = document.getElementById('close-icon');

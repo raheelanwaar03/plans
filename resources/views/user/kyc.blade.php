@@ -170,6 +170,7 @@
                 <div class="col-12">
                     <div class="text-dark text-center">
                         <h3 style="font-size: 30px;margin-top:10px;"><b>KYC</b></h3>
+                        <p>2$ Fees for KYC</p>
                     </div>
                 </div>
                 <div class="card mb-2">
