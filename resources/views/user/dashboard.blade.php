@@ -170,45 +170,48 @@
                 <div class="col-12">
                     <div class="text-dark d-flex justify-content-between align-items-center">
                         <p style="font-size: 20px;margin-top:10px;"><b>Pigeon Mining</b></p>
-                        <div id="timer" class="timer text-white">Loading...</div>
-                        <script>
-                            function startTimer() {
-                                const totalHours = 2400; // 2400 hours
-                                let startTime = localStorage.getItem("timerStart");
+                        <div id="timer">
+                            <span id="days">0</span>d :
+                            <span id="hours">00</span>h :
+                            <span id="minutes">00</span>m :
+                            <span id="seconds">00</span>s
+                        </div>
 
-                                // Initialize start time if not set
-                                if (!startTime) {
-                                    startTime = Date.now();
-                                    localStorage.setItem("timerStart", startTime);
-                                } else {
-                                    startTime = parseInt(startTime);
-                                }
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function() {
+                                // 🔧 Set your fixed start date ONCE when deploying (e.g., May 19, 2025)
+                                var startDate = new Date("2025-05-19T00:00:00Z"); // <-- Change this only once
+                                var endDate = new Date(startDate.getTime());
+                                endDate.setDate(startDate.getDate() + 100);
 
                                 function updateTimer() {
-                                    const currentTime = Date.now();
-                                    const elapsedTime = (currentTime - startTime) / 1000; // in seconds
-                                    const remainingTime = (totalHours * 3600) - elapsedTime; // total seconds remaining
+                                    var now = new Date();
+                                    var timeLeft = endDate - now;
 
-                                    if (remainingTime <= 0) {
-                                        document.getElementById("timer").textContent = "Time's up!";
-                                        localStorage.removeItem("timerStart");
+                                    if (timeLeft <= 0) {
+                                        $("#days").text("0");
+                                        $("#hours").text("00");
+                                        $("#minutes").text("00");
+                                        $("#seconds").text("00");
+                                        clearInterval(timerInterval);
                                         return;
                                     }
 
-                                    const hours = Math.floor(remainingTime / 3600);
-                                    const minutes = Math.floor((remainingTime % 3600) / 60);
-                                    const seconds = Math.floor(remainingTime % 60);
+                                    var seconds = Math.floor(timeLeft / 1000) % 60;
+                                    var minutes = Math.floor(timeLeft / (1000 * 60)) % 60;
+                                    var hours = Math.floor(timeLeft / (1000 * 60 * 60)) % 24;
+                                    var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
 
-                                    document.getElementById("timer").textContent =
-                                        `(${hours}h ${minutes}m ${seconds}s)`;
-
-                                    requestAnimationFrame(updateTimer);
+                                    $("#days").text(days);
+                                    $("#hours").text(("0" + hours).slice(-2));
+                                    $("#minutes").text(("0" + minutes).slice(-2));
+                                    $("#seconds").text(("0" + seconds).slice(-2));
                                 }
 
                                 updateTimer();
-                            }
-
-                            window.onload = startTimer;
+                                var timerInterval = setInterval(updateTimer, 1000);
+                            });
                         </script>
                     </div>
                     <p style="font-size:10px;float: right;margin-top:-10px;color:black">First Withdraw</p>
