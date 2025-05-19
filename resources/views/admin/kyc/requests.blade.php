@@ -1,9 +1,18 @@
 @extends('admin.layout.app')
 
 @section('content')
+    <style>
+        img {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+    </style>
+
     <div class="startbar-overlay d-print-none"></div>
     <div class="page-wrapper">
-
         <!-- Page Content-->
         <div class="page-content">
             <div class="container-fluid">
@@ -64,19 +73,19 @@
                                                     <td>{{ $item->number }}</td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->idFront) }}"
-                                                            height="60px" width="60px" alt="$item->idFront">
+                                                            height="60px" width="60px" id="fullscreenImage">
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->idBack) }}" height="60px"
-                                                            width="60px" alt="$item->idFront">
+                                                            width="60px" id="fullscreenImage2">
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->selfie) }}" height="60px"
-                                                            width="60px" alt="$item->idFront">
+                                                            width="60px" id="fullscreenImage">
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->paymentScreenshot) }}"
-                                                            height="60px" width="60px" alt="$item->idFront">
+                                                            height="60px" width="60px" id="fullscreenImage">
                                                     </td>
                                                     <td>
                                                         @if ($item->status == 'pending')
@@ -173,6 +182,35 @@
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    const image = document.getElementById('fullscreenImage');
+
+                    image.addEventListener('click', () => {
+                        if (image.requestFullscreen) {
+                            image.requestFullscreen();
+                        } else if (image.webkitRequestFullscreen) { // Safari
+                            image.webkitRequestFullscreen();
+                        } else if (image.msRequestFullscreen) { // IE11
+                            image.msRequestFullscreen();
+                        }
+                    });
+                </script>
+
+
+                <script>
+                    const image = document.getElementById('fullscreenImage2');
+
+                    image.addEventListener('click', () => {
+                        if (image.requestFullscreen) {
+                            image.requestFullscreen();
+                        } else if (image.webkitRequestFullscreen) { // Safari
+                            image.webkitRequestFullscreen();
+                        } else if (image.msRequestFullscreen) { // IE11
+                            image.msRequestFullscreen();
+                        }
+                    });
+                </script>
             </footer>
         </div>
     </div>
