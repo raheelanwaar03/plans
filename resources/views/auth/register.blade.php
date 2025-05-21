@@ -190,20 +190,20 @@
                                     <label for="name" class="form-label">Username</label>
                                     <input type="text" name="name" id="name" class="form-control"
                                         placeholder="Enter your username">
-                                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="text" name="email" id="email" class="form-control"
                                         placeholder="Enter your email">
-                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="form-label">Password</label>
                                     <div class="d-flex">
                                         <input type="password" name="password" id="password" class="form-control"
                                             placeholder="Enter your password">
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
                                         <i class="bi bi-eye" style="margin-left: -28px;margin-top:8px"
                                             onclick="togglePasswordVisibility('password')"></i>
                                     </div>
@@ -213,7 +213,7 @@
                                     <div class="d-flex">
                                         <input type="password" name="password_confirmation" id="confirm_password"
                                             class="form-control" placeholder="Enter your password">
-                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-danger" />
                                         <i class="bi bi-eye" style="margin-left: -28px;margin-top:8px"
                                             onclick="togglePasswordVisibility('confirm_password')"></i>
                                     </div>
