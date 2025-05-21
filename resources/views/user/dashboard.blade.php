@@ -151,6 +151,22 @@
         .pointer {
             cursor: pointer;
         }
+
+        a#startMining {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgb(44, 44, 225);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a#startMining.disabled {
+            background-color: gray;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -231,31 +247,72 @@
                     <h3>
                         <i class="bi bi-alarm"></i>
                     </h3>
-                    <p><span style="font-size: 12px;">Today Timmer</span>
-                    <div id="24timer" class="timer" style="margin-top:-15px">24:00:00</div>
+                    <p id="timerDisplay"></p>
+                    <a href="{{ route('User.Start.Mine') }}" id="startMining" class="btn btn-primary">Start Mining</a>
                     <script>
-                        function start24HourTimer() {
-                            const timerDisplay = document.getElementById('24timer');
+                        $(document).ready(function() {
+                            const TIMER_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
+                            const $link = $('#startMining');
+                            const $display = $('#timerDisplay');
 
-                            function updateTimer() {
-                                const now = new Date();
-                                const hours = 23 - now.getHours();
-                                const minutes = 59 - now.getMinutes();
-                                const seconds = 59 - now.getSeconds();
+                            function updateTimerDisplay(timeLeft) {
+                                const totalSeconds = Math.floor(timeLeft / 1000);
+                                const hours = Math.floor(totalSeconds / 3600);
+                                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                                const seconds = totalSeconds % 60;
 
-                                const formattedTime =
-                                    String(hours).padStart(2, '0') + ':' +
-                                    String(minutes).padStart(2, '0') + ':' +
-                                    String(seconds).padStart(2, '0');
-
-                                timerDisplay.textContent = formattedTime;
+                                $display.text(
+                                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+                                );
                             }
-                            setInterval(updateTimer, 1000);
-                            updateTimer();
-                        }
-                        start24HourTimer();
+
+                            function startCountdown(endTime) {
+                                const interval = setInterval(() => {
+                                    const now = Date.now();
+                                    const timeLeft = endTime - now;
+
+                                    if (timeLeft <= 0) {
+                                        clearInterval(interval);
+                                        localStorage.removeItem('miningStartTime');
+                                        $link.removeClass('disabled').attr('href', '#');
+                                        $display.text('You can start mining again!');
+                                    } else {
+                                        updateTimerDisplay(timeLeft);
+                                    }
+                                }, 1000);
+                            }
+
+                            function initializeTimer() {
+                                const startTime = localStorage.getItem('miningStartTime');
+                                if (startTime) {
+                                    const endTime = parseInt(startTime) + TIMER_DURATION;
+                                    const now = Date.now();
+
+                                    if (now < endTime) {
+                                        $link.addClass('disabled').removeAttr('href');
+                                        startCountdown(endTime);
+                                    } else {
+                                        localStorage.removeItem('miningStartTime');
+                                        $link.removeClass('disabled').attr('href', '#');
+                                    }
+                                }
+                            }
+
+                            // On page load
+                            initializeTimer();
+
+                            // Click event
+                            $link.click(function(e) {
+                                if (!$link.hasClass('disabled')) {
+                                    e.preventDefault(); // Stop actual link action
+                                    const startTime = Date.now();
+                                    localStorage.setItem('miningStartTime', startTime.toString());
+                                    $link.addClass('disabled').removeAttr('href');
+                                    startCountdown(startTime + TIMER_DURATION);
+                                }
+                            });
+                        });
                     </script>
-                    <a href="{{ route('User.Start.Mine') }}" class="btn btn-primary">Start Mining</a>
                     </p>
                 </div>
             </div>

@@ -177,7 +177,7 @@
             <!-- Referral Section -->
             <div class="referral-section">
                 <h4>Your Referral Code</h4>
-                <div id="referralCode" class="referral-box">{{ route('register', ['referral' => Auth::user()->email]) }}
+                <div id="referralCode" class="referral-box">{{ route('register', ['referral' => Auth::user()->name]) }}
                 </div>
                 <button class="copy-button" onclick="copyReferralCode()">Copy Code</button>
                 <div id="successMessage" class="success-message">Referral code copied to clipboard!</div>

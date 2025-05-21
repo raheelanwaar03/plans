@@ -14,7 +14,7 @@ class ProfileController extends Controller
 {
     public function edit(Request $request): View
     {
-        $referral = User::where('referral', auth()->user()->email)->get();
+        $referral = User::where('referral', auth()->user()->name)->get();
         return view('profile.edit', compact('referral'));
     }
 
