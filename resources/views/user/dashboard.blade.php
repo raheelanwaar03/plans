@@ -167,6 +167,35 @@
             pointer-events: none;
             cursor: not-allowed;
         }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -30%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            border-radius: 8px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        #closeBtn {
+            margin-top: 10px;
+            padding: 5px 10px;
+        }
     </style>
 </head>
 
@@ -179,6 +208,19 @@
         </div>
     </header>
     <x-alert />
+
+    {{-- popup --}}
+
+    <div id="overlay"></div>
+    <div id="popup">
+        <h4 style="color: black;">Important Annoucment!</h4>
+        <p style="color: black">
+            If you did not mine for three days your Tokens will be zero.
+        </p>
+        <button id="closeBtn"
+            style="background-color:rgb(51, 51, 205);color:white;border-radius:20px;border:1px solid white;">Close</button>
+    </div>
+
 
     <main>
         <div class="container-fluid">
@@ -248,7 +290,8 @@
                         <i class="bi bi-alarm"></i>
                     </h3>
                     <p id="timerDisplay"></p>
-                    <a href="{{ route('User.Start.Mine') }}" id="startMining" class="btn btn-primary">Start Mining</a>
+                    <button id="startMining" class="btn btn-primary"
+                        onclick="window.open('{{ route('User.Start.Mine') }}')">Start Mining</button>
                     <script>
                         $(document).ready(function() {
                             const TIMER_DURATION = 24 * 60 * 60 * 1000; // 24 hours in ms
@@ -362,6 +405,35 @@
         closeIcon.addEventListener('click', () => {
             sidebar.classList.remove('active');
         });
+    </script>
+
+    <script>
+        function shouldShowPopup() {
+            const lastShown = localStorage.getItem('popupShownDate');
+            const today = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD
+
+            if (lastShown !== today) {
+                localStorage.setItem('popupShownDate', today);
+                return true;
+            }
+            return false;
+        }
+
+        function showPopup() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.getElementById('closeBtn').addEventListener('click', hidePopup);
+
+        if (shouldShowPopup()) {
+            showPopup();
+        }
     </script>
 
 </body>
