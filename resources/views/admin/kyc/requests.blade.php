@@ -2,12 +2,56 @@
 
 @section('content')
     <style>
+        table {
+            width: 100%;
+        }
+
         img {
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
+            width: 100px;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: 0.3s;
+            border-radius: 15px;
+        }
+
+        img:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Modal Content (Image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 95%;
+            max-height: 90%;
+        }
+
+        /* Close Button */
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #bbb;
         }
     </style>
 
@@ -73,19 +117,23 @@
                                                     <td>{{ $item->number }}</td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->idFront) }}"
-                                                            height="60px" width="60px" id="fullscreenImage">
+                                                            height="60px" width="60px" id="fullscreenImage"
+                                                            onclick="openModal(this.src)">
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->idBack) }}" height="60px"
-                                                            width="60px" id="fullscreenImage2">
+                                                            width="60px" id="fullscreenImage2"
+                                                            onclick="openModal(this.src)">
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->selfie) }}" height="60px"
-                                                            width="60px" id="fullscreenImage">
+                                                            width="60px" id="fullscreenImage"
+                                                            onclick="openModal(this.src)">
                                                     </td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->paymentScreenshot) }}"
-                                                            height="60px" width="60px" id="fullscreenImage">
+                                                            height="60px" width="60px" id="fullscreenImage"
+                                                            onclick="openModal(this.src)">
                                                     </td>
                                                     <td>
                                                         @if ($item->status == 'pending')
@@ -115,6 +163,11 @@
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
+
+                <div id="myModal" class="modal" onclick="closeModal()">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="modalImg">
+                </div>
 
             </div><!-- container -->
 
@@ -184,32 +237,17 @@
                 </div>
 
                 <script>
-                    const image = document.getElementById('fullscreenImage');
+                    function openModal(src) {
+                        document.getElementById('myModal').style.display = "block";
+                        document.getElementById('modalImg').src = src;
+                    }
 
-                    image.addEventListener('click', () => {
-                        if (image.requestFullscreen) {
-                            image.requestFullscreen();
-                        } else if (image.webkitRequestFullscreen) { // Safari
-                            image.webkitRequestFullscreen();
-                        } else if (image.msRequestFullscreen) { // IE11
-                            image.msRequestFullscreen();
-                        }
-                    });
-                </script>
+                    function closeModal() {
+                        document.getElementById('myModal').style.display = "none";
+                    }
 
-
-                <script>
-                    const image = document.getElementById('fullscreenImage2');
-
-                    image.addEventListener('click', () => {
-                        if (image.requestFullscreen) {
-                            image.requestFullscreen();
-                        } else if (image.webkitRequestFullscreen) { // Safari
-                            image.webkitRequestFullscreen();
-                        } else if (image.msRequestFullscreen) { // IE11
-                            image.msRequestFullscreen();
-                        }
-                    });
+                    // Optional: Close on "X" click
+                    document.querySelector('.close').addEventListener('click', closeModal);
                 </script>
             </footer>
         </div>
