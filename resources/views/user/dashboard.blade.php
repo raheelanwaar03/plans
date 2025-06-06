@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
     <style>
         body {
@@ -228,47 +229,41 @@
                 <div class="col-12">
                     <div class="text-dark d-flex justify-content-between align-items-center">
                         <p style="font-size: 20px;margin-top:10px;"><b>Pigeon Mining</b></p>
-                        <div id="timer">
-                            <span id="days">0</span>d :
-                            <span id="hours">00</span>h :
-                            <span id="minutes">00</span>m :
-                            <span id="seconds">00</span>s
-                        </div>
-
-                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <div id="timer">Loading...</div>
                         <script>
                             $(document).ready(function() {
-                                // 🔧 Set your fixed start date ONCE when deploying (e.g., May 19, 2025)
-                                var startDate = new Date("2025-05-19T00:00:00Z"); // <-- Change this only once
-                                var endDate = new Date(startDate.getTime());
-                                endDate.setDate(startDate.getDate() + 100);
+                                const TIMER_KEY = 'timer_100day_end';
+
+                                // Check if end time exists in localStorage
+                                let endTime = localStorage.getItem(TIMER_KEY);
+
+                                if (!endTime) {
+                                    // Set end time to 100 days from now
+                                    endTime = new Date().getTime() + (100 * 24 * 60 * 60 * 1000); // 100 days in ms
+                                    localStorage.setItem(TIMER_KEY, endTime);
+                                } else {
+                                    endTime = parseInt(endTime);
+                                }
 
                                 function updateTimer() {
-                                    var now = new Date();
-                                    var timeLeft = endDate - now;
+                                    const now = new Date().getTime();
+                                    const distance = endTime - now;
 
-                                    if (timeLeft <= 0) {
-                                        $("#days").text("0");
-                                        $("#hours").text("00");
-                                        $("#minutes").text("00");
-                                        $("#seconds").text("00");
-                                        clearInterval(timerInterval);
+                                    if (distance <= 0) {
+                                        $('#timer').html('Time is up!');
                                         return;
                                     }
 
-                                    var seconds = Math.floor(timeLeft / 1000) % 60;
-                                    var minutes = Math.floor(timeLeft / (1000 * 60)) % 60;
-                                    var hours = Math.floor(timeLeft / (1000 * 60 * 60)) % 24;
-                                    var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                                    $("#days").text(days);
-                                    $("#hours").text(("0" + hours).slice(-2));
-                                    $("#minutes").text(("0" + minutes).slice(-2));
-                                    $("#seconds").text(("0" + seconds).slice(-2));
+                                    $('#timer').html(`${days}d ${hours}h ${minutes}m ${seconds}s`);
                                 }
 
-                                updateTimer();
-                                var timerInterval = setInterval(updateTimer, 1000);
+                                updateTimer(); // Initial run
+                                setInterval(updateTimer, 1000); // Update every second
                             });
                         </script>
                     </div>
