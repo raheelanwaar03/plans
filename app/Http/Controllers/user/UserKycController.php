@@ -24,16 +24,16 @@ class UserKycController extends Controller
             'paymentScreenshot' => 'required',
         ]);
         // front ID image save
-        $idFrontImage = time() . '.' . $request->idFront->extension();
+        $idFrontImage = rand(1111111, 99999999) . '.' . $request->idFront->extension();
         $request->idFront->move(public_path('images/KYC'), $idFrontImage);
         // back ID image save
-        $idBackImage = time() . '.' . $request->idBack->extension();
+        $idBackImage = rand(1111111, 99999999) . '.' . $request->idBack->extension();
         $request->idBack->move(public_path('images/KYC'), $idBackImage);
         // selfie image save
-        $selfieImage = time() . '.' . $request->selfie->extension();
+        $selfieImage = rand(1111111, 99999999) . '.' . $request->selfie->extension();
         $request->selfie->move(public_path('images/KYC'), $selfieImage);
         // payment screenshot image save
-        $paymentImage = time() . '.' . $request->paymentScreenshot->extension();
+        $paymentImage = rand(1111111, 99999999) . '.' . $request->paymentScreenshot->extension();
         $request->paymentScreenshot->move(public_path('images/KYC'), $paymentImage);
 
         $user_kyc = new KYC();
