@@ -229,45 +229,7 @@
                 <div class="col-12">
                     <div class="text-dark d-flex justify-content-between align-items-center">
                         <p style="font-size: 20px;margin-top:10px;"><b>Pigeon Mining</b></p>
-                        <div id="timer">Loading...</div>
-                        <script>
-                            $(document).ready(function() {
-                                const TIMER_KEY = 'timer_100day_end';
-
-                                // Check if end time exists in localStorage
-                                let endTime = localStorage.getItem(TIMER_KEY);
-
-                                if (!endTime) {
-                                    // Set end time to 100 days from now
-                                    endTime = new Date().getTime() + (100 * 24 * 60 * 60 * 1000); // 100 days in ms
-                                    localStorage.setItem(TIMER_KEY, endTime);
-                                } else {
-                                    endTime = parseInt(endTime);
-                                }
-
-                                function updateTimer() {
-                                    const now = new Date().getTime();
-                                    const distance = endTime - now;
-
-                                    if (distance <= 0) {
-                                        $('#timer').html('Time is up!');
-                                        return;
-                                    }
-
-                                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                                    $('#timer').html(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-                                }
-
-                                updateTimer(); // Initial run
-                                setInterval(updateTimer, 1000); // Update every second
-                            });
-                        </script>
                     </div>
-                    <p style="font-size:10px;float: right;margin-top:-10px;color:black">First Withdraw</p>
                 </div>
             </div>
 
@@ -364,18 +326,7 @@
         </div>
     </main>
 
-    <footer>
-        <nav class="d-flex justify-content-around align-items-center">
-            <a href="{{ route('User.Dashboard') }}" style="color: white;text-decoration: none;"><i class="bi bi-house"
-                    style="font-size: 20px;"></i><br><span style="font-size:13px;margin-left: -7px;">Home</span></a>
-            <a href="{{ route('User.Booster') }}" style="color: white;text-decoration: none;">
-                <i class="bi bi-rocket" style="font-size: 20px;"></i>
-                <br><span style="font-size:13px;margin-left: -7px;">Booster</span></a>
-            <a href="{{ route('User.KYC') }}" style="color: white;text-decoration: none;">
-                <i class="bi bi-patch-question" style="font-size: 20px;"></i><br><span
-                    style="font-size:13px;margin-left: -3px;">KYC</span></a>
-        </nav>
-    </footer>
+    @include('layouts.links')
 
     <!-- Sidebar -->
 

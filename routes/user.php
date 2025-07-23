@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TradeController;
 use App\Http\Controllers\user\ContactUsController;
 use App\Http\Controllers\user\UserDashboardController;
 use App\Http\Controllers\user\UserKycController;
@@ -24,4 +25,5 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::get('/Contact', [ContactUsController::class, 'index'])->name('Contact');
     Route::get('/Transfer', [ContactUsController::class, 'transfer'])->name('Transfer');
     Route::post('/ContactUs', [ContactUsController::class, 'contactUs'])->name('Contact.Us');
+    Route::get('/Trade/Token', [TradeController::class, 'trade_token'])->name('Trade.Token');
 });
