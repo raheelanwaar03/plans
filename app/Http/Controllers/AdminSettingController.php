@@ -37,4 +37,16 @@ class AdminSettingController extends Controller
         $token->save();
         return redirect()->route('Admin.Settings')->with('success', 'Token price updated successfully.');
     }
+
+    public function sell_token()
+    {
+        // Logic to handle selling tokens
+        return view('admin.setting.sell_token');
+    }
+
+    public function buy_token()
+    {
+        // Logic to handle buying tokens
+        return view('admin.setting.buy_token');
+    }
 }

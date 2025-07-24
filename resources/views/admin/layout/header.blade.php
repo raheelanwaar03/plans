@@ -131,6 +131,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Buy.Token.Requests') }}">
+                                <i class="iconoir-wallet menu-icon"></i>
+                                <span>Selling Token</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Sell.Token.Requests') }}">
+                                <i class="iconoir-wallet menu-icon"></i>
+                                <span>Buying Token</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('Admin.Settings') }}">
                                 <i class="iconoir-settings menu-icon"></i>
                                 <span>Setting</span>
