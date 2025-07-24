@@ -10,24 +10,31 @@ class AdminSettingController extends Controller
     public function settings()
     {
         $tokenPrice = TokenPrice::first();
-        $token_price = $tokenPrice->price;
-        return view('admin.setting.index', compact('token_price'));
+        return view('admin.setting.index', compact('tokenPrice'));
     }
 
     public function token_price(Request $request)
     {
         // Validate the request data
         $request->validate([
-            'price' => 'required|numeric|min:0',
+            'price' => 'numeric|min:0',
+            'selling_price' => 'numeric|min:0',
+            'buying_price' => 'numeric|min:0',
         ]);
-        // Update the token price
-        $tokenPrice = TokenPrice::first();
-        if (!$tokenPrice) {
-            $tokenPrice = new TokenPrice();
+        // Find the first token price record
+        $token = TokenPrice::first();
+        if (!$token) {
+            // If no token price exists, create a new one
+            $token = new TokenPrice();
+            $token->price = $request->input('price');
+            $token->selling_price = $request->input('selling_price');
+            $token->buying_price = $request->input('buying_price');
         }
-        $tokenPrice->price = $request->input('price');
-        $tokenPrice->save();
-
+        // Update the token price details
+        $token->price = $request->input('price');
+        $token->selling_price = $request->input('selling_price');
+        $token->buying_price = $request->input('buying_price');
+        $token->save();
         return redirect()->route('Admin.Settings')->with('success', 'Token price updated successfully.');
     }
 }

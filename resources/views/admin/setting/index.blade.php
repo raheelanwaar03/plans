@@ -29,7 +29,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">Token Price ({{ $token_price }})</h4>
+                                        <h4 class="card-title text-center">Token Price ({{ $tokenPrice->price }} pkr)</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
@@ -41,7 +41,21 @@
                                             <div class="form-group">
                                                 <label for="amount">Update Token Price</label>
                                                 <input type="text" id="amount" class="form-control" name="price"
-                                                    required>
+                                                    value="{{ $tokenPrice->price }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="selling_amount">Update Token Selling Price</label>
+                                                <input type="text" id="selling_amount" class="form-control"
+                                                    name="selling_price" value="{{ $tokenPrice->selling_price }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="buying_amount">Update Token Buying Price</label>
+                                                <input type="text" id="buying_amount" class="form-control"
+                                                    name="buying_price" value="{{ $tokenPrice->buying_price }}">
                                             </div>
                                         </div>
                                         <div class="mt-3">

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\TokenPrice;
 use App\Models\User;
 use App\Models\user\Links;
 use Illuminate\Console\Command;
@@ -93,6 +94,12 @@ class clean extends Command
         $link->amount = 2;
         $link->save();
 
-
+        // adding token price
+        $tokenPrice = new TokenPrice();
+        $tokenPrice->price = 1;
+        $tokenPrice->selling_price = 2;
+        $tokenPrice->buying_price = 3;
+        $tokenPrice->save();
+        $this->info('App cleaned and initialized successfully.');
     }
 }

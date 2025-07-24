@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TokenPrice;
 use Illuminate\Http\Request;
 
 class TradeController extends Controller
@@ -13,6 +14,7 @@ class TradeController extends Controller
      */
     public function trade_token()
     {
-        return view('user.trade');
+        $tokenPrice = TokenPrice::first();
+        return view('user.trade', compact('tokenPrice'));
     }
 }

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('token_prices', function (Blueprint $table) {
             $table->id();
-            $table->string('price')->default('1')->comment('Price of the token');
+            $table->string('price');
+            $table->string('selling_price');
+            $table->string('buying_price');
             $table->timestamps();
         });
     }
