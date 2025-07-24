@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminDashboradController;
+use App\Http\Controllers\AdminSettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(function () {
@@ -14,4 +15,6 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('/Premium/Rejected/{id}', [AdminDashboradController::class, 'rejectPremium'])->name('Rejected.Premium');
     Route::get('/Premium/Add/Token/{id}', [AdminDashboradController::class, 'addToken'])->name('Add.Token');
     Route::post('/Store/Premium/Token/{id}', [AdminDashboradController::class, 'storeToken'])->name('Store.Token');
+    Route::get('/Setting', [AdminSettingController::class, 'settings'])->name('Settings');
+    Route::post('/Setting/Token/Price', [AdminSettingController::class, 'token_price'])->name('Token.Price');
 });

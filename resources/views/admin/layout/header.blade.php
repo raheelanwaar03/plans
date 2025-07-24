@@ -130,8 +130,14 @@
                                 <span>Premium</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Settings') }}">
+                                <i class="iconoir-settings menu-icon"></i>
+                                <span>Setting</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
-            </div><!--end startbar-collapse-->
-        </div><!--end startbar-menu-->
+            </div>
+        </div>
     </div>
