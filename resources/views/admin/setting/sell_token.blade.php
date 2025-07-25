@@ -63,13 +63,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box d-md-flex justify-content-md-between align-items-center">
-                            <h4 class="page-title">KYC</h4>
+                            <h4 class="page-title">Selling Requests</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a
                                             href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
-                                    <li class="breadcrumb-item active">KYC</li>
+                                    <li class="breadcrumb-item active">Selling</li>
                                 </ol>
                             </div>
                         </div><!--end page-title-box-->
@@ -82,7 +82,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">KYC Requests</h4>
+                                        <h4 class="card-title text-center">Selling Requests</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
