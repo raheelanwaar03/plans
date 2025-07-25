@@ -26,4 +26,6 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::get('/Transfer', [ContactUsController::class, 'transfer'])->name('Transfer');
     Route::post('/ContactUs', [ContactUsController::class, 'contactUs'])->name('Contact.Us');
     Route::get('/Trade/Token', [TradeController::class, 'trade_token'])->name('Trade.Token');
+    Route::post('/Sell/Token', [TradeController::class, 'sell_token'])->name('Sell.Token');
+    Route::post('/Buy/Token', [TradeController::class, 'buy_token'])->name('Buy.Token');
 });

@@ -121,6 +121,8 @@
 
     <body>
 
+        <x-alert />
+
         <!-- Back Arrow Button -->
         <a href="javascript:history.back()" class="back-arrow">←</a>
 
@@ -142,14 +144,15 @@
             <div id="sellForm" class="form-box">
                 <span class="close-btn" onclick="closeForms()">✖</span>
                 <h3>Sell Tokens</h3>
-                <form>
-                    <input type="email" placeholder="Email" required>
-                    <input type="number" placeholder="Easypais JazzCash Number" required>
-                    <input type="text" placeholder="Easypais JazzCash Name" required>
-                    <input type="number" placeholder="Token Amount" required>
+                <form action="{{ route('User.Sell.Token') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="phoneNO" placeholder="Easypais JazzCash Number" required>
+                    <input type="text" name="title" placeholder="Easypais JazzCash Name" required>
+                    <input type="number" name="amount" placeholder="Token Amount" required>
                     <div class="form-group">
                         <label for="tokenSS">Sent Token Screen Shot</label>
-                        <input type="file" class="form-control" required>
+                        <input type="file" name="screenShot" class="form-control" required>
                     </div>
                     <button type="submit">Sell</button>
                 </form>
@@ -158,7 +161,8 @@
             <div id="buyForm" class="form-box">
                 <span class="close-btn" onclick="closeForms()">✖</span>
                 <h3>Buy Tokens</h3>
-                <form>
+                <form action="{{ route('User.Buy.Token') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <input type="email" name="email" placeholder="Email" required>
                     <input type="number" name="amount" placeholder="Token amount to buy" required>
                     <div class="form-group">
