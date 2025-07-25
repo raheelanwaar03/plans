@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\buyingTokens;
 use App\Models\SellingTokens;
 use App\Models\TokenPrice;
 use Illuminate\Http\Request;
@@ -51,19 +52,21 @@ class TradeController extends Controller
         $request->validate([
             'email' => 'required|email',
             'amount' => 'required|numeric',
-            'screenShot' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'paySS' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // change the file name to a unique name
-        $fileName = time() . '.' . $request->screenShot->extension();
-        $request->screenShot->move(public_path('buyToken'), $fileName);
+        $fileName = time() . '.' . $request->paySS->extension();
+        $request->paySS->move(public_path('buyToken'), $fileName);
+        // Save the request data to the database
+        $buying_tokens = new buyingTokens();
+        $buying_tokens->user_id = auth()->user()->id;
+        $buying_tokens->email = $request->email;
+        $buying_tokens->amount = $request->amount;
+        $buying_tokens->paySS = $fileName;
+        $buying_tokens->status = 'pending';
+        $buying_tokens->save();
 
-        // save in database
-        $data = $request->all();
-        $data['user_id'] = auth()->id();
-        $data['status'] = 'pending';
-        $data['screenShot'] = $fileName;
-
-        return redirect()->back()->with('success', 'Token bought successfully!');
+        return redirect()->back()->with('success', 'Buying token request has been received successfully!');
     }
 }
