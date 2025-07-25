@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SellingTokens;
 use App\Models\TokenPrice;
 use Illuminate\Http\Request;
 
@@ -40,8 +41,8 @@ class AdminSettingController extends Controller
 
     public function sell_token()
     {
-        // Logic to handle selling tokens
-        return view('admin.setting.sell_token');
+        $selling_requests = SellingTokens::get();
+        return view('admin.setting.sell_token', compact('selling_requests'));
     }
 
     public function buy_token()
