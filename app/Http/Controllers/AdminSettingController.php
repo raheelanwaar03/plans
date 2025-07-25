@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\buyingTokens;
 use App\Models\SellingTokens;
 use App\Models\TokenPrice;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminSettingController extends Controller
@@ -50,5 +51,32 @@ class AdminSettingController extends Controller
     {
         $buying_requests = buyingTokens::get();
         return view('admin.setting.buy_token', compact('buying_requests'));
+    }
+
+    // change Status of Buying Request
+    public function buy_token_approve($id)
+    {
+        $buying_request = buyingTokens::find($id);
+        if ($buying_request) {
+            $buying_request->status = 'approved';
+            $buying_request->save();
+            // Update user's balance if needed
+            // $user = User::find($buying_request->user_id);
+            // $user->balance += $buying_request->amount;
+            // $user->save();
+            return redirect()->back()->with('success', 'Buying request approved successfully.');
+        }
+        return redirect()->back()->with('error', 'Buying request not found.');
+    }
+
+    public function buy_token_reject($id)
+    {
+        $buying_request = buyingTokens::find($id);
+        if ($buying_request) {
+            $buying_request->status = 'rejected';
+            $buying_request->save();
+            return redirect()->back()->with('success', 'Buying request rejected successfully.');
+        }
+        return redirect()->back()->with('error', 'Buying request not found.');
     }
 }

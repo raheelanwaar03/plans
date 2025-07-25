@@ -104,8 +104,8 @@
                                                     <td>{{ $item->email }}</td>
                                                     <td>{{ $item->amount }}</td>
                                                     <td>
-                                                        <img src="{{ asset('buyToken/' . $item->paySS) }}"
-                                                            height="60px" width="60px" id="fullscreenImage"
+                                                        <img src="{{ asset('buyToken/' . $item->paySS) }}" height="60px"
+                                                            width="60px" id="fullscreenImage"
                                                             onclick="openModal(this.src)">
                                                     </td>
                                                     <td>
@@ -121,9 +121,9 @@
                                                         @endif
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="#"><i
+                                                        <a href="{{ route('Admin.Approve.Buy.Token.Request', $item->id) }}"><i
                                                                 class="las la-check text-secondary fs-18"></i></a>
-                                                        <a href="#">
+                                                        <a href="{{ route('Admin.Reject.Buy.Token.Request', $item->id) }}">
                                                             <i class="las la-times text-secondary fs-18"></i></a>
                                                     </td>
                                                 </tr>

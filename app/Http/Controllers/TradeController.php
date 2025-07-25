@@ -29,6 +29,14 @@ class TradeController extends Controller
             'amount' => 'required|numeric',
             'screenShot' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        // check if user have enough tokens
+        if (auth()->user()->balance < $request->amount) {
+            return redirect()->back()->with('error', 'You do not have enough tokens to sell.');
+        }
+        if ($request->amount <= 100) {
+            return redirect()->back()->with('error', 'You must have 100 tokens to sell.');
+        }
+
         // change the file name to a unique name
         $fileName = time() . '.' . $request->screenShot->extension();
         $request->screenShot->move(public_path('sellToken'), $fileName);

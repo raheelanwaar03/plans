@@ -19,4 +19,6 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::post('/Setting/Token/Price', [AdminSettingController::class, 'token_price'])->name('Token.Price');
     Route::get('/Trading/Tokens/Sell', [AdminSettingController::class, 'sell_token'])->name('Sell.Token.Requests');
     Route::get('/Trading/Tokens/Buying', [AdminSettingController::class, 'buy_token'])->name('Buy.Token.Requests');
+    Route::get('/Make/Buying/Request/Approve/{id}', [AdminSettingController::class, 'buy_token_approve'])->name('Approve.Buy.Token.Request');
+    Route::get('/Make/Buying/Request/Reject/{id}', [AdminSettingController::class, 'buy_token_reject'])->name('Reject.Buy.Token.Request');
 });
