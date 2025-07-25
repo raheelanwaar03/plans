@@ -81,9 +81,10 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="row align-items-center">
-                                    <div class="col">
+                                    <div class="col d-flex justify-content-between align-items-center">
                                         <h4 class="card-title text-center">Selling Requests</h4>
-                                    </div><!--end col-->
+                                        <small>current price of PGN({{ $tokenPrice->price }})</small>
+                                    </div>
                                 </div><!--end row-->
                             </div><!--end card-header-->
                             <div class="card-body pt-0">
@@ -125,10 +126,12 @@
                                                         @endif
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="#"><i
+                                                        <a
+                                                            href="{{ route('Admin.Approve.sell.Token.Request', $item->id) }}"><i
                                                                 class="las la-check text-secondary fs-18"></i></a>
-                                                        <a href="#">
-                                                            <i class="las la-times text-secondary fs-18"></i></a>
+                                                        <a href="{{ route('Admin.Reject.sell.Token.Request', $item->id) }}">
+                                                            <i class="las la-times text-secondary fs-18"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach

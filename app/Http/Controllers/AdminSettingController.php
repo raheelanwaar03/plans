@@ -43,14 +43,17 @@ class AdminSettingController extends Controller
 
     public function sell_token()
     {
+        $tokenPrice = TokenPrice::first();
         $selling_requests = SellingTokens::get();
-        return view('admin.setting.sell_token', compact('selling_requests'));
+        return view('admin.setting.sell_token', compact('selling_requests','tokenPrice'));
     }
 
     public function buy_token()
     {
+        // get latests price of token
+        $tokenPrice = TokenPrice::first();
         $buying_requests = buyingTokens::get();
-        return view('admin.setting.buy_token', compact('buying_requests'));
+        return view('admin.setting.buy_token', compact('buying_requests', 'tokenPrice'));
     }
 
     // change Status of Buying Request
@@ -78,5 +81,32 @@ class AdminSettingController extends Controller
             return redirect()->back()->with('success', 'Buying request rejected successfully.');
         }
         return redirect()->back()->with('error', 'Buying request not found.');
+    }
+    // selling requests
+
+    public function sell_token_reject($id)
+    {
+        $selling_request = SellingTokens::find($id);
+        if ($selling_request) {
+            $selling_request->status = 'rejected';
+            $selling_request->save();
+            return redirect()->back()->with('success', 'Selling request rejected successfully.');
+        }
+        return redirect()->back()->with('error', 'Selling request not found.');
+    }
+
+    public function sell_token_approve($id)
+    {
+        $selling_request = SellingTokens::find($id);
+        if ($selling_request) {
+            $selling_request->status = 'approved';
+            $selling_request->save();
+            // Update user's balance if needed
+            $user = User::find($selling_request->user_id);
+            $user->balance -= $selling_request->amount;
+            $user->save();
+            return redirect()->back()->with('success', 'Selling request approved successfully.');
+        }
+        return redirect()->back()->with('error', 'Selling request not found.');
     }
 }

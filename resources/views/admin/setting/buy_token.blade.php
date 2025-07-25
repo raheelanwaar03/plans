@@ -81,9 +81,10 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="row align-items-center">
-                                    <div class="col">
+                                    <div class="col d-flex justify-content-between align-items-center">
                                         <h4 class="card-title text-center">Buying Requests</h4>
-                                    </div><!--end col-->
+                                        <small>current price of PGN({{ $tokenPrice->price }})</small>
+                                    </div>
                                 </div><!--end row-->
                             </div><!--end card-header-->
                             <div class="card-body pt-0">

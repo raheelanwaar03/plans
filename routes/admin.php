@@ -21,4 +21,6 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('/Trading/Tokens/Buying', [AdminSettingController::class, 'buy_token'])->name('Buy.Token.Requests');
     Route::get('/Make/Buying/Request/Approve/{id}', [AdminSettingController::class, 'buy_token_approve'])->name('Approve.Buy.Token.Request');
     Route::get('/Make/Buying/Request/Reject/{id}', [AdminSettingController::class, 'buy_token_reject'])->name('Reject.Buy.Token.Request');
+    Route::get('/Make/Selling/Request/Approve/{id}', [AdminSettingController::class, 'sell_token_approve'])->name('Approve.sell.Token.Request');
+    Route::get('/Make/Selling/Request/Reject/{id}', [AdminSettingController::class, 'sell_token_reject'])->name('Reject.sell.Token.Request');
 });
