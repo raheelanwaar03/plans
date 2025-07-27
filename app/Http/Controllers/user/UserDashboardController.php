@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin\Wallet;
 use App\Models\User;
 use App\Models\user\BoostedUser;
 use App\Models\user\History;
@@ -57,7 +58,8 @@ class UserDashboardController extends Controller
     {
         $referrals = User::where('referral', auth()->user()->email)->get();
         $links = Links::get();
-        return view('user.premium', compact('referrals', 'links'));
+        $wallet = Wallet::first();
+        return view('user.premium', compact('referrals', 'links', 'wallet'));
     }
 
     public function premium(Request $request)

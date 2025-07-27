@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admin\Wallet;
 use App\Models\buyingTokens;
 use App\Models\SellingTokens;
 use App\Models\TokenPrice;
@@ -17,7 +18,8 @@ class TradeController extends Controller
     public function trade_token()
     {
         $tokenPrice = TokenPrice::first();
-        return view('user.trade', compact('tokenPrice'));
+        $wallet = Wallet::first();
+        return view('user.trade', compact('tokenPrice', 'wallet'));
     }
 
     public function sell_token(Request $request)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin\Wallet;
 use App\Models\user\KYC;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,8 @@ class UserKycController extends Controller
 {
     public function kyc()
     {
-        return view('user.kyc');
+        $wallet = Wallet::first();
+        return view('user.kyc', compact('wallet'));
     }
 
     public function index(Request $request)

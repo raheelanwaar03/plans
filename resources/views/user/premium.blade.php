@@ -212,14 +212,20 @@
             </div>
             <div class="card mb-2">
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="walletAddress" class="form-label">Trust Wallet Address:</label>
-                        <div class="wallet-address">
-                            <input type="text" class="form-control" id="kycWallet"
-                                value="0x7129C2aa9750BFf9d2C77C55A08f538b2d768c78" readonly>
-                            <i style="margin-top:-30px;margin-right:10px;float:right;color:blue" class="bi bi-clipboard"
-                                id="kycCopyButton"></i>
+                    <h4 class="text-center"><u>Wallet Details</u></h4>
+                    <div class="wallet-address">
+                        <div class="d-flex justify-content-around align-items-center mb-2">
+                            <h5>
+                                Title: <b class="text-warning">{{ $wallet->name }}</b>
+                            </h5>
+                            <h5>
+                                Wallet: <b class="text-danger">{{ $wallet->wallet }}</b>
+                            </h5>
                         </div>
+                        <input type="text" class="form-control" id="kycWallet" value="{{ $wallet->number }}"
+                            readonly>
+                        <i style="margin-top:-30px;margin-right:10px;float:right;color:blue" class="bi bi-clipboard"
+                            id="kycCopyButton"></i>
                     </div>
                 </div>
             </div>
@@ -231,18 +237,18 @@
         <div class="row justify-content-around align-items-center my-3">
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount($5 - 10 PGN)">
-                    <p>$5 - 10 PGN</p>
+                    <p>1500 - 10 PGN</p>
                 </div>
             </div>
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount($10 - 25 PGN)">
-                    <p>$10 - 25 PGN</p>
+                    <p>2800 -  PGN</p>
 
                 </div>
             </div>
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount($15 - 40 PGN)">
-                    <p>$15 - 40 PGN</p>
+                    <p>4250 - 40 PGN</p>
                 </div>
             </div>
         </div>
@@ -259,9 +265,9 @@
                     </div>
                     <div class="form-group">
                         <select name="premiumOption" class="form-control">
-                            <option value="$5 - 10 PGN">$5 - 10 PGN</option>
-                            <option value="$10 - 25 PGN">$10 - 25 PGN</option>
-                            <option value="$15 - 40 PGN">$15 - 40 PGN</option>
+                            <option value="$5 - 10 PGN">1500 - 10 PGN</option>
+                            <option value="$10 - 25 PGN">2800 - 25 PGN</option>
+                            <option value="$15 - 40 PGN">4250 - 40 PGN</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -288,7 +294,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 
-     <script>
+    <script>
         $(document).ready(function() {
             $('#kycCopyButton').click(function() {
                 let input = $('#kycWallet');

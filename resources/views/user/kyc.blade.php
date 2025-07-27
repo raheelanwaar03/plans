@@ -170,19 +170,25 @@
                 <div class="col-12">
                     <div class="text-dark text-center">
                         <h3 style="font-size: 30px;margin-top:10px;"><b>KYC</b></h3>
-                        <p>2$ Fees for KYC</p>
+                        <p class="text-white"><b>(540 Fees for KYC)</b></p>
                     </div>
                 </div>
                 <div class="card mb-2">
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="walletAddress" class="form-label">Trust Wallet Address:</label>
-                            <div class="wallet-address">
-                                <input type="text" class="form-control" id="kycWallet"
-                                    value="0x7129C2aa9750BFf9d2C77C55A08f538b2d768c78" readonly>
-                                <i style="margin-top:-30px;margin-right:10px;float:right;color:blue"
-                                    class="bi bi-clipboard" id="kycCopyButton"></i>
+                        <h4 class="text-center"><u>Wallet Details</u></h4>
+                        <div class="wallet-address">
+                            <div class="d-flex justify-content-around align-items-center mb-2">
+                                <h5>
+                                    Title: <b class="text-warning">{{ $wallet->name }}</b>
+                                </h5>
+                                <h5>
+                                    Wallet: <b class="text-danger">{{ $wallet->wallet }}</b>
+                                </h5>
                             </div>
+                            <input type="text" class="form-control" id="kycWallet" value="{{ $wallet->number }}"
+                                readonly>
+                            <i style="margin-top:-30px;margin-right:10px;float:right;color:blue" class="bi bi-clipboard"
+                                id="kycCopyButton"></i>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\admin\Wallet;
 use App\Models\TokenPrice;
 use App\Models\User;
 use App\Models\user\Links;
@@ -101,5 +102,12 @@ class clean extends Command
         $tokenPrice->buying_price = 3;
         $tokenPrice->save();
         $this->info('App cleaned and initialized successfully.');
+
+        // add wallet
+        $wallet = new Wallet();
+        $wallet->name = 'Default Wallet';
+        $wallet->number = '03032211444';
+        $wallet->wallet = 'easyPaisa';
+        $wallet->save();
     }
 }

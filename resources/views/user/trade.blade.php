@@ -4,8 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Buy/Sell Token</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -53,6 +54,16 @@
                 border-radius: 10px;
                 text-align: center;
                 width: 200px;
+                transition: 0.3s;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .card-bg {
+                padding: 10px;
+                background-color: #ffffff;
+                border-radius: 10px;
+                text-align: center;
+                width: 500px;
                 transition: 0.3s;
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             }
@@ -127,6 +138,20 @@
         <a href="javascript:history.back()" class="back-arrow">←</a>
 
         <h1>Buy or Sell Tokens</h1>
+
+        {{-- make a card for show easypaisa wallet details --}}
+        <div class="card-bg">
+            <div class="card-body">
+                <h4>Wallet Details</h4>
+                <p><b>Account Title:</b> {{ $wallet->name }}</p>
+                <div class="d-flex justify-content-center align-items-center">
+                    <p id="number"><b>Account Number:</b> {{ $wallet->number }}</p>
+                    {{-- add icon to copy the account number --}}
+                    <i class="bi bi-clipboard" onclick="copyNumber()" style="cursor: pointer; color: blue;margin-top:-17px"></i>
+                </div>
+                <p><b>Bank Name:</b> {{ $wallet->wallet }}</p>
+            </div>
+        </div>
         <h5 style="color: rgb(255, 0, 128)"><b>Current Price ({{ $tokenPrice->price }} pkr)</b></h5>
 
         <div class="card-container">
@@ -187,6 +212,19 @@
             function closeForms() {
                 document.getElementById("sellForm").style.display = "none";
                 document.getElementById("buyForm").style.display = "none";
+            }
+            // make a function to copy the account number from paragraph tag using id account-num and show in alert
+            function copyNumber() {
+                var number = document.getElementById("number").innerText.replace("📋", "").trim();
+
+                var tempInput = document.createElement("input");
+                tempInput.value = number;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+
+                alert("Number " + number + " has been copied!");
             }
         </script>
 

@@ -1,4 +1,4 @@
-<footer class="text-white py-2 fixed-bottom mt-5">
+<footer class="text-white py-2 mt-5">
     <nav class="d-flex justify-content-around align-items-center">
         <a href="{{ route('User.Dashboard') }}" style="color: white;text-decoration: none;"><i class="bi bi-house"
                 style="font-size: 20px;"></i><br><span style="font-size:13px;margin-left: -7px;">Home</span></a>
