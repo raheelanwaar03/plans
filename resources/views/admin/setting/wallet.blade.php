@@ -10,13 +10,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box d-md-flex justify-content-md-between align-items-center">
-                            <h4 class="page-title">Tokens</h4>
+                            <h4 class="page-title">Update Wallet Details</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a
                                             href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
-                                    <li class="breadcrumb-item active">Token Price</li>
+                                    <li class="breadcrumb-item active">Update Wallet Details</li>
                                 </ol>
                             </div>
                         </div><!--end page-title-box-->
@@ -29,33 +29,40 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">Token Price ({{ $tokenPrice->price }} pkr)</h4>
+                                        <h4 class="card-title text-center">Details</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
                             <div class="card-body pt-0">
-                                <form action="{{ route('Admin.Token.Price') }}" method="POST">
+                                <form action="{{ route('Admin.Update.Wallet', $walletDetails->id) }}" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="amount">Update Token Price</label>
-                                                <input type="text" id="amount" class="form-control" name="price"
-                                                    value="{{ $tokenPrice->price }}">
+                                                <label for="amount">Email</label>
+                                                <input type="text" id="amount" class="form-control" name="email"
+                                                    value="{{ $walletDetails->email }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="selling_amount">Update Token Selling Price</label>
+                                                <label for="selling_amount">Number</label>
                                                 <input type="text" id="selling_amount" class="form-control"
-                                                    name="selling_price" value="{{ $tokenPrice->selling_price }}">
+                                                    name="number" value="{{ $walletDetails->number }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="buying_amount">Update Token Buying Price</label>
-                                                <input type="text" id="buying_amount" class="form-control"
-                                                    name="buying_price" value="{{ $tokenPrice->buying_price }}">
+                                                <label for="buying_amount">Name</label>
+                                                <input type="text" id="buying_amount" class="form-control" name="name"
+                                                    value="{{ $walletDetails->name }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="buying_amount">Wallet</label>
+                                                <input type="text" id="buying_amount" class="form-control" name="wallet"
+                                                    value="{{ $walletDetails->wallet }}">
                                             </div>
                                         </div>
                                         <div class="mt-3">

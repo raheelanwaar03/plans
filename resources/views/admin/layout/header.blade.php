@@ -148,6 +148,12 @@
                                 <span>Setting</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Update.Wallet.Details') }}">
+                                <i class="iconoir-wallet menu-icon"></i>
+                                <span>Wallet Details</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admin\Wallet;
 use App\Models\buyingTokens;
 use App\Models\SellingTokens;
 use App\Models\TokenPrice;
@@ -45,7 +46,7 @@ class AdminSettingController extends Controller
     {
         $tokenPrice = TokenPrice::first();
         $selling_requests = SellingTokens::get();
-        return view('admin.setting.sell_token', compact('selling_requests','tokenPrice'));
+        return view('admin.setting.sell_token', compact('selling_requests', 'tokenPrice'));
     }
 
     public function buy_token()
@@ -108,5 +109,28 @@ class AdminSettingController extends Controller
             return redirect()->back()->with('success', 'Selling request approved successfully.');
         }
         return redirect()->back()->with('error', 'Selling request not found.');
+    }
+
+    public function update_wallet()
+    {
+        $walletDetails = Wallet::first();
+        return view('admin.setting.wallet', compact('walletDetails'));
+    }
+
+    public function update_wallet_details(Request $request, $id)
+    {
+        $walletDetails = Wallet::find($id);
+        if (!$walletDetails) {
+            return redirect()->back()->with('error', 'Wallet details not found.');
+        }
+
+        // Update the wallet details
+        $walletDetails->email = $request->input('email');
+        $walletDetails->number = $request->input('number');
+        $walletDetails->name = $request->input('name');
+        $walletDetails->wallet = $request->input('wallet');
+        $walletDetails->save();
+
+        return redirect()->route('Admin.Update.Wallet.Details')->with('success', 'Wallet details updated successfully.');
     }
 }
