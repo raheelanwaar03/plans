@@ -145,11 +145,15 @@
                 <h4>Wallet Details</h4>
                 <p><b>Account Title:</b> {{ $wallet->name }}</p>
                 <div class="d-flex justify-content-center align-items-center">
-                    <p id="number"><b>Account Number:</b> {{ $wallet->number }}</p>
+                    <p><b>Account Number:</b> <span id="number">{{ $wallet->number }}</span></p>
                     {{-- add icon to copy the account number --}}
-                    <i class="bi bi-clipboard" onclick="copyNumber()" style="cursor: pointer; color: blue;margin-top:-17px"></i>
+                    <i class="bi bi-clipboard" onclick="copyNumber()"
+                        style="cursor: pointer; color: blue;margin-top:-17px"></i>
                 </div>
                 <p><b>Bank Name:</b> {{ $wallet->wallet }}</p>
+                <hr>
+                <p><b>Send Token to: </b><span id="email">{{ $wallet->email }}</span><i class="bi bi-clipboard"
+                        onclick="copyEmail()" style="cursor: pointer; color: blue;margin-top:-17px"></i></p>
             </div>
         </div>
         <h5 style="color: rgb(255, 0, 128)"><b>Current Price ({{ $tokenPrice->price }} pkr)</b></h5>
@@ -225,6 +229,19 @@
                 document.body.removeChild(tempInput);
 
                 alert("Number " + number + " has been copied!");
+            }
+
+            function copyEmail() {
+                var number = document.getElementById("email").innerText.replace("📋", "").trim();
+
+                var tempInput = document.createElement("input");
+                tempInput.value = number;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+
+                alert("Email " + number + " has been copied!");
             }
         </script>
 

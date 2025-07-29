@@ -6,6 +6,7 @@ use App\Models\admin\Wallet;
 use App\Models\buyingTokens;
 use App\Models\SellingTokens;
 use App\Models\TokenPrice;
+use App\Models\user\KYC;
 use Illuminate\Http\Request;
 
 class TradeController extends Controller
@@ -17,6 +18,12 @@ class TradeController extends Controller
      */
     public function trade_token()
     {
+        // check user kyc
+        $user = KYC::where('user_id', auth()->user()->id)->first();
+        if (!$user || $user->status !== 'approved') {
+            return redirect()->route('User.KYC')->with('error', 'You must complete KYC to trade tokens.');
+        }
+
         $tokenPrice = TokenPrice::first();
         $wallet = Wallet::first();
         return view('user.trade', compact('tokenPrice', 'wallet'));

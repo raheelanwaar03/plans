@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('number');
             $table->string('wallet');
+            $table->string('email');
             $table->string('status')->default('active');
             $table->timestamps();
         });

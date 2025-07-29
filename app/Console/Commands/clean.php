@@ -105,9 +105,10 @@ class clean extends Command
 
         // add wallet
         $wallet = new Wallet();
-        $wallet->name = 'Default Wallet';
+        $wallet->name = 'Saad';
         $wallet->number = '03032211444';
         $wallet->wallet = 'easyPaisa';
+        $wallet->email = 'pigeonofficial6@gmail.com';
         $wallet->save();
     }
 }
