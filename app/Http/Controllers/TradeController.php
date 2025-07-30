@@ -60,7 +60,7 @@ class TradeController extends Controller
         $selling_token->status = 'pending';
         $selling_token->save();
 
-        return redirect()->back()->with('success', 'Your request of selling token has been received successfully!');
+        return redirect()->back()->with('success', 'Your request of selling token has been received successfully on pigeonofficial6@gmail.com');
     }
 
     public function buy_token(Request $request)
