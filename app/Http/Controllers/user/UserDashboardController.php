@@ -201,7 +201,7 @@ class UserDashboardController extends Controller
         // check kyc
         $reciver_kyc = KYC::where('user_id', $reciver->id)->first();
         if ($reciver_kyc == '') {
-            return redirect()->back()->with('error', 'User KYC is not verified');
+            return redirect()->back()->with('error', 'Recivers KYC is not verified');
         }
         if ($reciver->status == 'pending') {
             return redirect()->back()->with('error', 'Wait for your KYC approval');
@@ -213,7 +213,7 @@ class UserDashboardController extends Controller
         }
         // check user status
         if ($user_kyc->status == 'pending') {
-            return redirect()->back()->with('error', 'Wait for your KYC approval');
+            return redirect()->back()->with('error', 'Wait for your account approval');
         }
         $reciver->balance += $request->token;
         $reciver->save();
@@ -224,8 +224,7 @@ class UserDashboardController extends Controller
         $history->type = 'sent token';
         $history->amount = $request->token;
         $history->save();
-        return redirect()->back()->with('success', 'You have sent token to user');
+        // send email of reciver and amount of tokens sent in success message
+        return redirect()->back()->with('success', 'You have sent tokens ' . $request->token . ' to ' . $request->email . ' successfully');
     }
-
-
 }
