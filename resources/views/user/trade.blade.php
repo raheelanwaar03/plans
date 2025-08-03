@@ -179,10 +179,10 @@
                     <input type="text" name="phoneNO" placeholder="Easypais JazzCash Number" required>
                     <input type="text" name="title" placeholder="Easypais JazzCash Name" required>
                     <input type="number" name="amount" placeholder="Token Amount" required>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="tokenSS">Sent Token Screen Shot</label>
                         <input type="file" name="screenShot" class="form-control" required>
-                    </div>
+                    </div> --}}
                     <button type="submit">Sell</button>
                 </form>
             </div>

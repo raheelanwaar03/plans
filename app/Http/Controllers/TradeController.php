@@ -38,7 +38,6 @@ class TradeController extends Controller
             'phoneNO' => 'required|digits:11',
             'title' => 'required|string',
             'amount' => 'required|numeric',
-            'screenShot' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         // check if user have enough tokens
         if (auth()->user()->balance < $request->amount) {
@@ -56,18 +55,13 @@ class TradeController extends Controller
             return redirect()->back()->with('error', 'You already have a pending selling request.');
         }
         // check if user have sold 100 tokens in the last 24 hours
-        $last24Hours = now()->subDay();
-        $soldTokensCount = SellingTokens::where('user_id', auth()->user()->id)
-            ->where('status', 'approved')
-            ->where('created_at', '>=', $last24Hours)
-            ->count();
-        if ($soldTokensCount >= 100) {
+        $check_history = History::where('user_id', auth()->user()->id)
+            ->where('created_at', '>=', today())
+            ->sum('amount');
+        if ($check_history >= 100) {
             return redirect()->back()->with('error', 'You can only sell 100 tokens in the last 24 hours.');
         }
 
-        // change the file name to a unique name
-        $fileName = time() . '.' . $request->screenShot->extension();
-        $request->screenShot->move(public_path('sellToken'), $fileName);
 
         $selling_token = new SellingTokens();
         $selling_token->user_id = auth()->user()->id;
@@ -75,7 +69,6 @@ class TradeController extends Controller
         $selling_token->phoneNO = $request->phoneNO;
         $selling_token->title = $request->title;
         $selling_token->amount = $request->amount;
-        $selling_token->screenShot = $fileName;
         $selling_token->status = 'pending';
         $selling_token->save();
 

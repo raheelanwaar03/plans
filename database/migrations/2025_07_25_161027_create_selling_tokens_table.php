@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('title');
             $table->string('amount');
             $table->string('status')->default('pending');
-            $table->string('screenShot');
             $table->timestamps();
         });
     }
