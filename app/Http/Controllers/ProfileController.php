@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
+use App\Models\user\KYC;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,15 @@ class ProfileController extends Controller
 {
     public function edit(Request $request): View
     {
-        $referral = User::where('referral', auth()->user()->name)->get();
-        return view('profile.edit', compact('referral'));
+        $user_kyc = KYC::where('user_id', $request->user()->id)->first();
+        // check if user kyc is null then do not show kyc status
+        if (!$user_kyc) {
+            $referral = User::where('referral', auth()->user()->name)->get();
+            return view('profile.edit', compact('referral'));
+        } else {
+            $referral = User::where('referral', auth()->user()->name)->get();
+            return view('profile.edit', compact('referral', 'user_kyc'));
+        }
     }
 
     /**

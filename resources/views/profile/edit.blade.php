@@ -139,8 +139,21 @@
                 <a href="{{ route('User.Dashboard') }}" style="font-size: 30px;color:white"><i
                         class="bi bi-arrow-left-circle"></i></a>
             </div>
-
-            <img src="{{ asset('images/user.png') }}" alt="Profile Picture">
+            @php
+                $user_kyc = App\Models\user\KYC::where('user_id', auth()->user()->id)->first();
+            @endphp
+            @if ($user_kyc && $user_kyc->status == 'approved')
+                <img src="{{ asset('images/KYC/' . $user_kyc->selfie) }}" alt="Profile Picture">
+            @elseif($user_kyc && $user_kyc->status == 'pending')
+                <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="Profile Picture">
+            @else
+                <img src="{{ asset('assets/images/users/avatar-5.jpg') }}" alt="Profile Picture">
+            @endif
+            {{-- @if ($user_kyc->status == 'approved')
+                <img src="{{ asset('images/KYC/' . $user_kyc->selfie) }}" alt="Profile Picture">
+            @elseif($user_kyc->status == 'pending')
+                <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="Profile Picture">
+            @endif --}}
             <h2 class="text-capitalize">User</h2>
             <p></p>
         </div>
