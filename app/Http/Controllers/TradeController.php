@@ -43,8 +43,9 @@ class TradeController extends Controller
         if (auth()->user()->balance < $request->amount) {
             return redirect()->back()->with('error', 'You do not have enough tokens to sell.');
         }
-        if ($request->amount < 100) {
-            return redirect()->back()->with('error', 'You must have 100 tokens to sell.');
+
+        if ($request->amount != 100) {
+            return redirect()->back()->with('error', 'Amount should be 100 only');
         }
 
         // check if user already has a pending selling request

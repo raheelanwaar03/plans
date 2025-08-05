@@ -149,11 +149,6 @@
             @else
                 <img src="{{ asset('assets/images/users/avatar-5.jpg') }}" alt="Profile Picture">
             @endif
-            {{-- @if ($user_kyc->status == 'approved')
-                <img src="{{ asset('images/KYC/' . $user_kyc->selfie) }}" alt="Profile Picture">
-            @elseif($user_kyc->status == 'pending')
-                <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="Profile Picture">
-            @endif --}}
             <h2 class="text-capitalize">User</h2>
             <p></p>
         </div>
