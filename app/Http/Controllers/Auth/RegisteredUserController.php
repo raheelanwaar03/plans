@@ -35,6 +35,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // giving referral 5 tokens
+        $user = User::where('name', $request->referral)->first();
+        $user->balance += 5;
+        $user->save();
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
