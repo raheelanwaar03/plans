@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
-        <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
     <style>
         body {
             margin: 0;
@@ -148,18 +148,87 @@
         .font-2 {
             font-size: 13px;
         }
+
+        /* preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Text style */
+        .loader-text {
+            font-size: 5rem;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            gap: 15px;
+        }
+
+        .p {
+            color: #00f2fe;
+        }
+
+        .g,
+        .n {
+            display: inline-block;
+            animation: rotate 1s linear infinite;
+        }
+
+        .g {
+            color: #00ffff;
+            animation-delay: 0.1s;
+        }
+
+        .n {
+            color: #00f2fe;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .content {
+            display: none;
+            padding: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-text">
+            <span class="p">P</span>
+            <span class="g">G</span>
+            <span class="n">N</span>
+        </div>
+    </div>
+
     <x-alert />
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        window.addEventListener('showAlert', event => {
-            swal("Success!", event.detail.message, "success");
-        })
-    </script>
-    <!-- Header -->
     <header>
         <div class="icons">
         </div>
@@ -228,6 +297,22 @@
 
             });
         </script>
+
+        <script>
+            // Hide preloader after page load
+            window.addEventListener("load", () => {
+                const preloader = document.getElementById("preloader");
+                const content = document.querySelector(".content");
+
+                preloader.classList.add("hide");
+
+                setTimeout(() => {
+                    preloader.style.display = "none";
+                    content.style.display = "block";
+                }, 600); // Match fade out time
+            });
+        </script>
+
     </footer>
 
 </body>

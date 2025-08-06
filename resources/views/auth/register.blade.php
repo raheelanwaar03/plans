@@ -148,6 +148,72 @@
         .font-2 {
             font-size: 13px;
         }
+
+        /* preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Text style */
+        .loader-text {
+            font-size: 5rem;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            gap: 15px;
+        }
+
+        .p {
+            color: #00f2fe;
+        }
+
+        .g,
+        .n {
+            display: inline-block;
+            animation: rotate 1s linear infinite;
+        }
+
+        .g {
+            color: #00ffff;
+            animation-delay: 0.1s;
+        }
+
+        .n {
+            color: #00f2fe;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .content {
+            display: none;
+            padding: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -157,12 +223,14 @@
         <div class="icons">
         </div>
     </header>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        window.addEventListener('showAlert', event => {
-            swal("Success!", event.detail.message, "success");
-        })
-    </script>
+
+    <div id="preloader">
+        <div class="loader-text">
+            <span class="p">P</span>
+            <span class="g">G</span>
+            <span class="n">N</span>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main>
@@ -254,6 +322,22 @@
                 field.type = field.type === 'password' ? 'text' : 'password';
             }
         </script>
+
+        <script>
+            // Hide preloader after page load
+            window.addEventListener("load", () => {
+                const preloader = document.getElementById("preloader");
+                const content = document.querySelector(".content");
+
+                preloader.classList.add("hide");
+
+                setTimeout(() => {
+                    preloader.style.display = "none";
+                    content.style.display = "block";
+                }, 600); // Match fade out time
+            });
+        </script>s
+
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>

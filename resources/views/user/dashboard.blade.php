@@ -197,6 +197,73 @@
             margin-top: 10px;
             padding: 5px 10px;
         }
+
+        /* preloader */
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Text style */
+        .loader-text {
+            font-size: 5rem;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            gap: 15px;
+        }
+
+        .p {
+            color: #00f2fe;
+        }
+
+        .g,
+        .n {
+            display: inline-block;
+            animation: rotate 1s linear infinite;
+        }
+
+        .g {
+            color: #00ffff;
+            animation-delay: 0.1s;
+        }
+
+        .n {
+            color: #00f2fe;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .content {
+            display: none;
+            padding: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -208,6 +275,17 @@
             <i class="fa-solid fa-user menu-icon" id="profile-icon"></i>
         </div>
     </header>
+
+    {{-- preloader --}}
+
+    <div id="preloader">
+        <div class="loader-text">
+            <span class="p">P</span>
+            <span class="g">G</span>
+            <span class="n">N</span>
+        </div>
+    </div>
+
     <x-alert />
 
     {{-- popup --}}
@@ -381,6 +459,22 @@
             showPopup();
         }
     </script>
+
+    <script>
+        // Hide preloader after page load
+        window.addEventListener("load", () => {
+            const preloader = document.getElementById("preloader");
+            const content = document.querySelector(".content");
+
+            preloader.classList.add("hide");
+
+            setTimeout(() => {
+                preloader.style.display = "none";
+                content.style.display = "block";
+            }, 600); // Match fade out time
+        });
+    </script>
+
 
 </body>
 
