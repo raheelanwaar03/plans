@@ -474,7 +474,13 @@
             }, 600); // Match fade out time
         });
     </script>
-
+    <script>
+        window.addEventListener("beforeunload", function(e) {
+            // Modern browsers ignore custom messages and show a default one
+            e.preventDefault(); // For some older browsers
+            e.returnValue = "Are you really want to leave";
+        });
+    </script>
 
 </body>
 
