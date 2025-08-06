@@ -110,4 +110,10 @@ class TradeController extends Controller
 
         return redirect()->back()->with('success', 'Buying token request has been received successfully!');
     }
+
+    public function history()
+    {
+        $history = SellingTokens::where('user_id', auth()->user()->id)->get();
+        return view('user.history', compact('history'));
+    }
 }

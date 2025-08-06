@@ -4,7 +4,6 @@ use App\Http\Controllers\TradeController;
 use App\Http\Controllers\user\ContactUsController;
 use App\Http\Controllers\user\UserDashboardController;
 use App\Http\Controllers\user\UserKycController;
-use App\Models\user\ContactUs;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserDashboardController::class, 'welcome'])->name('Welcom');
@@ -28,4 +27,5 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::get('/Trade', [TradeController::class, 'trade_token'])->name('Trade.Token');
     Route::post('/Sell/Token', [TradeController::class, 'sell_token'])->name('Sell.Token');
     Route::post('/Buy/Token', [TradeController::class, 'buy_token'])->name('Buy.Token');
+    Route::get('/History', [TradeController::class, 'history'])->name('History');
 });

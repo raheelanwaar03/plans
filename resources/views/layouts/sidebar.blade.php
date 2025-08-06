@@ -21,6 +21,9 @@
         <ul>
             <li><a href="{{ route('profile.edit') }}"><i class="fa-solid fa-user"></i> Personal Info</a><i
                     class="fa-solid fa-chevron-right"></i></li>
+            <li><a href="{{ route('User.History') }}"><i class="fa fa-history" aria-hidden="true"></i>
+                    History</a><i class="fa-solid fa-chevron-right"></i>
+            </li>
         </ul>
     </section>
     <section>
