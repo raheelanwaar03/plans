@@ -257,6 +257,7 @@
                                 <th>Phone</th>
                                 <th>Amount</th>
                                 <th>Status</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -275,6 +276,7 @@
                                             <span class="badge bg-danger">Rejected</span>
                                         @endif
                                     </td>
+                                    <td>{{ $item->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

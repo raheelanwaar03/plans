@@ -264,6 +264,51 @@
             padding: 50px;
             text-align: center;
         }
+
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+        }
+
+        /* Centered popup */
+        .popup {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            max-width: 90%;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .yes {
+            background: #e63946;
+            color: white;
+        }
+
+        .no {
+            background: #457b9d;
+            color: white;
+        }
     </style>
 </head>
 
@@ -287,6 +332,16 @@
     </div>
 
     <x-alert />
+
+    {{-- confirmation --}}
+    <div class="overlay" id="exitPopup">
+        <div class="popup">
+            <h2>Are you sure?</h2>
+            <p>Do you really want to leave this page?</p>
+            <button class="yes" id="confirmExit">Yes, Leave</button>
+            <button class="no" id="cancelExit">Cancel</button>
+        </div>
+    </div>
 
     {{-- popup --}}
 
@@ -474,11 +529,31 @@
             }, 600); // Match fade out time
         });
     </script>
+
+
     <script>
-        window.addEventListener("beforeunload", function(e) {
-            // Modern browsers ignore custom messages and show a default one
-            e.preventDefault(); // For some older browsers
-            e.returnValue = "Are you really want to leave";
+        const overlay = document.getElementById('exitPopup');
+        const confirmExit = document.getElementById('confirmExit');
+        const cancelExit = document.getElementById('cancelExit');
+
+        // Push a dummy state so back button won't close immediately
+        history.pushState(null, null, location.href);
+
+        window.onpopstate = function(event) {
+            // Show popup instead of going back
+            overlay.style.display = 'block';
+
+            // Push state again so back button works after closing popup
+            history.pushState(null, null, location.href);
+        };
+
+        confirmExit.addEventListener('click', function() {
+            overlay.style.display = 'none';
+            history.back(); // Actually go back now
+        });
+
+        cancelExit.addEventListener('click', function() {
+            overlay.style.display = 'none';
         });
     </script>
 
