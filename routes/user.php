@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TradeController;
 use App\Http\Controllers\user\ContactUsController;
+use App\Http\Controllers\user\LuckyDrawController;
 use App\Http\Controllers\user\UserDashboardController;
 use App\Http\Controllers\user\UserKycController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,6 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::post('/Sell/Token', [TradeController::class, 'sell_token'])->name('Sell.Token');
     Route::post('/Buy/Token', [TradeController::class, 'buy_token'])->name('Buy.Token');
     Route::get('/History', [TradeController::class, 'history'])->name('History');
+    // lucky draw
+    Route::get('/LuckyDraw', [LuckyDrawController::class, 'index'])->name('LuckyDraw');
 });

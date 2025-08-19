@@ -14,6 +14,8 @@
                     Premium</a><i class="fa-solid fa-chevron-right"></i></li>
             <li><a href="{{ route('User.Tasks') }}"><i class="fa-solid fa-list"></i>
                     Earn Tokens</a><i class="fa-solid fa-chevron-right"></i></li>
+            <li><a href="{{ route('User.LuckyDraw') }}"><i class="fa fa-gift" aria-hidden="true"></i>
+                    Lucky Draw</a><i class="fa-solid fa-chevron-right"></i></li>
         </ul>
     </section>
     <section>
