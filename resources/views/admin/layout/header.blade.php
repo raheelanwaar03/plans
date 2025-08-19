@@ -20,6 +20,8 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -152,6 +154,12 @@
                             <a class="nav-link" href="{{ route('Admin.Update.Wallet.Details') }}">
                                 <i class="iconoir-wallet menu-icon"></i>
                                 <span>Wallet Details</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Add.Lucky.Item') }}">
+                                <i class="bi bi-gift-fill menu-icon"></i>
+                                <span>Lucky Items</span>
                             </a>
                         </li>
                     </ul>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminDashboradController;
+use App\Http\Controllers\admin\AdminLuckyDrawController;
 use App\Http\Controllers\AdminSettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,8 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('/Make/Selling/Request/Reject/{id}', [AdminSettingController::class, 'sell_token_reject'])->name('Reject.sell.Token.Request');
     Route::get('/Update/Wallet/Details', [AdminSettingController::class, 'update_wallet'])->name('Update.Wallet.Details');
     Route::post('/Update/Wallet/Details/{id}', [AdminSettingController::class, 'update_wallet_details'])->name('Update.Wallet');
+    // Add luckyDraw
+    Route::get('/Add/Lucky/Item', [AdminLuckyDrawController::class, 'add'])->name('Add.Lucky.Item');
+    Route::post('/Store/Lucky/Item', [AdminLuckyDrawController::class, 'store'])->name('Store.Lucky.Item');
+    Route::get('/All/Lucky/Items', [AdminLuckyDrawController::class, 'all'])->name('All.Lucky.Items');
 });
