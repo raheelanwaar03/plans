@@ -116,7 +116,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('Admin.KYC.Requests') }}">
                                 <i class="iconoir-community menu-icon"></i>
-                                {{-- <i class="iconoir-hand-cash menu-icon"></i> --}}
                                 <span>KYC</span>
                             </a>
                         </li>
@@ -166,6 +165,12 @@
                             <a class="nav-link" href="{{ route('Admin.Deposit.Requests') }}">
                                 <i class="bi bi-cash menu-icon"></i>
                                 <span>Deposit Requests</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.All.Participantes') }}">
+                                <i class="iconoir-community menu-icon"></i>
+                                <span>Participant</span>
                             </a>
                         </li>
                     </ul>

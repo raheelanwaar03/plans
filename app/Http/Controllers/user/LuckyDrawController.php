@@ -68,12 +68,20 @@ class LuckyDrawController extends Controller
             // participate
             $participant = new LuckyParticipant();
             $participant->user_id = auth()->user()->id;
-            $participant->item_id = $id;
+            $participant->user_email = auth()->user()->email;
+            $participant->item_id = $item->id;
+            $participant->image = $item->image;
+            $participant->item_price = $item->amount;
             $participant->save();
         } else {
             return redirect()->back()->with('error', 'Please Add Balance into your account');
         }
 
         return redirect()->back()->with('success', 'Congrats! You have participated');
+    }
+
+    public function winner()
+    {
+        return view('user.luckydraw.winner');
     }
 }

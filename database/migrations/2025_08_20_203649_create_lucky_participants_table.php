@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('lucky_participants', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('user_email');
             $table->string('item_id');
+            $table->string('image');
+            $table->string('item_price');
             $table->string('status')->default('participant');
             $table->timestamps();
         });

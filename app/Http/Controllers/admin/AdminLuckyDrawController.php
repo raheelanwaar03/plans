@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\LuckyDrawItems;
+use App\Models\user\LuckyParticipant;
 use App\Models\user\UserBalance;
 use App\Models\user\UserDeposit;
 use Illuminate\Http\Request;
@@ -71,4 +72,12 @@ class AdminLuckyDrawController extends Controller
             }
         }
     }
+
+    public function participante()
+    {
+        $participante = LuckyParticipant::get();
+        return view('admin.luckyDraw.participant',compact('participante'));
+    }
+
+
 }

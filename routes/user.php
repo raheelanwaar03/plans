@@ -33,4 +33,5 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::get('/LuckyDraw', [LuckyDrawController::class, 'index'])->name('LuckyDraw');
     Route::post('/Apply/Deposit', [LuckyDrawController::class, 'deposit'])->name('Apply.Deposit');
     Route::get('/Participating/{id}', [LuckyDrawController::class, 'participate'])->name('Participate');
+    Route::get('/Winner', [LuckyDrawController::class, 'winner'])->name('Winner');
 });

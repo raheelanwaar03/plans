@@ -10,13 +10,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box d-md-flex justify-content-md-between align-items-center">
-                            <h4 class="page-title">All Items</h4>
+                            <h4 class="page-title">All Participantes</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a
                                             href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
-                                    <li class="breadcrumb-item active">Lucky Items</li>
+                                    <li class="breadcrumb-item active">All Participantes</li>
                                 </ol>
                             </div>
                         </div><!--end page-title-box-->
@@ -29,7 +29,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">All Lucky Items</h4>
+                                        <h4 class="card-title text-center">All Participantes</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
@@ -38,21 +38,19 @@
                                     <table class="table mb-0" id="datatable_1">
                                         <thead class="table-light">
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Status</th>
                                                 <th>Amount</th>
                                                 <th>Image</th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($luckyItems as $item)
+                                            @forelse ($participante as $item)
                                                 <tr>
-                                                    <td class="d-flex align-items-center">
-                                                        {{ $item->id }}
-                                                    </td>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->amount }}</td>
+                                                    <td>{{ $item->user_email }}</td>
+                                                    <td>{{ $item->status }}</td>
+                                                    <td>{{ $item->item_price }}</td>
                                                     <td>
                                                         <img src="{{ asset('images/luckyDraw/' . $item->image) }}"
                                                             height="60px" width="60px">

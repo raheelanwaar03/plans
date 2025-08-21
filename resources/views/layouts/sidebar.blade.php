@@ -16,6 +16,8 @@
                     Earn Tokens</a><i class="fa-solid fa-chevron-right"></i></li>
             <li><a href="{{ route('User.LuckyDraw') }}"><i class="fa fa-gift" aria-hidden="true"></i>
                     Lucky Draw</a><i class="fa-solid fa-chevron-right"></i></li>
+            <li><a href="{{ route('User.Winner') }}"><i class="bi bi-trophy"></i>
+                    Winner</a><i class="fa-solid fa-chevron-right"></i></li>
         </ul>
     </section>
     <section>
