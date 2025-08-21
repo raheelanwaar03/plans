@@ -76,8 +76,14 @@ class AdminLuckyDrawController extends Controller
     public function participante()
     {
         $participante = LuckyParticipant::get();
-        return view('admin.luckyDraw.participant',compact('participante'));
+        return view('admin.luckyDraw.participant', compact('participante'));
     }
 
-
+    public function winner($id)
+    {
+        $winner = LuckyParticipant::find($id);
+        $winner->status = "winner";
+        $winner->save();
+        return redirect()->back()->with('success',''.$winner->user_email.' selected as a Winner');
+    }
 }

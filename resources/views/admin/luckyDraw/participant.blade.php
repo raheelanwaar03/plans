@@ -56,16 +56,12 @@
                                                             height="60px" width="60px">
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="{{ route('Admin.Approve.Premium', $item->id) }}"><i
+                                                        <a href="{{ route('Admin.Chosse.Winner', $item->id) }}"><i
                                                                 class="las la-check text-secondary fs-18"></i></a>
-                                                        <a href="{{ route('Admin.Rejected.Premium', $item->id) }}">
-                                                            <i class="las la-times text-secondary fs-18"></i></a>
-                                                        <a href="{{ route('Admin.Add.Token', $item->id) }}">
-                                                            <i class="las la-pen text-secondary fs-18"></i></a>
                                                     </td>
                                                 </tr>
                                             @empty
-                                            <h4>Null</h4>
+                                                <h4>Null</h4>
                                             @endforelse
                                         </tbody>
                                     </table>
