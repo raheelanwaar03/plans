@@ -208,7 +208,7 @@
         <x-alert />
 
         <!-- Back Arrow Button -->
-        <a href="javascript:history.back()" class="back-arrow">←</a>
+        <a href="{{ route('User.Dashboard') }}" class="back-arrow">←</a>
 
         <h1 class="text-white">Lucky Draw</h1>
 

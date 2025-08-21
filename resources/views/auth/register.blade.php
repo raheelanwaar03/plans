@@ -336,7 +336,7 @@
                     content.style.display = "block";
                 }, 600); // Match fade out time
             });
-        </script>s
+        </script>
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

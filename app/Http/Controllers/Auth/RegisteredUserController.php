@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
         ]);
 
         // giving referral 5 tokens
-        if ($request->referral !== null) {
+        if ($request->referral == null) {
             $user = User::where('name', $request->referral)->first();
             $user->balance += 5;
             $user->save();
