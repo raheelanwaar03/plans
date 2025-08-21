@@ -121,8 +121,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('Admin.ContactUs.Request') }}">
-                                <i class="iconoir-task-list menu-icon"></i>
+                                <i class="bi bi-headset menu-icon"></i>
                                 <span>Contact Us</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.All.Tasks') }}">
+                                <i class="iconoir-task-list menu-icon"></i>
+                                <span>Tasks</span>
                             </a>
                         </li>
                         <li class="nav-item">

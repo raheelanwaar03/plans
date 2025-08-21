@@ -7,8 +7,10 @@ use App\Http\Controllers\user\UserKycController;
 use App\Models\User;
 use App\Models\user\ContactUs;
 use App\Models\user\KYC;
+use App\Models\user\Links;
 use App\Models\user\PremiumPlan;
 use Illuminate\Http\Request;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 
 class AdminDashboradController extends Controller
 {
@@ -74,7 +76,7 @@ class AdminDashboradController extends Controller
         return view('admin.premium.addToken', compact('premium'));
     }
 
-    public function storeToken(Request $request ,$id)
+    public function storeToken(Request $request, $id)
     {
         $user = User::find($request->user_id);
         $user->balance += $request->amount;
@@ -82,4 +84,37 @@ class AdminDashboradController extends Controller
         return redirect()->back()->with('success', 'Token added successfully');
     }
 
+    public function allTasks()
+    {
+        $tasks = Links::get();
+        return view('admin.task.all', compact('tasks'));
+    }
+
+    public function deleteTask($id)
+    {
+        $task = Links::find($id);
+        $task->delete();
+        return redirect()->back()->with('success', 'Task Deleted Successfully');
+    }
+
+    public function addTask()
+    {
+        return view('admin.task.add');
+    }
+
+    public function storeTask(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'link' => 'required',
+            'amount' => 'required',
+        ]);
+
+        $link = new Links();
+        $link->title = $request->title;
+        $link->amount = $request->amount;
+        $link->link = $request->link;
+        $link->save();
+        return redirect()->back()->with('success', 'Task Added successfull');
+    }
 }

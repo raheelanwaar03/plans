@@ -10,13 +10,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box d-md-flex justify-content-md-between align-items-center">
-                            <h4 class="page-title">All Items</h4>
+                            <h4 class="page-title">All Tasks</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a
                                             href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
-                                    <li class="breadcrumb-item active">Lucky Items</li>
+                                    <li class="breadcrumb-item active">All Tasks</li>
                                 </ol>
                             </div>
                         </div><!--end page-title-box-->
@@ -27,10 +27,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h4 class="card-title text-center">All Lucky Items</h4>
-                                    </div><!--end col-->
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title text-center">All Tasks</h4>
+                                        <a href="{{ route('Admin.Add.Task') }}" class="btn btn-primary">Add Task</a>
+                                    </div>
                                 </div><!--end row-->
                             </div><!--end card-header-->
                             <div class="card-body pt-0">
@@ -40,30 +41,23 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
+                                                <th>Link</th>
                                                 <th>Amount</th>
-                                                <th>Image</th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($luckyItems as $item)
+                                            @forelse ($tasks as $item)
                                                 <tr>
                                                     <td class="d-flex align-items-center">
                                                         {{ $item->id }}
                                                     </td>
-                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->title }}</td>
+                                                    <td>{{ $item->link }}</td>
                                                     <td>{{ $item->amount }}</td>
-                                                    <td>
-                                                        <img src="{{ asset('images/luckyDraw/' . $item->image) }}"
-                                                            height="60px" width="60px">
-                                                    </td>
                                                     <td class="text-end">
-                                                        <a href="#"><i
-                                                                class="las la-check text-secondary fs-18"></i></a>
-                                                        <a href="#">
+                                                        <a href="{{ route('Admin.Delete.Task', $item->id) }}">
                                                             <i class="las la-times text-secondary fs-18"></i></a>
-                                                        <a href="#">
-                                                            <i class="las la-pen text-secondary fs-18"></i></a>
                                                     </td>
                                                 </tr>
                                             @empty
