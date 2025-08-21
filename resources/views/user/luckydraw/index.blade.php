@@ -210,7 +210,7 @@
         <!-- Back Arrow Button -->
         <a href="javascript:history.back()" class="back-arrow">←</a>
 
-        <h1>Buy or Sell Tokens</h1>
+        <h1 class="text-white">Lucky Draw</h1>
 
         {{-- make a card for show easypaisa wallet details --}}
         <div class="card-bg">

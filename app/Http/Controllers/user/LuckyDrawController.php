@@ -41,7 +41,7 @@ class LuckyDrawController extends Controller
     {
         $participant = new LuckyParticipant();
         $participant->user_id = auth()->user()->id;
-        $participant->item_it = $id;
+        $participant->item_id = $id;
         $participant->save();
         return redirect()->back()->with('success','Congrats! You have participated');
     }
