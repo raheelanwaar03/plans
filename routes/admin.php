@@ -30,4 +30,6 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('/Add/Lucky/Item', [AdminLuckyDrawController::class, 'add'])->name('Add.Lucky.Item');
     Route::post('/Store/Lucky/Item', [AdminLuckyDrawController::class, 'store'])->name('Store.Lucky.Item');
     Route::get('/All/Lucky/Items', [AdminLuckyDrawController::class, 'all'])->name('All.Lucky.Items');
+    Route::get('/Deposit/Requests', [AdminLuckyDrawController::class, 'requests'])->name('Deposit.Requests');
+    Route::get('/Approve/Deposit/Request/{id}', [AdminLuckyDrawController::class, 'approveReq'])->name('Approve.Deposit.Request');
 });

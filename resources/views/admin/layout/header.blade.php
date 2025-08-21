@@ -162,6 +162,12 @@
                                 <span>Lucky Items</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Deposit.Requests') }}">
+                                <i class="bi bi-cash menu-icon"></i>
+                                <span>Deposit Requests</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
