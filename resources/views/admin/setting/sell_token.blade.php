@@ -96,7 +96,7 @@
                                                 <th>Title</th>
                                                 <th>Amount</th>
                                                 <th>Number</th>
-                                                <th>Payment SS</th>
+                                                <th>Bank</th>
                                                 <th>Status</th>
                                                 <th class="text-end">Action</th>
                                             </tr>
@@ -108,11 +108,7 @@
                                                     <td>{{ $item->title }}</td>
                                                     <td>{{ $item->amount }}</td>
                                                     <td>{{ $item->phoneNo }}</td>
-                                                    <td>
-                                                        <img src="{{ asset('sellToken/' . $item->screenShot) }}"
-                                                            height="60px" width="60px" id="fullscreenImage"
-                                                            onclick="openModal(this.src)">
-                                                    </td>
+                                                    <td>{{ $item->bank }}</td>
                                                     <td>
                                                         @if ($item->status == 'pending')
                                                             <span

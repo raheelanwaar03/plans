@@ -208,7 +208,7 @@
         <x-alert />
 
         <!-- Back Arrow Button -->
-        <a href="javascript:history.back()" class="back-arrow">←</a>
+        <a href="{{ route('User.Dashboard') }}" class="back-arrow">←</a>
 
         <h1>Buy or Sell Tokens</h1>
 
@@ -249,6 +249,12 @@
                     <input type="text" name="phoneNO" placeholder="Easypais JazzCash Number" required>
                     <input type="text" name="title" placeholder="Easypais JazzCash Name" required>
                     <input type="number" name="amount" placeholder="Token Amount" required>
+                    <select name="bank" id="bank" class="form-control mb-2">
+                        <option value="Easypaisa">Easypaisa</option>
+                        <option value="Jazzcash">Jazzcash</option>
+                        <option value="Nayapay">Nayapay</option>
+                        <option value="Sadapay">Sadapay</option>
+                    </select>
                     <button type="submit">Sell</button>
                 </form>
             </div>

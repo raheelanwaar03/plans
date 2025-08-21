@@ -38,6 +38,7 @@ class TradeController extends Controller
             'phoneNO' => 'required|digits:11',
             'title' => 'required|string',
             'amount' => 'required|numeric',
+            'bank' => 'required',
         ]);
         // check if user have enough tokens
         if (auth()->user()->balance < $request->amount) {
@@ -70,6 +71,7 @@ class TradeController extends Controller
         $selling_token->phoneNO = $request->phoneNO;
         $selling_token->title = $request->title;
         $selling_token->amount = $request->amount;
+        $selling_token->bank = $request->bank;
         $selling_token->status = 'pending';
         $selling_token->save();
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phoneNo');
             $table->string('title');
             $table->string('amount');
+            $table->string('bank');
             $table->string('status')->default('pending');
             $table->timestamps();
         });
