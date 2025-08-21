@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\user\History;
+use App\Models\user\UserBalance;
 use Carbon\Carbon;
 
 function total_users()
@@ -12,11 +13,16 @@ function total_users()
 
 function tokens()
 {
-    $tokens = History::where('user_id', auth()->user()->id)->where('type', '!=', 'Mine')->whereDate('created_at',Carbon::today())->get();
+    $tokens = History::where('user_id', auth()->user()->id)->where('type', '!=', 'Mine')->whereDate('created_at', Carbon::today())->get();
     $total_token = 0;
-    foreach($tokens as $token)
-    {
+    foreach ($tokens as $token) {
         $total_token += $token->amount;
     }
     return $total_token;
+}
+
+function userBalance()
+{
+    $user_balance = UserBalance::where('user_id', auth()->user()->id)->sum('balance');
+    return $user_balance;
 }

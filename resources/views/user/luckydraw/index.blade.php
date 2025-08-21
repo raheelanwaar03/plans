@@ -216,7 +216,7 @@
         <div class="card-bg">
             <div class="card-body bg-transparent">
                 <h4>Wallet Details</h4>
-                <p>{{ auth()->user()->balance }} pkr</p>
+                <p>{{ userBalance() }} pkr</p>
             </div>
         </div>
         <div class="card-container mt-4">
