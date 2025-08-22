@@ -40,13 +40,19 @@ class TradeController extends Controller
             'amount' => 'required|numeric',
             'bank' => 'required',
         ]);
+
         // check if user have enough tokens
         if (auth()->user()->balance < $request->amount) {
             return redirect()->back()->with('error', 'You do not have enough tokens to sell.');
         }
 
+        // check if user have more than 300 token then he can apply withdraw of 100
+        if (auth()->user()->balance < 300) {
+            return redirect()->back()->with('error', 'you have atleast 200 PGN in your account after withdraw');
+        }
+
         if ($request->amount != 100) {
-            return redirect()->back()->with('error', 'Amount should be 100 only');
+            return redirect()->back()->with('error', 'Withdrawal amount should be 100 only');
         }
 
         // check if user already has a pending selling request
