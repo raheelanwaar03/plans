@@ -17,12 +17,17 @@ class LuckyDrawController extends Controller
     public function index()
     {
         $user = KYC::where('user_id', auth()->user()->id)->first();
-        if (!$user || $user->status !== 'approved') {
-            return redirect()->route('User.KYC')->with('error', 'You must complete KYC to participate in luckyDraw.');
+        if($user->status == 'approved')
+        {
+            $luck = LuckyDrawItems::get();
+            return view('user.luckydraw.index', compact('luck'));
+        }
+        else
+        {
+            return redirect()->route('User.KYC')->with('error','Please do your kyc first');
         }
 
-        $luck = LuckyDrawItems::get();
-        return view('user.luckydraw.index', compact('luck'));
+
     }
 
     public function deposit(Request $request)
