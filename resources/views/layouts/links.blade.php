@@ -11,7 +11,7 @@
         <a href="{{ route('User.KYC') }}" style="color: white;text-decoration: none;">
             <i class="bi bi-patch-question" style="font-size: 20px;"></i><br><span
                 style="font-size:13px;margin-left: -3px;">KYC</span></a>
-        <a href="{{ route('User.KYC') }}" style="color: white;text-decoration: none;">
+        <a href="{{ route('User.LuckyDraw') }}" style="color: white;text-decoration: none;">
             <i class="fa fa-gift" aria-hidden="true"></i><br><span
                 style="font-size:13px;margin-left: -3px;">Luck</span></a>
     </nav>
