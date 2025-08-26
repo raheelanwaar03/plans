@@ -286,51 +286,6 @@
                 transform: translateX(130px);
             }
         }
-
-
-        /* Overlay */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 9999;
-        }
-
-        /* Centered popup */
-        .popup {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            max-width: 90%;
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .yes {
-            background: #e63946;
-            color: white;
-        }
-
-        .no {
-            background: #457b9d;
-            color: white;
-        }
     </style>
 </head>
 
@@ -355,18 +310,6 @@
 
     <x-alert />
 
-    {{-- confirmation --}}
-    <div class="overlay" id="exitPopup">
-        <div class="popup">
-            <h2>Are you sure?</h2>
-            <p>Do you really want to leave this page?</p>
-            <button class="yes" id="confirmExit">Yes, Leave</button>
-            <button class="no" id="cancelExit">Cancel</button>
-        </div>
-    </div>
-
-    {{-- popup --}}
-
     <div id="overlay"></div>
     <div id="popup">
         <h4 style="color: black;">Important Annoucment!</h4>
@@ -376,7 +319,6 @@
         <button id="closeBtn"
             style="background-color:rgb(51, 51, 205);color:white;border-radius:20px;border:1px solid white;">Close</button>
     </div>
-
 
     <main>
         <div class="container-fluid">
@@ -479,23 +421,6 @@
                 </p>
             </div>
         </div>
-
-        {{-- pop-up --}}
-
-        <!-- Exit Confirmation Modal -->
-        <div id="exitConfirmModal"
-            class="fixed inset-0 bg-gray-800 bg-opacity-60 hidden items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
-                <h2 class="text-lg font-bold mb-4">Are you sure you want to quit?</h2>
-                <div class="flex justify-center space-x-4">
-                    <button id="confirmExitYes"
-                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Yes</button>
-                    <button id="confirmExitNo" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">No</button>
-                </div>
-            </div>
-        </div>
-
-
     </main>
 
     @include('layouts.links')
@@ -508,44 +433,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-
-    {{-- pop up --}}
-
-    <script>
-        let exitModal = document.getElementById("exitConfirmModal");
-        let btnYes = document.getElementById("confirmExitYes");
-        let btnNo = document.getElementById("confirmExitNo");
-
-        let allowExit = false;
-
-        // Detect back navigation or tab close
-        window.onbeforeunload = function(e) {
-            if (!allowExit) {
-                e.preventDefault();
-                e.returnValue = ""; // Required for Chrome
-                exitModal.classList.remove("hidden");
-                exitModal.classList.add("flex");
-                return "";
-            }
-        };
-
-        // If user clicks "Yes" -> allow exit
-        btnYes.addEventListener("click", function() {
-            allowExit = true;
-            exitModal.classList.add("hidden");
-            exitModal.classList.remove("flex");
-            window.close(); // For closing tab (only works if opened via script)
-            window.location.href = "about:blank"; // Fallback to blank page
-        });
-
-        // If user clicks "No" -> cancel exit
-        btnNo.addEventListener("click", function() {
-            allowExit = false;
-            exitModal.classList.add("hidden");
-            exitModal.classList.remove("flex");
-        });
-    </script>
-
 
     <script>
         const profileIcon = document.getElementById('profile-icon');
@@ -599,33 +486,6 @@
                 document.getElementById("preloader").style.display = "none";
                 document.getElementById("main-content").style.display = "block";
             }, 2500); // wait for animation to finish
-        });
-    </script>
-
-
-    <script>
-        const overlay = document.getElementById('exitPopup');
-        const confirmExit = document.getElementById('confirmExit');
-        const cancelExit = document.getElementById('cancelExit');
-
-        // Push a dummy state so back button won't close immediately
-        history.pushState(null, null, location.href);
-
-        window.onpopstate = function(event) {
-            // Show popup instead of going back
-            overlay.style.display = 'block';
-
-            // Push state again so back button works after closing popup
-            history.pushState(null, null, location.href);
-        };
-
-        confirmExit.addEventListener('click', function() {
-            overlay.style.display = 'none';
-            history.back(); // Actually go back now
-        });
-
-        cancelExit.addEventListener('click', function() {
-            overlay.style.display = 'none';
         });
     </script>
 
