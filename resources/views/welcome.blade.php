@@ -154,65 +154,87 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            /* dark navy */
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            overflow: hidden;
         }
 
-        #preloader.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        /* Text style */
-        .loader-text {
-            font-size: 5rem;
+        .letters {
+            font-size: 4rem;
             font-weight: bold;
             font-family: Arial, sans-serif;
-            color: white;
             display: flex;
-            gap: 15px;
+            color: #22c55e;
+            /* bright green */
+            position: relative;
         }
 
-        .p {
-            color: #00f2fe;
+        .letters span {
+            opacity: 0;
         }
 
-        .g,
-        .n {
-            display: inline-block;
-            animation: rotate 1s linear infinite;
+        .letters .p {
+            opacity: 0;
+            animation: showP 0.8s forwards;
         }
 
-        .g {
-            color: #00ffff;
-            animation-delay: 0.1s;
+        .letters .g {
+            position: absolute;
+            left: 0;
+            transform: translateX(-100%);
+            animation: slideG 1s forwards;
+            animation-delay: 1s;
         }
 
-        .n {
-            color: #00f2fe;
-            animation-delay: 0.3s;
+        .letters .n {
+            position: absolute;
+            left: 0;
+            transform: translateX(-100%);
+            animation: slideN 1s forwards;
+            animation-delay: 1.8s;
         }
 
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
+        /* Animations */
+        @keyframes showP {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
             }
 
-            100% {
-                transform: rotate(360deg);
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
-        .content {
-            display: none;
-            padding: 50px;
-            text-align: center;
+        @keyframes slideG {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(65px);
+            }
+        }
+
+        @keyframes slideN {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(130px);
+            }
         }
     </style>
 </head>
@@ -221,7 +243,7 @@
 
     <!-- Preloader -->
     <div id="preloader">
-        <div class="loader-text">
+        <div class="letters">
             <span class="p">P</span>
             <span class="g">G</span>
             <span class="n">N</span>
@@ -299,17 +321,12 @@
         </script>
 
         <script>
-            // Hide preloader after page load
-            window.addEventListener("load", () => {
-                const preloader = document.getElementById("preloader");
-                const content = document.querySelector(".content");
-
-                preloader.classList.add("hide");
-
+            // Hide preloader once page loads
+            window.addEventListener("load", function() {
                 setTimeout(() => {
-                    preloader.style.display = "none";
-                    content.style.display = "block";
-                }, 600); // Match fade out time
+                    document.getElementById("preloader").style.display = "none";
+                    document.getElementById("main-content").style.display = "block";
+                }, 2500); // wait for animation to finish
             });
         </script>
 
