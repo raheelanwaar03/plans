@@ -179,6 +179,12 @@
                                 <span>Participant</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Vip.Membership') }}">
+                                <i class="bi bi-file-earmark-medical menu-icon"></i>
+                                <span>Vip Membership</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

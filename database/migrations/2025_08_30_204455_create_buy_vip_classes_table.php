@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('buy_vip_classes', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('trxID');
+            $table->string('trxID')->unique();
             $table->string('screenShot');
             $table->string('status')->default('pending');
             $table->timestamps();

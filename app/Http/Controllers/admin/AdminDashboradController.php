@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\user\UserKycController;
 use App\Models\User;
+use App\Models\user\BuyVipClass;
 use App\Models\user\ContactUs;
 use App\Models\user\KYC;
 use App\Models\user\Links;
@@ -116,5 +117,27 @@ class AdminDashboradController extends Controller
         $link->link = $request->link;
         $link->save();
         return redirect()->back()->with('success', 'Task Added successfull');
+    }
+
+    public function vipMembership()
+    {
+        $vip = BuyVipClass::get();
+        return view('admin.vip.membership', compact('vip'));
+    }
+
+    public function approveMembership($id)
+    {
+        $vip = BuyVipClass::find($id);
+        $vip->status = 'approved';
+        $vip->save();
+        return redirect()->back()->with('success', 'Membership Activated');
+    }
+
+    public function rejectMembership($id)
+    {
+        $vip = BuyVipClass::find($id);
+        $vip->status = 'rejected';
+        $vip->save();
+        return redirect()->back()->with('success', 'Membership Rejected');
     }
 }

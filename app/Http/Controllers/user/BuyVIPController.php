@@ -13,11 +13,13 @@ class BuyVIPController extends Controller
     {
         // check if user have pending request then let him wait
         $vip_check = BuyVipClass::where('user_id', auth()->user()->id)->first();
-        if ($vip_check->status = 'pending') {
-            return redirect()->back()->with('error', 'You already request for vip class please wait.');
-        }
-        if ($vip_check->status = 'approved') {
-            return redirect()->back()->with('error', 'Congrats! already added in vip class');
+        if ($vip_check) {
+            if ($vip_check->status == 'pending') {
+                return redirect()->back()->with('error', 'You already request for vip class please wait.');
+            }
+            if ($vip_check->status == 'approved') {
+                return redirect()->back()->with('error', 'You are already added in vip class, you can sell in high price now');
+            }
         }
         $wallet = Wallet::first();
         return view('user.buyVIP', compact('wallet'));
@@ -35,7 +37,7 @@ class BuyVIPController extends Controller
         $buy_vip = new BuyVipClass();
         $buy_vip->user_id = auth()->user()->id;
         $buy_vip->trxID = $request->trxID;
-        $buy_vip->screenShot = $request->screenShot;
+        $buy_vip->screenShot = $screenShot;
         $buy_vip->save();
         return redirect()->route('User.Trade.Token')->with('success', 'We have recived your request successfully.You will notify soon about your membership.');
     }

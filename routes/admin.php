@@ -39,4 +39,8 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('Delete/Task/{id}', [AdminDashboradController::class, 'deleteTask'])->name('Delete.Task');
     Route::get('Add/Task', [AdminDashboradController::class, 'addTask'])->name('Add.Task');
     Route::post('Store/Task', [AdminDashboradController::class, 'storeTask'])->name('Store.Task');
+    // vip membership
+    Route::get('Vip/Memberships', [AdminDashboradController::class, 'vipMembership'])->name('Vip.Membership');
+    Route::get('Approve/Membership/{id}', [AdminDashboradController::class, 'approveMembership'])->name('Approve.Membership');
+    Route::get('Rejected/Membership/{id}', [AdminDashboradController::class, 'rejectMembership'])->name('Reject.Membership');
 });
