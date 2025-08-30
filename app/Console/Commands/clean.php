@@ -100,6 +100,8 @@ class clean extends Command
         $tokenPrice->price = 1;
         $tokenPrice->selling_price = 2;
         $tokenPrice->buying_price = 3;
+        $tokenPrice->vip_fees = 2000;
+        $tokenPrice->vip_price = 5;
         $tokenPrice->save();
         $this->info('App cleaned and initialized successfully.');
 

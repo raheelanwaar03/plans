@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('token_prices', function (Blueprint $table) {
+        Schema::create('buy_vip_classes', function (Blueprint $table) {
             $table->id();
-            $table->string('price');
-            $table->string('selling_price');
-            $table->string('buying_price');
-            $table->string('vip_fees');
-            $table->string('vip_price');
-            $table->string('status')->default('active');
+            $table->string('user_id');
+            $table->string('trxID');
+            $table->string('screenShot');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('token_prices');
+        Schema::dropIfExists('buy_vip_classes');
     }
 };

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TradeController;
+use App\Http\Controllers\user\BuyVIPController;
 use App\Http\Controllers\user\ContactUsController;
 use App\Http\Controllers\user\LuckyDrawController;
 use App\Http\Controllers\user\UserDashboardController;
@@ -34,4 +35,7 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     Route::post('/Apply/Deposit', [LuckyDrawController::class, 'deposit'])->name('Apply.Deposit');
     Route::get('/Participating/{id}', [LuckyDrawController::class, 'participate'])->name('Participate');
     Route::get('/Winner', [LuckyDrawController::class, 'winner'])->name('Winner');
+    // buying vip
+    Route::get('/Buy/VIP', [BuyVIPController::class, 'index'])->name('Buy.Vip');
+    Route::post('/Store/VIP', [BuyVIPController::class, 'buyVip'])->name('Store.Vip.Membership');
 });

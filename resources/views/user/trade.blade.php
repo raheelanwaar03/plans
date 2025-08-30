@@ -219,13 +219,13 @@
 
     <body>
 
-        <div id="preloader">
+        {{-- <div id="preloader">
             <div class="letters">
                 <span class="p">P</span>
                 <span class="g">G</span>
                 <span class="n">N</span>
             </div>
-        </div>
+        </div> --}}
 
         <x-alert />
 
@@ -260,8 +260,7 @@
                 <p>({{ $tokenPrice->buying_price }} pkr)</p>
             </div>
         </div>
-
-        <div class="form-container">
+        <div class="form-container mb-3">
             <div id="sellForm" class="form-box">
                 <span class="close-btn" onclick="closeForms()">✖</span>
                 <h3>Sell Tokens</h3>
@@ -296,7 +295,19 @@
                 </form>
             </div>
         </div>
-
+        <div class="card-bg">
+            <div class="card-body">
+                <h4>VIP Class</h4>
+                <p><b></b></p>
+                <div class="d-flex justify-content-center align-items-center">
+                    <p>If you want to add in VIP Class you have to pay R.s {{ $tokenPrice->vip_fees }} on this account
+                        {{ $wallet->number }}. Then you
+                        will got {{ $tokenPrice->vip_price }}pkr while selling PGN and many more benefits.</p>
+                </div>
+                <a href="{{ route('User.Buy.Vip') }}" class="btn btn-success text-white">Buy Now</a>
+                <a class="btn btn-warning text-white">Sell Now</a>
+            </div>
+        </div>
         <script>
             function showForm(type) {
                 closeForms();
@@ -324,18 +335,13 @@
 
                 alert("Number " + number + " has been copied!");
             }
+            // window.addEventListener("load", function() {
+            //     setTimeout(() => {
+            //         document.getElementById("preloader").style.display = "none";
+            //         document.getElementById("main-content").style.display = "block";
+            //     }, 2500);
+            // });
         </script>
-
-        <script>
-            // Hide preloader once page loads
-            window.addEventListener("load", function() {
-                setTimeout(() => {
-                    document.getElementById("preloader").style.display = "none";
-                    document.getElementById("main-content").style.display = "block";
-                }, 2500); // wait for animation to finish
-            });
-        </script>
-
     </body>
 
     </html>
