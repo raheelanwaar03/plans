@@ -204,86 +204,76 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0f172a;
-            /* dark navy */
+            right: 0;
+            bottom: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #0f172a;
             z-index: 9999;
-            overflow: hidden;
         }
 
-        .letters {
-            font-size: 4rem;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
+
+        .loader {
+            font-size: 64px;
+            font-weight: 800;
+            color: white;
             display: flex;
-            color: #22c55e;
-            /* bright green */
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .p {
+            color: #7c3aed;
             position: relative;
+            z-index: 2;
         }
 
-        .letters span {
+
+        .g,
+        .n {
+            color: #e5e7eb;
+            position: relative;
             opacity: 0;
         }
 
-        .letters .p {
-            opacity: 0;
-            animation: showP 0.8s forwards;
+
+        .g {
+            animation: fromBehind 3s infinite;
+            animation-delay: 0.3s;
         }
 
-        .letters .g {
-            position: absolute;
-            left: 0;
-            transform: translateX(-100%);
-            animation: slideG 1s forwards;
-            animation-delay: 1s;
+        .n {
+            animation: fromBehind 3s infinite;
+            animation-delay: 1.6s;
         }
 
-        .letters .n {
-            position: absolute;
-            left: 0;
-            transform: translateX(-100%);
-            animation: slideN 1s forwards;
-            animation-delay: 1.8s;
-        }
 
-        /* Animations */
-        @keyframes showP {
-            from {
+        @keyframes fromBehind {
+            0% {
                 opacity: 0;
-                transform: scale(0.5);
+                transform: translateX(-30px);
             }
 
-            to {
+            20% {
                 opacity: 1;
-                transform: scale(1);
+                transform: translateX(0);
             }
-        }
 
-        @keyframes slideG {
-            from {
+            50% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            70% {
                 opacity: 0;
-                transform: translateX(-100%);
+                transform: translateX(30px);
             }
 
-            to {
-                opacity: 1;
-                transform: translateX(65px);
-            }
-        }
-
-        @keyframes slideN {
-            from {
+            100% {
                 opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(130px);
+                transform: translateX(30px);
             }
         }
     </style>
@@ -301,7 +291,7 @@
     {{-- preloader --}}
 
     <div id="preloader">
-        <div class="letters">
+        <div class="loader">
             <span class="p">P</span>
             <span class="g">G</span>
             <span class="n">N</span>
@@ -480,12 +470,9 @@
     </script>
 
     <script>
-        // Hide preloader once page loads
-        window.addEventListener("load", function() {
-            setTimeout(() => {
-                document.getElementById("preloader").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-            }, 2500); // wait for animation to finish
+        window.addEventListener('load', () => {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
         });
     </script>
 

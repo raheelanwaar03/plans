@@ -335,12 +335,10 @@
 
                 alert("Number " + number + " has been copied!");
             }
-            // window.addEventListener("load", function() {
-            //     setTimeout(() => {
-            //         document.getElementById("preloader").style.display = "none";
-            //         document.getElementById("main-content").style.display = "block";
-            //     }, 2500);
-            // });
+            window.addEventListener('load', () => {
+                document.getElementById('preloader').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            });
         </script>
     </body>
 
