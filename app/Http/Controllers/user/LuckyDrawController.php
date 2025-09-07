@@ -85,4 +85,5 @@ class LuckyDrawController extends Controller
         $winners = LuckyParticipant::where('status', 'winner')->get();
         return view('user.luckydraw.winner', compact('winners'));
     }
+
 }
