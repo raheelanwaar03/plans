@@ -49,7 +49,7 @@ class LuckyDrawController extends Controller
     {
         $item = LuckyDrawItems::find($id);
         // check if user already participated
-        $user_check = LuckyParticipant::where('user_id', auth()->user()->id)->whereDate('created_at', Carbon::today())->first();
+        $user_check = LuckyParticipant::where('user_id', auth()->user()->id)->where('item_id', $item->id)->whereDate('created_at', Carbon::today())->first();
         if ($user_check) {
             return redirect()->back()->with('error', 'you have already participate in this lottery');
         }
@@ -85,5 +85,4 @@ class LuckyDrawController extends Controller
         $winners = LuckyParticipant::where('status', 'winner')->get();
         return view('user.luckydraw.winner', compact('winners'));
     }
-
 }

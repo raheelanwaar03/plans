@@ -52,7 +52,7 @@ class AdminLuckyDrawController extends Controller
     {
         $deposit = UserDeposit::find($id);
         if ($deposit->status == 'pending') {
-            $user = UserBalance::find($deposit->user_id);
+            $user = UserBalance::where('user_id', $deposit->user_id)->first();
             if ($user) {
                 $user->balance += $deposit->amount;
                 $user->save();
@@ -63,7 +63,7 @@ class AdminLuckyDrawController extends Controller
             } else {
                 $userBalance = new UserBalance();
                 $userBalance->user_id = $deposit->user_id;
-                $userBalance->balance = $deposit->amount;
+                $userBalance->balance += $deposit->amount;
                 $userBalance->save();
                 // approve status
                 $deposit->status = 'approved';
@@ -71,6 +71,7 @@ class AdminLuckyDrawController extends Controller
                 return redirect()->back()->with('success', 'Balance Approved');
             }
         }
+        return 3;
     }
 
     public function participante()

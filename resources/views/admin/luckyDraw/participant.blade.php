@@ -39,7 +39,7 @@
                                     <table class="table mb-0" id="datatable_1">
                                         <thead class="table-light">
                                             <tr>
-                                                <th>Email</th>
+                                                <th>User Name</th>
                                                 <th>Status</th>
                                                 <th>Amount</th>
                                                 <th>Image</th>
