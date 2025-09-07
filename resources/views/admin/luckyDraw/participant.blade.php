@@ -56,8 +56,7 @@
                                                             height="60px" width="60px">
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="{{ route('Admin.Chosse.Winner', $item->id) }}"><i
-                                                                class="las la-check text-secondary fs-18"></i></a>
+                                                        <a href="{{ route('Admin.Chosse.Winner', $item->id) }}" class="btn btn-sm btn-primary">Winner</a>
                                                     </td>
                                                 </tr>
                                             @empty

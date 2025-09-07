@@ -68,7 +68,7 @@ class LuckyDrawController extends Controller
             // participate
             $participant = new LuckyParticipant();
             $participant->user_id = auth()->user()->id;
-            $participant->user_email = auth()->user()->email;
+            $participant->user_email = auth()->user()->name;
             $participant->item_id = $item->id;
             $participant->image = $item->image;
             $participant->item_price = $item->amount;

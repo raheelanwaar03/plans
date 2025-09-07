@@ -283,7 +283,7 @@
                                 <h5 class="card-title">{{ $item->name }}</h5>
                                 <p class="card-text">You have to invest <b>{{ $item->amount }}</b> for participating</p>
                                 <a href="{{ route('User.Participate', $item->id) }}"
-                                    class="btn btn-primary">Participating</a>
+                                    class="btn btn-primary">Participate</a>
                             </div>
                         </div>
                     </div>

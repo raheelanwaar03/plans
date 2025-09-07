@@ -153,13 +153,12 @@
                 <img src="{{ asset('images/luckyDraw/' . $winner->image) }}" alt="Prize Image">
                 <div class="card-body">
                     <h2>{{ $winner->user_email }}</h2>
-                    <p>User ID: {{ $winner->user_id }}</p>
-                    <p>Prize: {{ $winner->item_price }}</p>
+                    <p>Ticket Price: {{ $winner->item_price }}</p>
                     <p>Date: {{ $winner->created_at->format('d M, Y') }}</p>
                     <p>Organized by: {{ env('APP_NAME') }}
                 </div>
             @empty
-            <h3>Winner is not announced yet!</h3>
+                <h3>Winner is not announced yet!</h3>
         @endforelse
     </div>
 

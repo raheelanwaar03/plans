@@ -58,12 +58,8 @@
                                                             height="60px" width="60px">
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="#"><i
-                                                                class="las la-check text-secondary fs-18"></i></a>
-                                                        <a href="#">
-                                                            <i class="las la-times text-secondary fs-18"></i></a>
-                                                        <a href="#">
-                                                            <i class="las la-pen text-secondary fs-18"></i></a>
+                                                        <a href="{{ route('Admin.Del.Item', $item->id) }}"
+                                                            class="btn btn-sm btn-danger">Del</a>
                                                     </td>
                                                 </tr>
                                             @empty

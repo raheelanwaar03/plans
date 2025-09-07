@@ -34,6 +34,7 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('/Approve/Deposit/Request/{id}', [AdminLuckyDrawController::class, 'approveReq'])->name('Approve.Deposit.Request');
     Route::get('/All/Participante', [AdminLuckyDrawController::class, 'participante'])->name('All.Participantes');
     Route::get('/Chosse/Winner/{id}', [AdminLuckyDrawController::class, 'winner'])->name('Chosse.Winner');
+    Route::get('/Del/Item/{id}', [AdminLuckyDrawController::class, 'delItem'])->name('Del.Item');
     // Tasks
     Route::get('All/Tasks', [AdminDashboradController::class, 'allTasks'])->name('All.Tasks');
     Route::get('Delete/Task/{id}', [AdminDashboradController::class, 'deleteTask'])->name('Delete.Task');

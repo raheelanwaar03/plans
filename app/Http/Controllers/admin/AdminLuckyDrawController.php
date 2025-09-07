@@ -84,6 +84,13 @@ class AdminLuckyDrawController extends Controller
         $winner = LuckyParticipant::find($id);
         $winner->status = "winner";
         $winner->save();
-        return redirect()->back()->with('success',''.$winner->user_email.' selected as a Winner');
+        return redirect()->back()->with('success', '' . $winner->user_email . ' selected as a Winner');
+    }
+
+    public function delItem($id)
+    {
+        $item = LuckyDrawItems::find($id);
+        $item->delete();
+        return redirect()->back()->with('success', 'Item Deleted');
     }
 }
