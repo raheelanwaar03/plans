@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\Wallet;
+use App\Models\TokenPrice;
 use App\Models\user\BuyVipClass;
 use Illuminate\Http\Request;
 
@@ -40,5 +41,12 @@ class BuyVIPController extends Controller
         $buy_vip->screenShot = $screenShot;
         $buy_vip->save();
         return redirect()->route('User.Trade.Token')->with('success', 'We have recived your request successfully.You will notify soon about your membership.');
+    }
+
+    public function sellVip()
+    {
+        $wallet = Wallet::first();
+        $token = TokenPrice::first();
+        return view('user.sellVip', compact('wallet','token'));
     }
 }

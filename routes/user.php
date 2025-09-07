@@ -38,4 +38,5 @@ Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function
     // buying vip
     Route::get('/Buy/VIP', [BuyVIPController::class, 'index'])->name('Buy.Vip');
     Route::post('/Store/VIP', [BuyVIPController::class, 'buyVip'])->name('Store.Vip.Membership');
+    Route::get('/Sell/VIP', [BuyVIPController::class, 'sellVip'])->name('Sell.Vip');
 });

@@ -148,7 +148,7 @@
     <div class="celebration" id="celebration"></div>
 
     <div class="container">
-        @foreach ($winners as $winner)
+        @forelse ($winners as $winner)
             <div class="card">
                 <img src="{{ asset('images/luckyDraw/' . $winner->image) }}" alt="Prize Image">
                 <div class="card-body">
@@ -158,7 +158,9 @@
                     <p>Date: {{ $winner->created_at->format('d M, Y') }}</p>
                     <p>Organized by: {{ env('APP_NAME') }}
                 </div>
-        @endforeach
+            @empty
+            <h3>Winner is not announced yet!</h3>
+        @endforelse
     </div>
 
     <script>

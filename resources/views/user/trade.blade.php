@@ -305,7 +305,7 @@
                         will got {{ $tokenPrice->vip_price }}pkr while selling PGN and many more benefits.</p>
                 </div>
                 <a href="{{ route('User.Buy.Vip') }}" class="btn btn-success text-white">Buy Now</a>
-                <a class="btn btn-warning text-white">Sell Now</a>
+                <a href="{{ route('User.Sell.Vip') }}" class="btn btn-warning text-white">Sell Now</a>
             </div>
         </div>
         <script>
