@@ -185,6 +185,12 @@
                                 <span>Vip Membership</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Vip.Sell.Tokens') }}">
+                                <i class="bi bi-bag menu-icon"></i>
+                                <span>Vip Sell</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

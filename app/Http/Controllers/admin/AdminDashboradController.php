@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\user\UserKycController;
+use App\Models\SellVipPGN;
 use App\Models\User;
 use App\Models\user\BuyVipClass;
 use App\Models\user\ContactUs;
@@ -139,5 +140,27 @@ class AdminDashboradController extends Controller
         $vip->status = 'rejected';
         $vip->save();
         return redirect()->back()->with('success', 'Membership Rejected');
+    }
+
+    public function vipSell()
+    {
+        $vip_sell = SellVipPGN::get();
+        return view('admin.vip.vipSell', compact('vip_sell'));
+    }
+
+    public function vipSellApprove($id)
+    {
+        $vip_sell = SellVipPGN::find($id);
+        if ($vip_sell->status == 'approved') {
+            return redirect()->back()->with('error', 'Already Approved');
+        }
+        $vip_sell->status = 'approved';
+        $vip_sell->save();
+
+        $user = User::where('id', $vip_sell->user_id)->first();
+        $user->balance -= $vip_sell->pgn_amount;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Token approved successfully');
     }
 }
