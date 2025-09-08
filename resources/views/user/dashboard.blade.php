@@ -276,6 +276,75 @@
                 transform: translateX(30px);
             }
         }
+
+        /* Modal background */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 9999;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Modal box */
+        .modal-box {
+            background: linear-gradient(135deg, #4facfe, #00f2fe, #4facfe);
+            color: #fff;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            animation: popUp 0.5s ease;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-box h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .modal-box p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .modal-box button {
+            background: #fff;
+            color: #0abbec;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-box button:hover {
+            background: #ffe6ec;
+        }
     </style>
 </head>
 
@@ -404,6 +473,17 @@
                 </div>
             </div>
 
+            {{-- second model --}}
+
+            <div class="modal-overlay" id="dailyModal">
+                <div class="modal-box">
+                    <h2>🎉 Marketing Offer!</h2>
+                    <p>If you want to promot your website. Contact Us.</p>
+                    <a href="{{ route('User.Contact') }}" class="btn btn-primary">Contact Us</a>
+                        <button onclick="closeModal()">Close</button>
+                </div>
+            </div>
+
             <div class="row">
                 <p class="text-dark">Important Notice
                     <br>
@@ -474,6 +554,26 @@
             document.getElementById('preloader').style.display = 'none';
             document.getElementById('content').style.display = 'block';
         });
+    </script>
+
+    <script>
+        const modal = document.getElementById("dailyModal");
+
+        // Function to close modal
+        function closeModal() {
+            modal.classList.remove("active");
+        }
+
+        // Check last shown date in localStorage
+        window.onload = function() {
+            let today = new Date().toISOString().split("T")[0]; // format: YYYY-MM-DD
+            let lastShown = localStorage.getItem("modalLastShown");
+
+            if (lastShown !== today) {
+                modal.classList.add("active");
+                localStorage.setItem("modalLastShown", today);
+            }
+        };
     </script>
 
 </body>

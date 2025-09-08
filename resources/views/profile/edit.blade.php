@@ -232,8 +232,8 @@
             <!-- User Information -->
             <div class="profile-info">
                 <div>
-                    <h5>Username</h5>
-                    <p class="text-capitalize">{{ auth()->user()->name }}</p>
+                    <h5>Email</h5>
+                    <p class="text-capitalize">{{ auth()->user()->email }}</p>
                 </div>
                 <div>
                     <h5>Joined</h5>
