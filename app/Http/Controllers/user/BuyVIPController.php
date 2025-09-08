@@ -4,8 +4,11 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\Wallet;
+use App\Models\SellVipPGN;
 use App\Models\TokenPrice;
+use App\Models\User;
 use App\Models\user\BuyVipClass;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BuyVIPController extends Controller
@@ -45,8 +48,39 @@ class BuyVIPController extends Controller
 
     public function sellVip()
     {
+        $check_status = BuyVipClass::where('user_id', auth()->user()->id)->first();
+        if ($check_status->status == 'pending') {
+            return redirect()->route('User.Trade.Token')->with('error', 'Please wait for admin approval');
+        }
+
         $wallet = Wallet::first();
         $token = TokenPrice::first();
-        return view('user.sellVip', compact('wallet','token'));
+        return view('user.sellVip', compact('wallet', 'token'));
+    }
+
+    public function sellVipPGN(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        if ($user->balance == 0) {
+            return redirect()->back()->with('error', 'Your account balance is null');
+        }
+
+        if ($user->balance < $request->amount) {
+            return redirect()->back()->with('error', 'You have not enough balance');
+        }
+
+        $transcation_check = SellVipPGN::where('user_id', auth()->user()->id)->where('status', 'pending')->whereDate('created_at', Carbon::today())->first();
+        if ($transcation_check) {
+            return redirect()->back()->with('error', 'You already requested for selling  PGN');
+        }
+
+        $sell_vip = new SellVipPGN();
+        $sell_vip->user_id = auth()->user()->id;
+        $sell_vip->pgn_amount = $request->amount;
+        $sell_vip->title = $request->title;
+        $sell_vip->account = $request->number;
+        $sell_vip->type = $request->type;
+        $sell_vip->save();
+        return redirect()->back()->with('success', 'your request submitted successfully');
     }
 }

@@ -273,7 +273,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-center align-items-center">
-                        <p>Congratulation! You are added in Vip Class now you can sell your 1PGN in {{ $token->vip_price }}pkr.</p>
+                        <p>Congratulation! You are added in Vip Class now you can sell your 1PGN in
+                            {{ $token->vip_price }}pkr.</p>
                     </div>
                 </div>
             </div>
@@ -281,19 +282,30 @@
             <div class="row mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('User.Store.Vip.Membership') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('User.Sell.Vip.PGN') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label class="form-label" for="token">TRX ID or Till ID</label>
-                                <input type="text" id="token" name="trxID" class="form-control"
-                                    placeholder="Token Amount" required>
+                                <label for="pgn">PGN Amount</label>
+                                <input type="number" name="amount" id="amount" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" id="SS">Screen Shot</label>
-                                <input type="file" id="SS" name="screenShot" class="form-control" required>
+                                <label for="number">Number</label>
+                                <input type="number" name="number" id="number" class="form-control">
                             </div>
-                            <button class="btn btn-primary mt-2" type="submit">Buy</button>
+                            <div class="form-group">
+                                <label for="title">Account Title</label>
+                                <input type="text" name="title" id="title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Bank Type</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="Easypaisa">Easypaisa</option>
+                                    <option value="JazzCash">JazzCash</option>
+                                    <option value="Sadapay">Sadapay</option>
+                                    <option value="Nayapay">Nayapay</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary mt-2" type="submit">Sell</button>
                         </form>
                     </div>
                 </div>
