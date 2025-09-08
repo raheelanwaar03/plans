@@ -99,6 +99,9 @@ class AdminSettingController extends Controller
     public function sell_token_approve($id)
     {
         $selling_request = SellingTokens::find($id);
+        if ($selling_request->status == 'approved') {
+            return redirect()->back()->with('error', 'Already Approved');
+        }
         if ($selling_request) {
             $selling_request->status = 'approved';
             $selling_request->save();
