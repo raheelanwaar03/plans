@@ -93,6 +93,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Number</th>
+                                                <th>Trx ID</th>
                                                 <th>IDFront</th>
                                                 <th>IDBack</th>
                                                 <th>Selfie</th>
@@ -115,6 +116,7 @@
                                                         </div>
                                                     </td>
                                                     <td>{{ $item->number }}</td>
+                                                    <td>{{ $item->trx_id }}</td>
                                                     <td>
                                                         <img src="{{ asset('images/KYC/' . $item->idFront) }}"
                                                             height="60px" width="60px" id="fullscreenImage"

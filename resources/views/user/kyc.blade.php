@@ -339,6 +339,11 @@
                                 <input type="file" class="form-control" id="paymentScreenshot"
                                     name="paymentScreenshot" accept="image/*" required>
                             </div>
+
+                            <div class="form-group">
+                                <label for="trx_id" class="form-label">Trx ID:</label>
+                                <input type="number" class="form-control" id="trx_id" name="trx_id" required>
+                            </div>
                             <div class="mt-3">
                                 <input type="submit" class="btn btn-primary" value="Submit KYC Data">
                             </div>

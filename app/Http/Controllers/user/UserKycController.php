@@ -24,6 +24,7 @@ class UserKycController extends Controller
             'idFront' => 'required',
             'idBack' => 'required',
             'selfie' => 'required',
+            'trx_id' => 'required',
             'paymentScreenshot' => 'required',
         ]);
         // front ID image save
@@ -46,6 +47,7 @@ class UserKycController extends Controller
         $user_kyc->idFront = $idFrontImage;
         $user_kyc->idBack = $idBackImage;
         $user_kyc->selfie = $selfieImage;
+        $user_kyc->trx_id = $request->trx_id;
         $user_kyc->paymentScreenshot = $paymentImage;
         $user_kyc->save();
         return redirect()->back()->with('success', 'KYC Uploaded Successfully');

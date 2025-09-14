@@ -40,6 +40,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Email</th>
+                                                <th>Trx ID</th>
                                                 <th>Option</th>
                                                 <th>Payment ScreenShot</th>
                                                 <th>Status</th>
@@ -57,6 +58,7 @@
                                                         </div>
                                                     </td>
                                                     <td>{{ $item->email }}</td>
+                                                    <td>{{ $item->trx_id }}</td>
                                                     <td>{{ $item->premiumOption }}</td>
                                                     <td>
                                                         <img src="{{ asset('images/premium/' . $item->paymentScreenshot) }}"
