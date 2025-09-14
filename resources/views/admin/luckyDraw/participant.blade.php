@@ -30,7 +30,6 @@
                                 <div class="row align-items-center">
                                     <div class="col d-flex justify-content-between align-items-center">
                                         <h4 class="card-title text-center">All Participantes</h4>
-                                        <a href="{{ route('Admin.Del.Participant') }}" class="btn btn-danger">Del Lottery</a>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
@@ -59,6 +58,8 @@
                                                     <td class="text-end">
                                                         <a href="{{ route('Admin.Chosse.Winner', $item->id) }}"
                                                             class="btn btn-sm btn-primary">Winner</a>
+                                                        <a href="{{ route('Admin.Del.Participant', $item->id) }}"
+                                                            class="btn btn-sm btn-danger">Del</a>
                                                     </td>
                                                 </tr>
                                             @empty

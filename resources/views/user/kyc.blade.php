@@ -280,6 +280,26 @@
                         </div>
                     </div>
                 </div>
+                {{-- if kyc status is not null then show this card else not --}}
+
+                @if ($kyc_status_check)
+                    @if ($kyc_status_check->status == 'rejected')
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h4 class="text-center"><u>Notification</u></h4>
+                                <div class="wallet-address">
+                                    <div class="d-flex justify-content-around align-items-center mb-2">
+                                        <h5>
+                                            Your Kyc Rejected to suspicious reasons. Please contact us on our <a
+                                                href="{{ route('User.Contact') }}">Help Desk</a>.
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+
             </div>
 
             <div class="row">
@@ -373,11 +393,12 @@
     </script>
 
     <script>
-window.addEventListener('load', () => {
-document.getElementById('preloader').style.display = 'none';
-document.getElementById('content').style.display = 'block';
-});
-</script>
+        window.addEventListener('load', () => {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        });
+    </script>
+
 
 
 </body>

@@ -12,7 +12,8 @@ class UserKycController extends Controller
     public function kyc()
     {
         $wallet = Wallet::first();
-        return view('user.kyc', compact('wallet'));
+        $kyc_status_check = KYC::where('user_id', auth()->user()->id)->where('status', 'rejected')->first();
+        return view('user.kyc', compact('wallet', 'kyc_status_check'));
     }
 
     public function index(Request $request)
