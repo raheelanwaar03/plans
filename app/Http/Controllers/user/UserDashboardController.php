@@ -64,15 +64,23 @@ class UserDashboardController extends Controller
 
     public function premium(Request $request)
     {
+        // check if user have already requested for premiumplan
+        $plan_check = PremiumPlan::where('user_id', auth()->user()->id)->where('status', 'pending')->first();
+        if ($plan_check) {
+            return redirect()->back()->with('error', 'you have already requested for premium plan.');
+        }
+
         // save image into public folder
         $image = $request->file('paymentScreenshot');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('images/premium'), $imageName);
-        // save image into database
+
+
 
         $premiumOption = new PremiumPlan();
         $premiumOption->user_id = auth()->user()->id;
         $premiumOption->email = auth()->user()->email;
+        $premiumOption->trx_id = $request->trx_id;
         $premiumOption->premiumOption = $request->premiumOption;
         $premiumOption->paymentScreenshot = $imageName;
         $premiumOption->save();

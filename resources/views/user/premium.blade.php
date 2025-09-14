@@ -358,6 +358,9 @@
                             <option value="$15 - 40 PGN">4250 - 40 PGN</option>
                         </select>
                     </div>
+                    <div class="form-group mt-2">
+                        <input type="number" name="trx_id" id="trx" class="form-control" placeholder="Transcation ID">
+                    </div>
                     <div class="form-group">
                         <label for="paymentScreenshot" class="form-label">Payment Screenshot:</label>
                         <input type="file" id="paymentScreenshot" class="form-control" name="paymentScreenshot"

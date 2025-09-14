@@ -149,70 +149,81 @@
             font-size: 13px;
         }
 
-        /* preloader */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
+            right: 0;
+            bottom: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #0f172a;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        #preloader.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
 
-        /* Text style */
-        .loader-text {
-            font-size: 5rem;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
+        .loader {
+            font-size: 64px;
+            font-weight: 800;
             color: white;
             display: flex;
-            gap: 15px;
+            align-items: center;
+            justify-content: center;
         }
 
+
         .p {
-            color: #00f2fe;
+            color: #7c3aed;
+            position: relative;
+            z-index: 2;
         }
+
 
         .g,
         .n {
-            display: inline-block;
-            animation: rotate 1s linear infinite;
+            color: #e5e7eb;
+            position: relative;
+            opacity: 0;
         }
+
 
         .g {
-            color: #00ffff;
-            animation-delay: 0.1s;
-        }
-
-        .n {
-            color: #00f2fe;
+            animation: fromBehind 3s infinite;
             animation-delay: 0.3s;
         }
 
-        @keyframes rotate {
+        .n {
+            animation: fromBehind 3s infinite;
+            animation-delay: 1.6s;
+        }
+
+
+        @keyframes fromBehind {
             0% {
-                transform: rotate(0deg);
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            70% {
+                opacity: 0;
+                transform: translateX(30px);
             }
 
             100% {
-                transform: rotate(360deg);
+                opacity: 0;
+                transform: translateX(30px);
             }
-        }
-
-        .content {
-            display: none;
-            padding: 50px;
-            text-align: center;
         }
     </style>
 </head>
@@ -220,7 +231,7 @@
 <body>
     <x-alert />
     <div id="preloader">
-        <div class="loader-text">
+        <div class="loader">
             <span class="p">P</span>
             <span class="g">G</span>
             <span class="n">N</span>
@@ -297,17 +308,9 @@
         </script>
 
         <script>
-            // Hide preloader after page load
-            window.addEventListener("load", () => {
-                const preloader = document.getElementById("preloader");
-                const content = document.querySelector(".content");
-
-                preloader.classList.add("hide");
-
-                setTimeout(() => {
-                    preloader.style.display = "none";
-                    content.style.display = "block";
-                }, 600); // Match fade out time
+            window.addEventListener('load', () => {
+                document.getElementById('preloader').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
             });
         </script>
 

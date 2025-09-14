@@ -55,7 +55,8 @@
                                             <div class="form-group">
                                                 <label for="option">Screen Shot</label>
                                                 <img src="{{ asset('images/premium/' . $premium->paymentScreenshot) }}"
-                                                    height="200px" width="200px" alt="screenshot" class="img-fluid">
+                                                    height="150px" width="150px" alt="screenshot"
+                                                    style="border-radius:20px;margin-top:14px" >
                                             </div>
                                         </div>
                                         <input type="hidden" name="user_id" value="{{ $premium->user_id }}">
