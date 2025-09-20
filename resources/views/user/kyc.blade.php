@@ -318,15 +318,23 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="idFront" class="form-label">ID Card (Front):</label>
-                                <input type="file" class="form-control" id="idFront" name="idFront"
-                                    accept="image/*" required>
+                                <label for="id_front">Upload ID (Front Side):</label><br>
+                                <input type="file" id="id_front" name="idFront" accept="image/*"
+                                    capture="environment" style="display:none;"
+                                    onchange="previewFile(event, 'previewFront')">
+                                <button type="button" onclick="document.getElementById('id_front').click()">📷 Scan
+                                    Front</button>
+                                <div id="previewFront" style="margin-top:10px;"></div>
                             </div>
 
                             <div class="form-group">
-                                <label for="idBack" class="form-label">ID Card (Back):</label>
-                                <input type="file" class="form-control" id="idBack" name="idBack"
-                                    accept="image/*" required>
+                                <label for="id_back">Upload ID (Back Side):</label><br>
+                                <input type="file" id="id_back" name="idBack" accept="image/*"
+                                    capture="environment" style="display:none;"
+                                    onchange="previewFile(event, 'previewBack')">
+                                <button type="button" onclick="document.getElementById('id_back').click()">📷 Scan
+                                    Back</button>
+                                <div id="previewBack" style="margin-top:10px;"></div>
                             </div>
                             <div class="form-group">
                                 <label for="selfie" class="form-label">Selfie:</label>
@@ -342,7 +350,8 @@
 
                             <div class="form-group">
                                 <label for="trx_id" class="form-label">Trx ID:</label>
-                                <input type="number" class="form-control" id="trx_id" name="trx_id" required>
+                                <input type="number" class="form-control" id="trx_id" name="trx_id" required
+                                    maxlength="11">
                             </div>
                             <div class="mt-3">
                                 <input type="submit" class="btn btn-primary" value="Submit KYC Data">
@@ -395,6 +404,22 @@
         closeIcon.addEventListener('click', () => {
             sidebar.classList.remove('active');
         });
+    </script>
+
+    {{-- scaner --}}
+
+    <script>
+        function previewFile(event, previewId) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(previewId).innerHTML =
+                    `<img src="${e.target.result}" width="300" style="border:1px solid #ccc; border-radius:8px;">`;
+            };
+            reader.readAsDataURL(file);
+        }
     </script>
 
     <script>
