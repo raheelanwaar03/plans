@@ -240,6 +240,13 @@
                             pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
                         <div class="muted">Max 11 digits — enforced in input.</div>
                     </div>
+
+                    <div style="width:220px">
+                        <label for="cnic">Transaction ID (Trx ID)</label>
+                        <input id="cnic" name="trx_id" type="text" placeholder="12345123451" maxlength="11"
+                            pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
+                        <div class="muted">Max 11 digits — enforced in input.</div>
+                    </div>
                 </div>
 
                 <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:13px;">
