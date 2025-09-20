@@ -287,10 +287,10 @@
 
                     <!-- Back -->
                     <div>
-                        <label>Identity Card — Back</label>
+                        <label>Identity Card — BAck</label>
                         <div class="scanner-preview" id="backPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
-                                <div style="font-weight:600">No back image</div>
+                                <div style="font-weight:600">No Back image</div>
                                 <div class="muted">Click <span style="font-weight:700;color:#9be7ef">Open
                                         Scanner</span> to use camera or choose upload.</div>
                             </div>
@@ -301,14 +301,13 @@
                                 onchange="handleUpload(event,'back')" name="idBack" />
                             <button type="button" class="btn secondary"
                                 onclick="document.getElementById('backUpload').click()">Upload Image</button>
+                            <div style="flex:1"></div>
                         </div>
                     </div>
                 </div>
 
                 <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
                     <button type="submit" class="btn">Submit</button>
-                    <button type="button" class="btn secondary" onclick="resetForm()">Reset</button>
-                    <div style="flex:1"></div>
                 </div>
             </form>
 
