@@ -221,7 +221,7 @@
     <div class="wrap">
         <!-- LEFT: Form -->
         <section class="card">
-            <h1>Quick KYC — Secure ID Scan</h1>
+            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a> Secure ID Scan</h1>
             <p class="lead">Capture front & back of your identity card using your device camera. The scanner will
                 attempt to extract text automatically — you can always edit before submitting.</p>
 
