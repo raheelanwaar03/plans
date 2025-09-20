@@ -225,7 +225,8 @@
             <p class="lead">Capture front & back of your identity card using your device camera. The scanner will
                 attempt to extract text automatically — you can always edit before submitting.</p>
 
-            <form id="form" action="{{ route('User.KYC.Data') }}" onsubmit="return handleSubmit(event)">
+            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div style="display:flex;gap:12px;flex-wrap:wrap">
                     <div style="flex:1;min-width:220px">
                         <label for="fullName">Full name</label>
