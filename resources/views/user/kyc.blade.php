@@ -252,7 +252,7 @@
                 <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:13px;">
                     <div style="flex:1;min-width:220px">
                         <label for="Selfie">Selfie</label>
-                        <input id="selfie" name="name" type="file" required />
+                        <input id="selfie" name="selfie" type="file" required />
                     </div>
 
                     <div style="width:220px">
