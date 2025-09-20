@@ -271,12 +271,10 @@
                             <button type="button" class="btn" onclick="openScanner('front')">Open Scanner</button>
                             <input id="frontUpload" type="file" accept="image/*" style="display:none"
                                 onchange="handleUpload(event,'front')" name="idFront" />
-                            <button type="button" class="btn secondary"
-                                onclick="document.getElementById('frontUpload').click()">Upload Image</button>
+                            {{-- <button type="button" class="btn secondary"
+                                onclick="document.getElementById('frontUpload').click()">Upload Image</button> --}}
                             <div style="flex:1"></div>
                         </div>
-                        <div class="note">Tip: hold the card flat, well-lit, and fill the green guides when preview
-                            appears.</div>
                     </div>
 
                     <!-- Back -->
@@ -293,11 +291,9 @@
                             <button type="button" class="btn" onclick="openScanner('back')">Open Scanner</button>
                             <input id="backUpload" type="file" accept="image/*" name="idBack" style="display:none"
                                 onchange="handleUpload(event,'back')" />
-                            <button type="button" class="btn secondary"
-                                onclick="document.getElementById('backUpload').click()">Upload Image</button>
+                            {{-- <button type="button" class="btn secondary"
+                                onclick="document.getElementById('backUpload').click()">Upload Image</button> --}}
                         </div>
-                        <div class="note">The scanner will attempt OCR on both sides and auto-fill fields when
-                            confident.</div>
                     </div>
                 </div>
 
@@ -328,16 +324,6 @@
                         <label class="muted">Back (preview)</label>
                         <div class="scanner-preview" id="backThumb"></div>
                     </div>
-                </div>
-            </div>
-
-            <div class="card small">
-                <h3 style="margin:0 0 6px">Auto-detected</h3>
-                <div style="display:flex;flex-direction:column;gap:8px">
-                    <div class="muted">Name</div>
-                    <div id="detectedName" style="font-weight:700">—</div>
-                    <div class="muted">CNIC</div>
-                    <div id="detectedCnic" style="font-weight:700">—</div>
                 </div>
             </div>
         </aside>
