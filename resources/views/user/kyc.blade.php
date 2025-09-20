@@ -277,10 +277,10 @@
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('front')">Open Scanner</button>
-                            <input id="frontUpload" type="file" accept="image/*" style="display:none"
+                            <input id="frontUpload" type="file" style="display:none"
                                 onchange="handleUpload(event,'front')" name="idFront" />
-                            {{-- <button type="button" class="btn secondary"
-                                onclick="document.getElementById('frontUpload').click()">Upload Image</button> --}}
+                            <button type="button" class="btn secondary"
+                                onclick="document.getElementById('frontUpload').click()">Upload Image</button>
                             <div style="flex:1"></div>
                         </div>
                     </div>
@@ -297,10 +297,10 @@
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('back')">Open Scanner</button>
-                            <input id="backUpload" type="file" accept="image/*" name="idBack" style="display:none"
-                                onchange="handleUpload(event,'back')" />
-                            {{-- <button type="button" class="btn secondary"
-                                onclick="document.getElementById('backUpload').click()">Upload Image</button> --}}
+                            <input id="backUpload" type="file" style="display:none"
+                                onchange="handleUpload(event,'back')" name="idBack" />
+                            <button type="button" class="btn secondary"
+                                onclick="document.getElementById('backUpload').click()">Upload Image</button>
                         </div>
                     </div>
                 </div>
@@ -423,68 +423,6 @@
             const thumb = document.getElementById(side + 'Thumb');
             el.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' image' + '">';
             thumb.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' thumb' + '">';
-        }
-
-        async function runOCR(dataUrl, side) {
-            // Show interim state
-            document.getElementById('detectedName').innerText = 'Scanning...';
-            document.getElementById('detectedCnic').innerText = 'Scanning...';
-
-            try {
-                const {
-                    createWorker
-                } = Tesseract;
-                const worker = createWorker({
-                    logger: m => {
-                        /* console.log(m) */
-                    }
-                });
-                await worker.load();
-                await worker.loadLanguage('eng');
-                await worker.initialize('eng');
-                const res = await worker.recognize(dataUrl, {
-                    tessedit_pageseg_mode: 3
-                });
-                await worker.terminate();
-
-                const text = res.data.text || '';
-                // Simple heuristic extraction: look for 11-digit sequences for CNIC and longest name-like line
-                const digits = text.match(/\d{11}/g);
-                const maybeCnic = digits ? digits[0] : '';
-
-                // For name, look for lines with letters and spaces and length > 4
-                const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-                let maybeName = '';
-                for (const line of lines) {
-                    // ignore lines with too many digits
-                    const digitsCount = (line.match(/\d/g) || []).length;
-                    if (digitsCount > 3) continue;
-                    if (line.length > maybeName.length && /[A-Za-z]/.test(line)) maybeName = line;
-                }
-
-                // Update UI and (optionally) fill inputs if confident
-                if (maybeName) {
-                    document.getElementById('detectedName').innerText = maybeName;
-                    // Only auto-fill if the name field is empty
-                    const nameField = document.getElementById('fullName');
-                    if (!nameField.value) nameField.value = maybeName;
-                } else {
-                    document.getElementById('detectedName').innerText = '—';
-                }
-
-                if (maybeCnic) {
-                    document.getElementById('detectedCnic').innerText = maybeCnic;
-                    const cnicField = document.getElementById('cnic');
-                    if (!cnicField.value) cnicField.value = maybeCnic;
-                } else {
-                    document.getElementById('detectedCnic').innerText = '—';
-                }
-
-            } catch (err) {
-                console.error('OCR error', err);
-                document.getElementById('detectedName').innerText = 'OCR failed';
-                document.getElementById('detectedCnic').innerText = 'OCR failed';
-            }
         }
 
         function resetForm() {
