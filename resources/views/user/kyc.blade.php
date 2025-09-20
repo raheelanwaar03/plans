@@ -481,19 +481,6 @@
             }
         }
 
-        // Simple form handler — does not auto-submit. Put your own AJAX or form action here.
-        function handleSubmit(e) {
-            e.preventDefault();
-            // Collect form data
-            const data = new FormData(document.getElementById('kycForm'));
-            // For demo, just show data in alert (you should replace this with secure submission to your server)
-            const obj = {};
-            for (const [k, v] of data.entries()) obj[k] = v;
-            alert('Form ready to submit (demo). Fill your server endpoint to actually send data.\n\n' + JSON.stringify(obj,
-                null, 2));
-            return false;
-        }
-
         function resetForm() {
             document.getElementById('kycForm').reset();
             document.getElementById('frontPreview').innerHTML =
