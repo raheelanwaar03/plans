@@ -309,8 +309,6 @@
                     <button type="submit" class="btn">Submit</button>
                     <button type="button" class="btn secondary" onclick="resetForm()">Reset</button>
                     <div style="flex:1"></div>
-                    <div class="muted">No data is transmitted — this demo performs OCR in your browser (client-side).
-                    </div>
                 </div>
             </form>
 
