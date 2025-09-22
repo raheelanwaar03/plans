@@ -4,73 +4,57 @@
   <meta charset="UTF-8">
   <title>KYC Verification</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#f4f6f9; display:flex; justify-content:center; align-items:center; height:100vh; }
-    .kyc-box { background:#fff; padding:25px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.1); width:400px; text-align:center; }
-    video, canvas { width:100%; border-radius:10px; margin:10px 0; }
-    .btn { background:#4CAF50; color:#fff; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; margin:5px; }
+    body { font-family: Arial, sans-serif; background:#f4f6f9; }
+    .container { max-width:600px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.1); }
+    h2 { text-align:center; margin-bottom:20px; }
+    .btn { display:block; margin:15px auto; padding:12px 20px; background:#4CAF50; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:16px; }
     .btn:hover { background:#45a049; }
-    .preview img { width:100%; margin:10px 0; border-radius:10px; }
+    #onfido-mount { margin-top:20px; }
   </style>
+  <!-- Onfido Web SDK -->
+  <link href="https://assets.onfido.com/web-sdk-releases/8.16.0/style.css" rel="stylesheet" />
+  <script src="https://assets.onfido.com/web-sdk-releases/8.16.0/onfido.min.js"></script>
 </head>
 <body>
-  <div class="kyc-box">
+  <div class="container">
     <h2>KYC Verification</h2>
     <form>
       <input type="text" name="name" placeholder="Full Name" required><br><br>
 
-      <!-- Camera -->
-      <video id="camera" autoplay playsinline></video>
-      <canvas id="canvas" hidden></canvas>
+      <!-- Start Scan Button -->
+      <button type="button" class="btn" id="startKyc">Start Scan</button>
 
-      <!-- Buttons -->
-      <button type="button" class="btn" onclick="scanDocument('front')">Scan Front ID</button>
-      <button type="button" class="btn" onclick="scanDocument('back')">Scan Back ID</button>
-      <button type="button" class="btn" onclick="takeSelfie()">Take Selfie</button>
+      <!-- SDK UI will mount here -->
+      <div id="onfido-mount"></div>
 
-      <!-- Previews -->
-      <div class="preview">
-        <p><b>Front ID:</b></p>
-        <img id="frontPreview" src="">
-        <p><b>Back ID:</b></p>
-        <img id="backPreview" src="">
-        <p><b>Selfie:</b></p>
-        <img id="selfiePreview" src="">
-      </div>
-
-      <br><button type="submit" class="btn">Submit KYC</button>
+      <br>
+      <button type="submit" class="btn">Submit KYC</button>
     </form>
   </div>
 
-  <!-- OpenCV for document detection -->
-  <script async src="https://docs.opencv.org/4.x/opencv.js"></script>
   <script>
-    const video = document.getElementById('camera');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+    document.getElementById('startKyc').addEventListener('click', function() {
+      // ⚠️ In real Laravel app, fetch token from backend API route
+      const onfidoToken = "YOUR_ONFIDO_SDK_TOKEN";
 
-    // Start camera
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-      .then(stream => video.srcObject = stream)
-      .catch(err => alert("Camera access denied: " + err));
-
-    // Capture & crop ID using opencv.js
-    function scanDocument(type) {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      let img = canvas.toDataURL("image/png");
-
-      if (type === 'front') document.getElementById('frontPreview').src = img;
-      if (type === 'back') document.getElementById('backPreview').src = img;
-    }
-
-    // Capture selfie
-    function takeSelfie() {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      document.getElementById('selfiePreview').src = canvas.toDataURL("image/png");
-    }
+      Onfido.init({
+        token: onfidoToken,
+        containerId: 'onfido-mount',
+        onComplete: function(data) {
+          console.log("KYC completed:", data);
+          alert("KYC process finished successfully!");
+        },
+        steps: [
+          {
+            type: 'document',
+            options: {
+              documentTypes: { nationalIdentityCard: true }
+            }
+          },
+          'face'
+        ]
+      });
+    });
   </script>
 </body>
 </html>
