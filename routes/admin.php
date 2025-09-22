@@ -47,4 +47,8 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('Rejected/Membership/{id}', [AdminDashboradController::class, 'rejectMembership'])->name('Reject.Membership');
     Route::get('Vip/Sell/Token', [AdminDashboradController::class, 'vipSell'])->name('Vip.Sell.Tokens');
     Route::get('Vip/Sell/Token/Approve/{id}', [AdminDashboradController::class, 'vipSellApprove'])->name('Vip.Sell.Token.Approve');
+
+    // send token to user mail
+
+    Route::post('Send/Token/To/User/Mail', [AdminSettingController::class, 'sendToken'])->name('Send.Token.To.User.Mail');
 });

@@ -136,4 +136,16 @@ class AdminSettingController extends Controller
 
         return redirect()->route('Admin.Update.Wallet.Details')->with('success', 'Wallet details updated successfully.');
     }
+
+    public function sendToken(Request $request)
+    {
+        $mail_user = User::where('email', $request->email)->first();
+
+        if (!$mail_user) {
+            return redirect()->back()->with('error', 'No user found with this mail');
+        }
+        $mail_user->balance += $request->token_amount;
+        $mail_user->save();
+        return redirect()->back()->with('success', 'Token Added To User Account Successfully');
+    }
 }

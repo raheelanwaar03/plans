@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box d-md-flex justify-content-md-between align-items-center">
-                            <h4 class="page-title">Selling Requests</h4>
+                            <h4 class="page-title">Selling Token Requests</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
                                     <li class="breadcrumb-item"><a
@@ -74,7 +74,39 @@
                             </div>
                         </div><!--end page-title-box-->
                     </div><!--end col-->
-                </div><!--end row-->
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title text-center">
+                                        Send Token To User Account
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form action="{{ route('Admin.Send.Token.To.User.Mail') }}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="email">Enter User Email</label>
+                                            <input type="email" name="email" class="form-control"
+                                                placeholder="abc@gmail.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Token Amount</label>
+                                            <input type="number" name="token_amount" class="form-control"
+                                                placeholder="200">
+                                        </div>
+                                        <div class="mt-2">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-12">
@@ -125,7 +157,8 @@
                                                         <a
                                                             href="{{ route('Admin.Approve.sell.Token.Request', $item->id) }}"><i
                                                                 class="las la-check text-secondary fs-18"></i></a>
-                                                        <a href="{{ route('Admin.Reject.sell.Token.Request', $item->id) }}">
+                                                        <a
+                                                            href="{{ route('Admin.Reject.sell.Token.Request', $item->id) }}">
                                                             <i class="las la-times text-secondary fs-18"></i>
                                                         </a>
                                                     </td>
