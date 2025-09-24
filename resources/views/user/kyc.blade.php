@@ -221,7 +221,8 @@
     <div class="wrap">
         <!-- LEFT: Form -->
         <section class="card">
-            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a> Secure ID Scan</h1>
+            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a> Secure
+                ID Scan</h1>
             <p class="lead">Capture front & back of your identity card using your device camera. The scanner will
                 attempt to extract text automatically — you can always edit before submitting.</p>
 
@@ -277,7 +278,7 @@
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('front')">Open Scanner</button>
-                            <input id="frontUpload" type="file" style="display:"
+                            <input id="frontUpload" type="file" style="display:none"
                                 onchange="handleUpload(event,'front')" name="idFront" />
                             <div style="flex:1"></div>
                         </div>
@@ -295,7 +296,7 @@
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('back')">Open Scanner</button>
-                            <input id="backUpload" type="file" style="display:"
+                            <input id="backUpload" type="file" style="display:none"
                                 onchange="handleUpload(event,'back')" name="idBack" />
                             <div style="flex:1"></div>
                         </div>
