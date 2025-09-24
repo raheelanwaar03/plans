@@ -156,11 +156,15 @@ class AdminDashboradController extends Controller
         }
         $vip_sell->status = 'approved';
         $vip_sell->save();
-
         $user = User::where('id', $vip_sell->user_id)->first();
         $user->balance -= $vip_sell->pgn_amount;
         $user->save();
-
         return redirect()->back()->with('success', 'Token approved successfully');
+    }
+    public function delTranscation($id)
+    {
+        $transcation = SellVipPGN::find($id);
+        $transcation->delete();
+        return redirect()->back()->with('error', 'Deleted');
     }
 }

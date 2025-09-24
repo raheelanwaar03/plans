@@ -277,7 +277,7 @@
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('front')">Open Scanner</button>
-                            <input id="frontUpload" type="file" style="display:none"
+                            <input id="frontUpload" type="file" style="display:"
                                 onchange="handleUpload(event,'front')" name="idFront" />
                             <div style="flex:1"></div>
                         </div>
@@ -295,7 +295,7 @@
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('back')">Open Scanner</button>
-                            <input id="backUpload" type="file" style="display:none"
+                            <input id="backUpload" type="file" style="display:"
                                 onchange="handleUpload(event,'back')" name="idBack" />
                             <div style="flex:1"></div>
                         </div>

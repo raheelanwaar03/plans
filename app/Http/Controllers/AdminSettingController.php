@@ -148,4 +148,6 @@ class AdminSettingController extends Controller
         $mail_user->save();
         return redirect()->back()->with('success', 'Token Added To User Account Successfully');
     }
+
+
 }

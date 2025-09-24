@@ -219,37 +219,47 @@
 
     <body>
 
-        {{-- <div id="preloader">
-            <div class="letters">
-                <span class="p">P</span>
-                <span class="g">G</span>
-                <span class="n">N</span>
-            </div>
-        </div> --}}
-
         <x-alert />
 
         <!-- Back Arrow Button -->
         <a href="{{ route('User.Dashboard') }}" class="back-arrow">←</a>
 
         <h1>Buy or Sell Tokens</h1>
-
-        {{-- make a card for show easypaisa wallet details --}}
-        <div class="card-bg">
-            <div class="card-body">
-                <h4>Wallet Details</h4>
-                <p><b>Account Title:</b> {{ $wallet->name }}</p>
-                <div class="d-flex justify-content-center align-items-center">
-                    <p><b>Account Number:</b> <span id="number">{{ $wallet->number }}</span></p>
-                    {{-- add icon to copy the account number --}}
-                    <i class="bi bi-clipboard" onclick="copyNumber()"
-                        style="cursor: pointer; color: blue;margin-top:-17px"></i>
+        <div class="container-fluid mb-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-bg">
+                        <div class="card-body">
+                            <h4>Wallet Details</h4>
+                            <p><b>Account Title:</b> {{ $wallet->name }}</p>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <p><b>Account Number:</b> <span id="number">{{ $wallet->number }}</span></p>
+                                {{-- add icon to copy the account number --}}
+                                <i class="bi bi-clipboard" onclick="copyNumber()"
+                                    style="cursor: pointer; color: blue;margin-top:-17px"></i>
+                            </div>
+                            <p><b>Bank Name:</b> {{ $wallet->wallet }}</p>
+                        </div>
+                    </div>
                 </div>
-                <p><b>Bank Name:</b> {{ $wallet->wallet }}</p>
+                <div class="col-md-6">
+                    <div class="card-bg">
+                        <div class="card-body">
+                            <h4>Payooner Details</h4>
+                            <p><b>Account Title:</b> Pigeon Mining</p>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <p><b>Email:</b> <span id="email">pigeonofficial6@gmail.com</span></p>
+                                {{-- add icon to copy the account number --}}
+                                <i class="bi bi-clipboard" onclick="copyNumber()"
+                                    style="cursor: pointer; color: blue;margin-top:-17px"></i>
+                            </div>
+                            <p><b>Bank Name:</b> Payooner</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <h5 style="color: rgb(255, 0, 128)"><b>Current Price ({{ $tokenPrice->price }} pkr)</b></h5>
-
         <div class="card-container">
             <div class="card bg-warning text-white" title="Click to Sell PGN" onclick="showForm('sell')">
                 <h4>Selling Price</h4>
@@ -335,6 +345,20 @@
 
                 alert("Number " + number + " has been copied!");
             }
+
+            function copyNumber() {
+                var number = document.getElementById("email").innerText.replace("📋", "").trim();
+
+                var tempInput = document.createElement("input");
+                tempInput.value = number;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+
+                alert("Email " + number + " has been copied!");
+            }
+
             window.addEventListener('load', () => {
                 document.getElementById('preloader').style.display = 'none';
                 document.getElementById('content').style.display = 'block';

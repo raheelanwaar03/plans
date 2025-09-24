@@ -281,7 +281,7 @@
                             @csrf
                             <div class="form-group">
                                 <label class="form-label" for="token">TRX ID or Till ID</label>
-                                <input type="text" id="token" name="trxID" class="form-control"
+                                <input type="text" id="token" name="trxID" class="form-control" max="11"
                                     placeholder="Token Amount" required>
                             </div>
                             <div class="form-group">

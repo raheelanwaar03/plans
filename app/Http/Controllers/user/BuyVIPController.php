@@ -33,13 +33,14 @@ class BuyVIPController extends Controller
     {
         $request->validate([
             'screenShot' => 'required',
-            'trxID' => 'required',
+            'trxID' => 'required|string|min:11',
         ]);
         $screenShot = rand(1111111, 99999999) . '.' . $request->screenShot->extension();
         $request->screenShot->move(public_path('Vip/'), $screenShot);
 
         $buy_vip = new BuyVipClass();
         $buy_vip->user_id = auth()->user()->id;
+        $buy_vip->user_email = auth()->user()->email;
         $buy_vip->trxID = $request->trxID;
         $buy_vip->screenShot = $screenShot;
         $buy_vip->save();
@@ -51,6 +52,9 @@ class BuyVIPController extends Controller
         $check_status = BuyVipClass::where('user_id', auth()->user()->id)->first();
         if ($check_status->status == 'pending') {
             return redirect()->route('User.Trade.Token')->with('error', 'Please wait for admin approval');
+        }
+        if ($check_status->status == 'rejected') {
+            return redirect()->route('User.Trade.Token')->with('error', 'Your membership rejected, Contact with Admin.');
         }
 
         $wallet = Wallet::first();

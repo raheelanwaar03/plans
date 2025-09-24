@@ -125,6 +125,8 @@
                                                                 class="las la-check text-secondary fs-18"></i></a>
                                                         <a href="{{ route('Admin.Reject.Membership', $item->id) }}">
                                                             <i class="las la-times text-secondary fs-18"></i></a>
+                                                        <a href="{{ route('Admin.Delete.Transcation', $item->id) }}"
+                                                            class="btn btn-sm btn-danger">Del</a>
                                                     </td>
                                                 </tr>
                                             @empty
