@@ -92,6 +92,7 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Email</th>
                                                 <th>TrxID</th>
                                                 <th>Screen Shot</th>
                                                 <th>Status</th>
@@ -102,6 +103,7 @@
                                             @forelse ($vip as $item)
                                                 <tr>
                                                     <td>{{ $item->id }}</td>
+                                                    <td>{{ $item->user_email }}</td>
                                                     <td>{{ $item->trxID }}</td>
                                                     <td>
                                                         <img src="{{ asset('Vip/' . $item->screenShot) }}" height="60px"
