@@ -277,14 +277,15 @@
                 <form action="{{ route('User.Sell.Token') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="email" name="email" placeholder="Email" required>
-                    <input type="text" name="phoneNO" placeholder="Easypais JazzCash Number" required>
-                    <input type="text" name="title" placeholder="Easypais JazzCash Name" required>
+                    <input type="text" name="phoneNO" placeholder="Account" required>
+                    <input type="text" name="title" placeholder="Account Title" required>
                     <input type="number" name="amount" placeholder="Token Amount" required>
                     <select name="bank" id="bank" class="form-control mb-2">
                         <option value="Easypaisa">Easypaisa</option>
                         <option value="Jazzcash">Jazzcash</option>
                         <option value="Nayapay">Nayapay</option>
                         <option value="Sadapay">Sadapay</option>
+                        <option value="Payooner">Payooner</option>
                     </select>
                     <button type="submit">Sell</button>
                 </form>

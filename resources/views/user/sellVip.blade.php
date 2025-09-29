@@ -289,8 +289,8 @@
                                 <input type="number" name="amount" id="amount" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="number">Number</label>
-                                <input type="number" name="number" id="number" class="form-control">
+                                <label for="number">Number or Email</label>
+                                <input type="text" name="number" id="number" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="title">Account Title</label>
@@ -303,6 +303,7 @@
                                     <option value="JazzCash">JazzCash</option>
                                     <option value="Sadapay">Sadapay</option>
                                     <option value="Nayapay">Nayapay</option>
+                                    <option value="Payooner">Payooner</option>
                                 </select>
                             </div>
                             <button class="btn btn-primary mt-2" type="submit">Sell</button>
