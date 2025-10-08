@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminDashboradController;
 use App\Http\Controllers\admin\AdminLuckyDrawController;
+use App\Http\Controllers\admin\EmailMarketingcontroller;
 use App\Http\Controllers\AdminSettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,4 +51,7 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('Del/Transcation/{id}', [AdminDashboradController::class, 'delTranscation'])->name('Delete.Transcation');
     // send token to user mail
     Route::post('Send/Token/To/User/Mail', [AdminSettingController::class, 'sendToken'])->name('Send.Token.To.User.Mail');
+    // Send mail
+    Route::get('Email.Marketing.Page', [EmailMarketingcontroller::class, 'page'])->name('Email.Marketing.Page');
+    Route::post('Email.Content', [EmailMarketingcontroller::class, 'content'])->name('Email.Marketing.Content');
 });

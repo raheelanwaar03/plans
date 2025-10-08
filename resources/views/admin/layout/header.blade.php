@@ -191,6 +191,12 @@
                                 <span>Vip Sell</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Admin.Email.Marketing.Page') }}">
+                                <i class="bi bi-envelope menu-icon"></i>
+                                <span>Email Marketing</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
