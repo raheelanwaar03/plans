@@ -382,12 +382,79 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <div class="text-dark d-flex justify-content-between align-items-center">
                         <p style="font-size: 20px;margin-top:10px;"><b>Pigeon Mining</b></p>
                     </div>
                 </div>
             </div>
+
+            @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
+                @php
+                    $notifications = auth()->user()->unreadNotifications->first();
+                @endphp
+
+                <div id="luckyDrawNotification"
+                    class="fixed top-5 right-5 bg-transparent shadow-lg border-l-4 border-green-500 p-4 rounded-2xl w-80 animate-slide-in">
+                    <div class="flex items-start">
+                        <div class="bg-green-500 text-white rounded-full p-2 mr-3">
+                            🎉
+                        </div>
+                        <div style="float: right;margin-top:-30px">
+                            <button onclick="closeNotification('{{ $notifications->id }}')"
+                                class="btn btn-sm btn-danger">
+                                ✖
+                            </button>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-lg font-semibold text-gray-800">
+                                {{ $notifications->data['title'] }}
+                            </h4>
+                            <p class="text-sm text-gray-600 mt-1">
+                                {{ $notifications->data['message'] }}
+                            </p>
+                            <a href="{{ $notifications->data['link'] }}"
+                                class="inline-block mt-3 text-sm text-green-600 font-semibold hover:underline">
+                                View Now →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function closeNotification(id) {
+                        document.getElementById('luckyDrawNotification').style.display = 'none';
+                        fetch(`/notifications/mark-read/${id}`);
+                    }
+
+                    // Auto close after 10 seconds
+                    setTimeout(() => {
+                        let notif = document.getElementById('luckyDrawNotification');
+                        if (notif) {
+                            notif.style.display = 'none';
+                            fetch(`/notifications/mark-read/{{ $notifications->id }}`);
+                        }
+                    }, 10000);
+                </script>
+
+                <style>
+                    @keyframes slide-in {
+                        from {
+                            transform: translateY(-20px);
+                            opacity: 0;
+                        }
+
+                        to {
+                            transform: translateY(0);
+                            opacity: 1;
+                        }
+                    }
+
+                    .animate-slide-in {
+                        animation: slide-in 0.5s ease-out;
+                    }
+                </style>
+            @endif
 
             <div class="row justify-content-between align-items-center my-4 text-center">
                 <div class="col-12 bg-white text-dark text-center p-4 mb-3" style="border-radius: 10px;">
@@ -480,7 +547,7 @@
                     <h2>🎉 Marketing Offer!</h2>
                     <p>If you want to promot your website. Contact Us.</p>
                     <a href="{{ route('User.Contact') }}" class="btn btn-primary">Contact Us</a>
-                        <button onclick="closeModal()">Close</button>
+                    <button onclick="closeModal()">Close</button>
                 </div>
             </div>
 

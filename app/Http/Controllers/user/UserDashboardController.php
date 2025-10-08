@@ -25,6 +25,13 @@ class UserDashboardController extends Controller
         }
     }
 
+    public function read()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+        return back()->with('success', 'All Notifications Mark As Read');
+    }
+
+
     public function test()
     {
         $referrals = User::where('referral', auth()->user()->email)->get();
@@ -43,7 +50,8 @@ class UserDashboardController extends Controller
     {
         $referrals = User::where('referral', auth()->user()->email)->get();
         $links = Links::get();
-        return view('user.dashboard', compact('referrals', 'links'));
+        $notifications = auth()->user()->notifications;
+        return view('user.dashboard', compact('referrals', 'links', 'notifications'));
     }
 
 

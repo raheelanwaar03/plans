@@ -4,10 +4,14 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\LuckyDrawItems;
+use App\Models\User;
 use App\Models\user\LuckyParticipant;
 use App\Models\user\UserBalance;
 use App\Models\user\UserDeposit;
+use App\Notifications\NewLotteryNotification;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
 
 class AdminLuckyDrawController extends Controller
 {
@@ -33,6 +37,13 @@ class AdminLuckyDrawController extends Controller
         $luckyItems->amount = $request->amount;
         $luckyItems->image = $luckyImage;
         $luckyItems->save();
+        // Get all users
+        $users = User::all();
+
+        // Send notification to all
+        FacadesNotification::send($users, new NewLotteryNotification($luckyItems->name));
+
+
         return redirect()->back()->with('success', '' . $request->name . ' added successfully');
     }
 
@@ -71,7 +82,6 @@ class AdminLuckyDrawController extends Controller
                 return redirect()->back()->with('success', 'Balance Approved');
             }
         }
-        return 3;
     }
 
     public function participante()
