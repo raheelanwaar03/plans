@@ -272,8 +272,7 @@
                         <div class="scanner-preview" id="frontPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
                                 <div style="font-weight:600">No front image</div>
-                                <div class="muted">Click <span style="font-weight:700;color:#9be7ef">Open
-                                        Scanner</span> to use camera or choose upload.</div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front Side</span></div>
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
@@ -290,8 +289,7 @@
                         <div class="scanner-preview" id="backPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
                                 <div style="font-weight:600">No Back image</div>
-                                <div class="muted">Click <span style="font-weight:700;color:#9be7ef">Open
-                                        Scanner</span> to use camera or choose upload.</div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back Side</span></div>
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
