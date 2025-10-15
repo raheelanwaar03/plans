@@ -219,13 +219,37 @@
     <x-alert />
 
     <div class="wrap">
-        <!-- LEFT: Form -->
-        <section class="card">
-            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a> Secure
-                ID Scan</h1>
-            <p class="lead">Capture front & back of your identity card using your device camera. The scanner will
-                attempt to extract text automatically — you can always edit before submitting.</p>
+            <div class="card small">
+                <h3 style="margin:0 0 6px">Wallet Details</h3>
+                <div style="display:flex;gap:12px">
+                    <div class="">
+                        <h4>Wallet: {{ $wallet->wallet }}</h4>
+                        <h4>Account Title: {{ $wallet->name }}</h4>
+                        <h4>Account Number: {{ $wallet->number }}</h4>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card small" style="margin-top: 30px">
+                <h3 style="margin:0 0 6px">Scanned Preview</h3>
+                <div style="display:flex;gap:12px">
+                    <div style="flex:1">
+                        <label class="muted">Front (preview)</label>
+                        <div class="scanner-preview" id="frontThumb"></div>
+                    </div>
+                    <div style="flex:1">
+                        <label class="muted">Back (preview)</label>
+                        <div class="scanner-preview" id="backThumb"></div>
+                    </div>
+                </div>
+            </div>
+
+        <section class="card">
+            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a>
+                Secure
+                ID Scan</h1>
+            <p class="lead">Capture front & back of your identity card using your device camera.
+            </p>
             <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -272,7 +296,8 @@
                         <div class="scanner-preview" id="frontPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
                                 <div style="font-weight:600">No front image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front Side</span></div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front Side</span>
+                                </div>
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
@@ -289,7 +314,8 @@
                         <div class="scanner-preview" id="backPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
                                 <div style="font-weight:600">No Back image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back Side</span></div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back Side</span>
+                                </div>
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
@@ -312,21 +338,6 @@
         </section>
 
         <!-- RIGHT: Info / Previews -->
-        <aside class="right-panel">
-            <div class="card small">
-                <h3 style="margin:0 0 6px">Scanned Preview</h3>
-                <div style="display:flex;gap:12px">
-                    <div style="flex:1">
-                        <label class="muted">Front (preview)</label>
-                        <div class="scanner-preview" id="frontThumb"></div>
-                    </div>
-                    <div style="flex:1">
-                        <label class="muted">Back (preview)</label>
-                        <div class="scanner-preview" id="backThumb"></div>
-                    </div>
-                </div>
-            </div>
-        </aside>
     </div>
 
     <!-- Camera modal -->
