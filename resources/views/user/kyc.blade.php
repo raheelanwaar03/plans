@@ -5,8 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Eye-catching KYC Form with ID Scanner</title>
-    <!-- Tesseract.js for client-side OCR -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
     <style>
         :root {
             --bg: #6b97ff;
@@ -219,36 +221,39 @@
     <x-alert />
 
     <div class="wrap">
-            <div class="card small">
-                <h3 style="margin:0 0 6px">Wallet Details</h3>
-                <div style="display:flex;gap:12px">
-                    <div class="">
-                        <h4>Wallet: {{ $wallet->wallet }}</h4>
-                        <h4>Account Title: {{ $wallet->name }}</h4>
-                        <h4>Account Number: {{ $wallet->number }}</h4>
-                    </div>
+        <div class="card small">
+            <h3 style="margin:0 0 6px">Wallet Details</h3>
+            <div style="display:flex;gap:12px">
+                <div class="">
+                    <h4>Wallet: {{ $wallet->wallet }}</h4>
+                    <h4>Account Title: {{ $wallet->name }}</h4>
+                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->number }}" />
+                        <span class="copy-icon" onclick="copyInputText()">📋 Copy</span>
+                    </h4>
                 </div>
             </div>
+        </div>
 
-            <div class="card small" style="margin-top: 30px">
-                <h3 style="margin:0 0 6px">Scanned Preview</h3>
-                <div style="display:flex;gap:12px">
-                    <div style="flex:1">
-                        <label class="muted">Front (preview)</label>
-                        <div class="scanner-preview" id="frontThumb"></div>
-                    </div>
-                    <div style="flex:1">
-                        <label class="muted">Back (preview)</label>
-                        <div class="scanner-preview" id="backThumb"></div>
-                    </div>
+        <div class="card small" style="margin-top: 30px">
+            <h3 style="margin:0 0 6px">Scanned Preview</h3>
+            <div style="display:flex;gap:12px">
+                <div style="flex:1">
+                    <label class="muted">Front (preview)</label>
+                    <div class="scanner-preview" id="frontThumb"></div>
+                </div>
+                <div style="flex:1">
+                    <label class="muted">Back (preview)</label>
+                    <div class="scanner-preview" id="backThumb"></div>
                 </div>
             </div>
+        </div>
 
         <section class="card">
             <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a>
                 Secure
                 ID Scan</h1>
-            <p class="lead">Capture front & back of your identity card using your device camera.
+            <p class="lead">Capture front & back of your identity card using your device camera. Pay 540pkr to given
+                account and upload screenshot and add TrxID in form while doing kyc.
             </p>
             <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -314,7 +319,8 @@
                         <div class="scanner-preview" id="backPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
                                 <div style="font-weight:600">No Back image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back Side</span>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
+                                        Side</span>
                                 </div>
                             </div>
                         </div>
@@ -446,6 +452,20 @@
         window.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeScanner();
         });
+
+        function copyInputText() {
+            const input = document.getElementById("copyInput");
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+
+            navigator.clipboard.writeText(input.value)
+                .then(() => {
+                    alert("Text copied to clipboard!");
+                })
+                .catch(err => {
+                    console.error("Failed to copy: ", err);
+                });
+        }
     </script>
 </body>
 
