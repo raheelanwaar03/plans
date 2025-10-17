@@ -227,7 +227,7 @@
                 <div class="">
                     <h4>Wallet: {{ $wallet->wallet }}</h4>
                     <h4>Account Title: {{ $wallet->name }}</h4>
-                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->number }}" />
+                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->number }}" readonly/>
                         <span class="copy-icon" onclick="copyInputText()">📋 Copy</span>
                     </h4>
                 </div>
