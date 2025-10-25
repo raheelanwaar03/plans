@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('name');
             $table->string('number');
+            $table->string('cnic')->unique();
             $table->string('idFront');
             $table->string('idBack');
             $table->string('selfie');

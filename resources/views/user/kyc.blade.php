@@ -76,6 +76,7 @@
         input[type=text],
         input[type=file],
         input[type=date],
+        input[type=number],
         input[type=tel] {
             width: 100%;
             padding: 12px;
@@ -227,7 +228,7 @@
                 <div class="">
                     <h4>Wallet: {{ $wallet->wallet }}</h4>
                     <h4>Account Title: {{ $wallet->name }}</h4>
-                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->number }}" readonly/>
+                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->number }}" readonly />
                         <span class="copy-icon" onclick="copyInputText()">📋 Copy</span>
                     </h4>
                 </div>
@@ -266,9 +267,16 @@
 
                     <div style="width:220px">
                         <label for="cnic">Phone Num:</label>
-                        <input id="cnic" name="number" type="text" placeholder="12345123451" maxlength="11"
+                        <input id="cnic" name="number" type="text" placeholder="12345123451" class="form-control" maxlength="11"
                             pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
                         <div class="muted">Max 11 digits — enforced in input.</div>
+                    </div>
+
+                    <div style="width:220px">
+                        <label for="cnic">Cnic:</label>
+                        <input id="cnic" name="cnic" type="number" placeholder="337051234567" maxlength="12"
+                            pattern="\d{12}" title="Enter 12 digits" inputmode="numeric" required />
+                        <div class="muted">Max 12 digits — enforced in input.</div>
                     </div>
 
                     <div style="width:220px">
@@ -301,12 +309,14 @@
                         <div class="scanner-preview" id="frontPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
                                 <div style="font-weight:600">No front image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front Side</span>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
+                                        Side</span>
                                 </div>
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('front')">Open Scanner</button>
+                            <button type="button" class="btn" onclick="openScanner('front')">Open
+                                Scanner</button>
                             <input id="frontUpload" type="file" style="display:none"
                                 onchange="handleUpload(event,'front')" name="idFront" />
                             <div style="flex:1"></div>

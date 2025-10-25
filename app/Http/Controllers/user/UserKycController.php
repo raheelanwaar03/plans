@@ -21,6 +21,7 @@ class UserKycController extends Controller
         $request->validate([
             'name' => 'required',
             'number' => 'required|string|min:11',
+            'cnic' => ['required', 'unique:' . KYC::class],
             'idFront' => 'required',
             'idBack' => 'required',
             'selfie' => 'required',
@@ -51,6 +52,7 @@ class UserKycController extends Controller
         $user_kyc->user_id = auth()->user()->id;
         $user_kyc->name = $request->name;
         $user_kyc->number = $request->number;
+        $user_kyc->cnic = $request->cnic;
         $user_kyc->idFront = $idFrontImage;
         $user_kyc->idBack = $idBackImage;
         $user_kyc->selfie = $selfieImage;
