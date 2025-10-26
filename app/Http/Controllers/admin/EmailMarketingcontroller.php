@@ -22,10 +22,9 @@ class EmailMarketingcontroller extends Controller
             'message' => 'required|string',
         ]);
         // Get verified users
-        $users = User::whereNotNull('email_verified_at')->get();
-        foreach ($users as $user) {
-            Mail::to($user->email)->queue(new MarketingMail($request->subject, $request->message));
-        }
+        $user = User::find(2);
+        // return $user->email;
+        Mail::to($user->email)->queue(new MarketingMail($request->subject, $request->message));
         return back()->with('success', 'Email has been sent to all verified users!');
     }
 }

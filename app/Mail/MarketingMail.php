@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use Faker\Provider\ar_EG\Address;
+use Faker\Provider\ar_JO\Address as Ar_JOAddress;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -19,10 +21,10 @@ class MarketingMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($subjectLine, $bodyMessage)
+    public function __construct($subject, $message)
     {
-        $this->subjectLine = $subjectLine;
-        $this->bodyMessage = $bodyMessage;
+        $this->subjectLine = $subject;
+        $this->bodyMessage = $message;
     }
 
     /**
@@ -31,7 +33,11 @@ class MarketingMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Marketing Mail',
+            'from' =>
+            [
+                    'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+                    'name' => env('MAIL_FROM_NAME', 'Example'),
+            ],
         );
     }
 
