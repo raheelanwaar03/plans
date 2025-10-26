@@ -47,7 +47,7 @@
                                             <div class="form-group">
                                                 <label for="amount">Amount <small>(For participating in
                                                         luckydraw)</small></label>
-                                                <input type="text" id="amount" class="form-control" name="amount"
+                                                <input type="number" id="amount" class="form-control" name="amount"
                                                     required>
 
                                             </div>

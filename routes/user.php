@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserDashboardController::class, 'welcome'])->name('Welcom');
 
+Route::get('/notifications/mark-read/{id}', function ($id) {
+    $notification = auth()->user()->notifications()->find($id);
+    if ($notification) {
+        $notification->markAsRead();
+    }
+    return response()->json(['status' => 'ok']);
+})->name('notifications.markRead');
+
+
+
 Route::name('User.')->prefix('User')->middleware('auth', 'user')->group(function () {
     Route::get('/Test', [UserDashboardController::class, 'test'])->name('Test');
     Route::get('/Dashboard', [UserDashboardController::class, 'index'])->name('Dashboard');
