@@ -274,8 +274,8 @@
 
                     <div style="width:220px">
                         <label for="cnic">Cnic:</label>
-                        <input id="cnic" name="cnic" type="number" placeholder="337051234567" maxlength="12"
-                            pattern="\d{12}" title="Enter 12 digits" inputmode="numeric" required />
+                        <input id="cnic" name="cnic" type="number" placeholder="337051234567" maxlength="13"
+                            pattern="\d{13}" title="Enter 13 digits" inputmode="numeric" required />
                         <div class="muted">Max 12 digits — enforced in input.</div>
                     </div>
 
