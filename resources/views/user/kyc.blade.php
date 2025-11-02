@@ -267,8 +267,9 @@
 
                     <div style="width:220px">
                         <label for="cnic">Phone Num:</label>
-                        <input id="cnic" name="number" type="text" placeholder="12345123451" class="form-control" maxlength="11"
-                            pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
+                        <input id="cnic" name="number" type="text" placeholder="12345123451"
+                            class="form-control" maxlength="11" pattern="\d{11}" title="Enter 11 digits"
+                            inputmode="numeric" required />
                         <div class="muted">Max 11 digits — enforced in input.</div>
                     </div>
 
@@ -315,15 +316,13 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('front')">Open
-                                Scanner</button>
-                            <input id="frontUpload" type="file" style="display:none"
-                                onchange="handleUpload(event,'front')" name="idFront" />
+                            <button type="button" class="btn" onclick="openScanner('front')">
+                                Scan</button>
+                            <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
+                                name="idFront" style="display: none;" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
-
-                    <!-- Back -->
                     <div>
                         <label>Identity Card — BAck</label>
                         <div class="scanner-preview" id="backPreview">
@@ -335,9 +334,9 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('back')">Open Scanner</button>
-                            <input id="backUpload" type="file" style="display:none"
-                                onchange="handleUpload(event,'back')" name="idBack" />
+                            <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
+                            <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
+                                name="idBack" style="display: none;" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
