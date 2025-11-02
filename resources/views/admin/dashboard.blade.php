@@ -13,7 +13,8 @@
                             <h4 class="page-title">Users</h4>
                             <div class="">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('Admin.Dashboard') }}">{{ env('APP_NAME') }}</a>
                                     </li><!--end nav-item-->
                                     <li class="breadcrumb-item active">Users</li>
                                 </ol>
@@ -64,12 +65,13 @@
                                                     <td>{{ $user->referral }}</td>
                                                     <td>{{ $user->created_at }}</td>
                                                     <td>
-                                                        <span class="badge rounded text-primary bg-primary-subtle">{{ $user->status }}</span>
+                                                        <span
+                                                            class="badge rounded text-primary bg-primary-subtle">{{ $user->status }}</span>
                                                     </td>
                                                     <td class="text-end">
                                                         <a href="#"><i
                                                                 class="las la-pen text-secondary fs-18"></i></a>
-                                                        <a href="#"><i
+                                                        <a href="{{ route('Admin.Delete.User', $user->id) }}"><i
                                                                 class="las la-trash-alt text-secondary fs-18"></i></a>
                                                     </td>
                                                 </tr>

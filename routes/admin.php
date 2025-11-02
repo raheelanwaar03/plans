@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(function () {
     Route::get('/Dashboard', [AdminDashboradController::class, 'index'])->name('Dashboard');
+    Route::get('/Delete/User/{id}', [AdminDashboradController::class, 'deleteUser'])->name('Delete.User');
     Route::get('/KYC/Requests', [AdminDashboradController::class, 'kyc'])->name('KYC.Requests');
     Route::get('/KYC/Approve/{id}', [AdminDashboradController::class, 'approveKYC'])->name('Approve.KYC');
     Route::get('/KYC/Rejected/{id}', [AdminDashboradController::class, 'rejectKYC'])->name('Rejected.KYC');

@@ -22,6 +22,13 @@ class AdminDashboradController extends Controller
         return view('admin.dashboard', compact('users'));
     }
 
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back()->with('success','User Deleted Successfully');
+    }
+
     public function kyc()
     {
         $kyc = KYC::get();
