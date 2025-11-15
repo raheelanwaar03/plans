@@ -317,10 +317,10 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            {{-- <button type="button" class="btn" onclick="openScanner('front')">
-                                Scan</button> --}}
+                            <button type="button" class="btn" onclick="openScanner('front')">
+                                Scan</button>
                             <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
-                                name="idFront" />
+                                name="idFront" style="display: none;"/>
                             <div style="flex:1"></div>
                         </div>
                     </div>
@@ -335,9 +335,9 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            {{-- <button type="button" class="btn" onclick="openScanner('back')">Scan</button> --}}
+                            <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
                             <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
-                                name="idBack" />
+                                name="idBack" style="display: none;" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
