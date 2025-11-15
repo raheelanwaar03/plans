@@ -23,6 +23,7 @@ class UserKycController extends Controller
             'number' => 'required|string|min:11',
             'cnic' => ['required', 'unique:' . KYC::class],
             'idFront' => 'required',
+            'idBack' => 'required',
             'selfie' => 'required',
             'trx_id' => 'required|string|min:11',
             'paymentScreenshot' => 'required',
