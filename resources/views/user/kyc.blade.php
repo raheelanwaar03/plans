@@ -317,10 +317,10 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" id="scanFront" class="btn" onclick="openScanner('front')">
+                            <button type="button" class="btn" onclick="openScanner('front')">
                                 Scan</button>
-                            <input id="front" type="file" onchange="handleUpload(event,'front')"
-                                name="idFront" style="display: none;" />
+                            <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
+                                name="idFront" style="display: none" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
@@ -335,10 +335,9 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" id="scanBack"
-                                onclick="openScanner('back')">Scan</button>
-                            <input id="back" type="file" onchange="handleUpload(event,'back')"
-                                name="idBack" style="display: none;" />
+                            <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
+                            <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
+                                name="idBack" style="display: none" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
@@ -380,10 +379,6 @@
         let stream = null;
         const video = document.getElementById('video');
         const canvas = document.getElementById('captureCanvas');
-        const scanBtn = document.getElementById("scanFront");
-        const cameraInput = document.getElementById("front");
-        const scanBtn = document.getElementById("scanBack");
-        const cameraInput = document.getElementById("back");
 
         function openScanner(side) {
             currentSide = side;
@@ -485,3 +480,52 @@
 </body>
 
 </html>
+
+{{-- <form action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="form-group">
+        <label for="fullName" class="form-label">Full Name:</label>
+        <input type="text" class="form-control" id="fullName" name="name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="mobileNumber" class="form-label">Mobile Number:</label>
+        <input type="text" class="form-control" id="mobileNumber" name="number" required>
+    </div>
+
+    <div class="form-group">
+        <label for="id_front">Upload ID (Front Side):</label><br>
+        <input type="file" id="id_front" name="idFront" accept="image/*" capture="environment" style="display:none;"
+            onchange="previewFile(event, 'previewFront')">
+        <button type="button" onclick="document.getElementById('id_front').click()">📷 Scan
+            Front</button>
+        <div id="previewFront" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="id_back">Upload ID (Back Side):</label><br>
+        <input type="file" id="id_back" name="idBack" accept="image/*" capture="environment" style="display:none;"
+            onchange="previewFile(event, 'previewBack')">
+        <button type="button" onclick="document.getElementById('id_back').click()">📷 Scan
+            Back</button>
+        <div id="previewBack" style="margin-top:10px;"></div>
+    </div>
+    <div class="form-group">
+        <label for="selfie" class="form-label">Selfie:</label>
+        <input type="file" class="form-control" id="selfie" name="selfie" accept="image/*" required>
+    </div>
+
+    <div class="form-group">
+        <label for="paymentScreenshot" class="form-label">Payment Screenshot:</label>
+        <input type="file" class="form-control" id="paymentScreenshot" name="paymentScreenshot" accept="image/*"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="trx_id" class="form-label">Trx ID:</label>
+        <input type="number" class="form-control" id="trx_id" name="trx_id" required maxlength="11">
+    </div>
+    <div class="mt-3">
+        <input type="submit" class="btn btn-primary" value="Submit KYC Data">
+    </div>
+</form> --}}
