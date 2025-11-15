@@ -18,6 +18,7 @@ class UserKycController extends Controller
 
     public function index(Request $request)
     {
+        return $request;
         $request->validate([
             'name' => 'required',
             'number' => 'required|string|min:11',
