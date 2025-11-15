@@ -12,6 +12,7 @@ use App\Models\user\KYC;
 use App\Models\user\Links;
 use App\Models\user\PremiumPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 
 class AdminDashboradController extends Controller
@@ -26,7 +27,7 @@ class AdminDashboradController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->back()->with('success','User Deleted Successfully');
+        return redirect()->back()->with('success', 'User Deleted Successfully');
     }
 
     public function kyc()
@@ -173,5 +174,12 @@ class AdminDashboradController extends Controller
         $transcation = SellVipPGN::find($id);
         $transcation->delete();
         return redirect()->back()->with('error', 'Deleted');
+    }
+    public function updatePassword(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return redirect()->back()->with('success', 'Site Passwrod Updated');
     }
 }

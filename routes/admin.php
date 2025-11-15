@@ -55,4 +55,6 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     // Send mail
     Route::get('Email.Marketing.Page', [EmailMarketingcontroller::class, 'page'])->name('Email.Marketing.Page');
     Route::post('Email.Content', [EmailMarketingcontroller::class, 'content'])->name('Email.Marketing.Content');
+    // password update
+    Route::post('Update.Password/{id}', [AdminDashboradController::class, 'updatePassword'])->name('Update.Password');
 });

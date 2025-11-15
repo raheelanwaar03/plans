@@ -250,7 +250,7 @@
                             <div class="d-flex justify-content-center align-items-center">
                                 <p><b>Email:</b> <span id="email">pigeonofficial6@gmail.com</span></p>
                                 {{-- add icon to copy the account number --}}
-                                <i class="bi bi-clipboard" onclick="copyNumber()"
+                                <i class="bi bi-clipboard" onclick="copyEmail()"
                                     style="cursor: pointer; color: blue;margin-top:-17px"></i>
                             </div>
                             <p><b>Bank Name:</b> Payooner</p>
@@ -347,7 +347,7 @@
                 alert("Number " + number + " has been copied!");
             }
 
-            function copyNumber() {
+            function copyEmail() {
                 var number = document.getElementById("email").innerText.replace("📋", "").trim();
 
                 var tempInput = document.createElement("input");

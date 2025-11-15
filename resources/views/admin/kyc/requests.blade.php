@@ -92,6 +92,7 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th>Name</th>
+                                                <th>CNIC</th>
                                                 <th>Number</th>
                                                 <th>Trx ID</th>
                                                 <th>IDFront</th>
@@ -115,6 +116,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <td>{{ $item->cnic }}</td>
                                                     <td>{{ $item->number }}</td>
                                                     <td>{{ $item->trx_id }}</td>
                                                     <td>
