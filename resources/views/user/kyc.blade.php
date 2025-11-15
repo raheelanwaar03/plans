@@ -317,7 +317,7 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('front')">
+                            <button type="button" id="front" class="btn" onclick="openScanner('front')">
                                 Scan</button>
                             <input id="front" type="file" onchange="handleUpload(event,'front')"
                                 name="idFront" style="display: none;"/>
@@ -335,7 +335,7 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
+                            <button type="button" class="btn" id="back" onclick="openScanner('back')">Scan</button>
                             <input id="back" type="file" onchange="handleUpload(event,'back')"
                                 name="idBack" style="display: none;" />
                             <div style="flex:1"></div>
