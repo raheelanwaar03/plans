@@ -257,7 +257,7 @@
             <p class="lead">Capture front & back of your identity card using your device camera. Pay 540pkr to given
                 account and upload screenshot and add TrxID in form while doing kyc.
             </p>
-            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" >
+            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div style="display:flex;gap:12px;flex-wrap:wrap">
                     <div style="flex:1;min-width:220px">
@@ -317,10 +317,10 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" id="front" class="btn" onclick="openScanner('front')">
+                            <button type="button" id="scanFront" class="btn" onclick="openScanner('front')">
                                 Scan</button>
                             <input id="front" type="file" onchange="handleUpload(event,'front')"
-                                name="idFront" style="display: none;"/>
+                                name="idFront" style="display: none;" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
@@ -335,7 +335,8 @@
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" id="back" onclick="openScanner('back')">Scan</button>
+                            <button type="button" class="btn" id="scanBack"
+                                onclick="openScanner('back')">Scan</button>
                             <input id="back" type="file" onchange="handleUpload(event,'back')"
                                 name="idBack" style="display: none;" />
                             <div style="flex:1"></div>
@@ -379,6 +380,10 @@
         let stream = null;
         const video = document.getElementById('video');
         const canvas = document.getElementById('captureCanvas');
+        const scanBtn = document.getElementById("scanFront");
+        const cameraInput = document.getElementById("front");
+        const scanBtn = document.getElementById("scanBack");
+        const cameraInput = document.getElementById("back");
 
         function openScanner(side) {
             currentSide = side;
