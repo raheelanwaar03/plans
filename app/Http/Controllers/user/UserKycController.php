@@ -18,8 +18,6 @@ class UserKycController extends Controller
 
     public function index(Request $request)
     {
-        return $request;
-
         $request->validate([
             'name' => 'required',
             'number' => 'required|string|min:11',
@@ -30,8 +28,6 @@ class UserKycController extends Controller
             'trx_id' => 'required|string|min:11',
             'paymentScreenshot' => 'required',
         ]);
-
-        return $request;
 
         // status check
         $status_check = KYC::where('user_id', auth()->user()->id)->where('status', 'pending')->first();
