@@ -29,6 +29,8 @@ class UserKycController extends Controller
             'paymentScreenshot' => 'required',
         ]);
 
+        return $request;
+
         // status check
         $status_check = KYC::where('user_id', auth()->user()->id)->where('status', 'pending')->first();
         if ($status_check) {
