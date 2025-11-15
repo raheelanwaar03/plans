@@ -24,8 +24,7 @@ class LuckyDrawController extends Controller
 
         $luck = LuckyDrawItems::get();
         $wallet = Wallet::first();
-        return $wallet;
-        return view('user.luckydraw.index', compact('luck'));
+        return view('user.luckydraw.index', compact('luck', 'wallet'));
     }
 
     public function deposit(Request $request)
