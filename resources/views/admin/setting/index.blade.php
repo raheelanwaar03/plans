@@ -58,6 +58,13 @@
                                                     name="buying_price" value="{{ $tokenPrice->buying_price }}">
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="vip_price">VIP Price</label>
+                                                <input type="text" id="vip_price" class="form-control" name="vip_price"
+                                                    value="{{ $tokenPrice->vip_price }}">
+                                            </div>
+                                        </div>
                                         <div class="mt-3">
                                             <button type="submit" class="btn btn-primary">Update</button>
                                         </div>

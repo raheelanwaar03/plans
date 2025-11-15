@@ -50,13 +50,12 @@ class BuyVIPController extends Controller
     public function sellVip()
     {
         $check_status = BuyVipClass::where('user_id', auth()->user()->id)->first();
-        if ($check_status) {
-            if ($check_status->status == 'pending') {
-                return redirect()->route('User.Trade.Token')->with('error', 'Please wait for admin approval');
-            }
-            if ($check_status->status == 'rejected') {
-                return redirect()->route('User.Trade.Token')->with('error', 'Your membership rejected, Contact with Admin.');
-            }
+        if ($check_status == null) {
+            return redirect()->route('User.Trade.Token')->with('error', 'Buy Your Membership first!');
+        }
+
+        if ($check_status == 'pending') {
+            return redirect()->route('User.Trade.Token')->with('error', 'Wait for admin approval!');
         }
 
         $wallet = Wallet::first();

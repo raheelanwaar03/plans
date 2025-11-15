@@ -24,6 +24,7 @@ class AdminSettingController extends Controller
             'price' => 'numeric|min:0',
             'selling_price' => 'numeric|min:0',
             'buying_price' => 'numeric|min:0',
+            'vip_price' => 'numeric|min:0',
         ]);
         // Find the first token price record
         $token = TokenPrice::first();
@@ -33,11 +34,13 @@ class AdminSettingController extends Controller
             $token->price = $request->input('price');
             $token->selling_price = $request->input('selling_price');
             $token->buying_price = $request->input('buying_price');
+            $token->vip_price = $request->input('vip_price');
         }
         // Update the token price details
         $token->price = $request->input('price');
         $token->selling_price = $request->input('selling_price');
         $token->buying_price = $request->input('buying_price');
+        $token->vip_price = $request->input('vip_price');
         $token->save();
         return redirect()->route('Admin.Settings')->with('success', 'Token price updated successfully.');
     }
@@ -181,7 +184,7 @@ class AdminSettingController extends Controller
         return redirect()->back()->with('success', 'Premium wallet details update');
     }
 
-     public function vip_wallet(Request $request, $id)
+    public function vip_wallet(Request $request, $id)
     {
         $vip_wallet = Wallet::find($id);
         $vip_wallet->vip_name =  $request->vip_name;
@@ -190,6 +193,4 @@ class AdminSettingController extends Controller
         $vip_wallet->save();
         return redirect()->back()->with('success', 'Premium wallet details update');
     }
-
-
 }
