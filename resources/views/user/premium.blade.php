@@ -251,7 +251,7 @@
             <span class="g">G</span>
             <span class="n">N</span>
         </div>
-    </div>s
+    </div>
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

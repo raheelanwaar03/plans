@@ -149,5 +149,43 @@ class AdminSettingController extends Controller
         return redirect()->back()->with('success', 'Token Added To User Account Successfully');
     }
 
+    // Wallet updation
+
+    public function premium_wallet(Request $request, $id)
+    {
+        $premium_wallet = Wallet::find($id);
+        $premium_wallet->premium_wallet =  $request->premium_wallet;
+        $premium_wallet->premium_number =  $request->premium_number;
+        $premium_wallet->save();
+        return redirect()->back()->with('success', 'Premium wallet details update');
+    }
+
+    public function kyc_wallet(Request $request, $id)
+    {
+        $kyc_wallet = Wallet::find($id);
+        $kyc_wallet->kyc_wallet =  $request->kyc_wallet;
+        $kyc_wallet->kyc_number =  $request->kyc_number;
+        $kyc_wallet->save();
+        return redirect()->back()->with('success', 'Premium wallet details update');
+    }
+
+    public function lucky_wallet(Request $request, $id)
+    {
+        $lucky_wallet = Wallet::find($id);
+        $lucky_wallet->lucky_wallet =  $request->lucky_wallet;
+        $lucky_wallet->lucky_number =  $request->lucky_number;
+        $lucky_wallet->save();
+        return redirect()->back()->with('success', 'Premium wallet details update');
+    }
+
+     public function vip_wallet(Request $request, $id)
+    {
+        $vip_wallet = Wallet::find($id);
+        $vip_wallet->vip_wallet =  $request->vip_wallet;
+        $vip_wallet->vip_number =  $request->vip_number;
+        $vip_wallet->save();
+        return redirect()->back()->with('success', 'Premium wallet details update');
+    }
+
 
 }

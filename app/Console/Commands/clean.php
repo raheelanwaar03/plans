@@ -108,8 +108,16 @@ class clean extends Command
         // add wallet
         $wallet = new Wallet();
         $wallet->name = 'Saad';
-        $wallet->number = '03032211444';
+        $wallet->number = '03032211441';
         $wallet->wallet = 'easyPaisa';
+        $wallet->premium_number = '03032211442';
+        $wallet->premium_wallet = 'JazzCash';
+        $wallet->kyc_number = '03032211443';
+        $wallet->kyc_wallet = 'NayaPay';
+        $wallet->lucky_number = '03032211444';
+        $wallet->lucky_wallet = 'SadaPay';
+        $wallet->vip_number = '093432234545';
+        $wallet->vip_wallet = 'Allied Bank';
         $wallet->email = 'pigeonofficial6@gmail.com';
         $wallet->save();
     }

@@ -29,7 +29,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">Details</h4>
+                                        <h4 class="card-title text-center">Buy & Sell</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
@@ -72,7 +72,156 @@
                             </div>
                         </div>
                     </div> <!-- end col -->
-                </div> <!-- end row -->
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h4 class="card-title text-center">Premium</h4>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end card-header-->
+                            <div class="card-body pt-0">
+                                <form action="{{ route('Admin.Update.Premium.Wallet', $walletDetails->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="premium_number">Premium Number</label>
+                                                <input type="text" id="premium_number" class="form-control"
+                                                    name="premium_number" value="{{ $walletDetails->premium_number }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="premium_wallet">Premium Wallet</label>
+                                                <input type="text" id="premium_wallet" class="form-control"
+                                                    name="premium_wallet" value="{{ $walletDetails->premium_wallet }}">
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h4 class="card-title text-center">KYC</h4>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end card-header-->
+                            <div class="card-body pt-0">
+                                <form action="{{ route('Admin.Update.KYC.Wallet', $walletDetails->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="kyc_number">Kyc Number</label>
+                                                <input type="text" id="kyc_number" class="form-control"
+                                                    name="kyc_number" value="{{ $walletDetails->kyc_number }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="kyc_wallet">Kyc Wallet</label>
+                                                <input type="text" id="kyc_wallet" class="form-control"
+                                                    name="kyc_wallet" value="{{ $walletDetails->kyc_wallet }}">
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h4 class="card-title text-center">Lucky</h4>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end card-header-->
+                            <div class="card-body pt-0">
+                                <form action="{{ route('Admin.Update.Lucky.Wallet', $walletDetails->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="lucky_number">Lucky Number</label>
+                                                <input type="text" id="lucky_number" class="form-control"
+                                                    name="lucky_number" value="{{ $walletDetails->lucky_number }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="lucky_wallet">Lucky Wallet</label>
+                                                <input type="text" id="lucky_wallet" class="form-control"
+                                                    name="lucky_wallet" value="{{ $walletDetails->lucky_wallet }}">
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h4 class="card-title text-center">VIP</h4>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end card-header-->
+                            <div class="card-body pt-0">
+                                <form action="{{ route('Admin.Update.VIP.Wallet', $walletDetails->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="vip_number">VIP Number</label>
+                                                <input type="text" id="vip_number" class="form-control"
+                                                    name="vip_number" value="{{ $walletDetails->vip_number }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="vip_wallet">VIP Wallet</label>
+                                                <input type="text" id="vip_wallet" class="form-control"
+                                                    name="vip_wallet" value="{{ $walletDetails->vip_wallet }}">
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div><!-- container -->
 
