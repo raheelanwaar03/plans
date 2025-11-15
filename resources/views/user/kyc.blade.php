@@ -4,15 +4,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>KYC — Verify your identity</title>
+    <title>Eye-catching KYC Form with ID Scanner</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
     <style>
         :root {
-            --bg: #0f1724;
-            --card: #0b1220;
-            --muted: #9aa4b2;
-            --accent: #6ee7b7;
-            --glass: rgba(255, 255, 255, 0.04);
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            --bg: #6b97ff;
+            --card: #3a7cff;
+            --accent: #06b6d4;
+            --glass: rgba(77, 46, 46, 0.04);
+            --muted: rgba(17, 17, 17, 0.7);
         }
 
         * {
@@ -20,35 +23,36 @@
         }
 
         body {
+            font-family: Inter, system-ui, Segoe UI, Roboto, 'Helvetica Neue', Arial;
             margin: 0;
             min-height: 100vh;
-            background: linear-gradient(180deg, #071021 0%, #0a1724 60%);
-            color: #e6eef6;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #0364db;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 28px
+            padding: 32px
         }
 
-        .container {
+        .wrap {
+            max-width: 980px;
             width: 100%;
-            max-width: 1100px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-            border-radius: 14px;
-            padding: 26px;
-            box-shadow: 0 8px 30px rgba(2, 6, 23, 0.7);
             display: grid;
             grid-template-columns: 1fr 420px;
-            gap: 22px
+            gap: 28px
         }
 
-        .left {
-            padding: 10px
+        .card {
+            background: linear-gradient(180deg, rgba(77, 184, 231, 0.02), rgba(255, 255, 255, 0.01));
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04)
         }
 
         h1 {
             margin: 0 0 8px;
-            font-size: 20px
+            font-size: 22px
         }
 
         p.lead {
@@ -57,573 +61,471 @@
             margin-bottom: 18px
         }
 
-        form .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        form .row {
+            display: flex;
             gap: 12px
         }
 
         label {
-            display: block;
             font-size: 13px;
             color: var(--muted);
+            display: block;
             margin-bottom: 6px
         }
 
         input[type=text],
+        input[type=file],
         input[type=date],
-        input[type=email],
-        input[type=tel],
-        select,
-        textarea {
+        input[type=number],
+        input[type=tel] {
             width: 100%;
-            padding: 11px 12px;
+            padding: 12px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.04);
             background: var(--glass);
             color: inherit;
-            font-size: 14px;
-            outline: none
+            font-size: 15px
         }
 
-        textarea {
-            min-height: 84px;
-            resize: vertical
+        .muted {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55)
         }
 
-        .full {
-            grid-column: 1/-1
-        }
-
-        .card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03)
-        }
-
-        /* right column: camera, previews */
-        .right {
-            padding: 10px
-        }
-
-        .preview-wrap {
-            display: flex;
-            gap: 12px;
-            flex-direction: column
-        }
-
-        .camera,
-        .photo-preview {
-            height: 240px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #061021;
+        .scanner-preview {
+            width: 100%;
+            height: 220px;
+            background: #29446d;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative
+            overflow: hidden;
+            position: relative;
+            border: 1px dashed rgba(255, 255, 255, 0.03)
+        }
+
+        .scanner-preview img {
+            max-width: 100%;
+            height: auto
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 0;
+            background: linear-gradient(90deg, var(--accent), #7c3aed);
+            color: #021026;
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.345);
+            color: var(--muted)
+        }
+
+        .camera-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.9));
+            z-index: 999
+        }
+
+        .camera-modal.open {
+            display: flex
+        }
+
+        .camera-box {
+            width: 920px;
+            max-width: 96%;
+            background: #041226;
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04)
+        }
+
+        .camera-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px
         }
 
         video {
             width: 100%;
-            height: 100%;
-            object-fit: cover
-        }
-
-        .controls {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 12px
-        }
-
-        button.btn {
-            background: linear-gradient(90deg, var(--accent), #34d399);
-            border: none;
-            padding: 10px 12px;
             border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            color: #06201a
+            background: #000
         }
 
-        button.ghost {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            color: var(--muted)
-        }
-
-        .small {
-            font-size: 13px;
-            padding: 8px 10px;
-            border-radius: 8px
-        }
-
-        .meta {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 8px
-        }
-
-        /* hidden file input styles suppressed */
-        input[type=file] {
+        canvas {
             display: none
         }
 
-        .row-actions {
+        .note {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 12px
+        }
+
+        .right-panel {
             display: flex;
-            gap: 8px;
-            align-items: center
+            flex-direction: column;
+            gap: 16px
         }
 
-        .img-thumb {
-            width: 100%;
-            height: 100%;
-            object-fit: cover
+        .card.small {
+            padding: 16px
         }
 
-        .help {
+        .kpi {
+            display: flex;
+            gap: 12px
+        }
+
+        .kpi .item {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.03)
+        }
+
+        .kpi h3 {
+            margin: 0;
+            font-size: 20px
+        }
+
+        footer {
+            margin-top: 14px;
             font-size: 13px;
             color: var(--muted)
         }
 
-        footer {
-            grid-column: 1/-1;
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center
-        }
-
         @media(max-width:980px) {
-            .container {
+            .wrap {
                 grid-template-columns: 1fr;
-            }
-
-            .right {
-                order: -1
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="container" role="main">
-        <div class="left">
-            <h1>KYC — Identity verification</h1>
-            <p class="lead">Fill in your details and scan your identity document. We only store the images needed to
-                verify your identity.</p>
 
-            <form id="kycForm" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data"
-                class="card" autocomplete="off">
-                <div class="grid">
-                    <div>
-                        <label for="fullname">Full name</label>
-                        <input id="fullname" name="name" type="text" placeholder="John Doe" required />
-                    </div>
+    <x-alert />
 
-                    <div>
-                        <label for="phone">Phone</label>
-                        <input id="phone" name="number" type="tel" placeholder="+1 555 000 1111" maxlength="11"
-                            pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" />
-                    </div>
-
-                    <div class="full">
-                        <label for="cnic">CNIC</label>
-                        <input id="cnic" name="cnic" type="tel" placeholder="3370512345670" maxlength="13"
-                            pattern="\d{13}" title="Enter 13 digits" inputmode="numeric" required />
-                    </div>
-
-                    <div>
-                        <label for="trc">Transcation number</label>
-                        <input name="trx_id" type="text" placeholder="12345123451" maxlength="11" pattern="\d{11}"
-                            title="Enter 11 digits" inputmode="numeric" required />
-                    </div>
-
-                    <div class="full">
-                        <label>Document scan (Front)</label>
-                        <div class="card"
-                            style="display:flex;gap:12px;align-items:center;flex-direction:column;padding:12px">
-                            <div id="docFrontPreview" class="photo-preview">
-                                <span class="help">No document captured yet</span>
-                            </div>
-
-                            <div class="row-actions">
-                                <button type="button" id="openCameraBtn" class="btn small">Scan document
-                                    (camera)</button>
-                                <input id="fileInput" name="idFront" accept="image/*" capture="environment"
-                                    type="file" />
-                                <button type="button" id="retakeDocFront" class="ghost small">Retake</button>
-                            </div>
-                            <div class="meta">Tip: For best results, hold the document flat in good light.</div>
-                        </div>
-                    </div>
-
-                    <div class="full">
-                        <label>Document scan (Back)</label>
-                        <div class="card"
-                            style="display:flex;gap:12px;align-items:center;flex-direction:column;padding:12px">
-                            <div id="docBackPreview" class="photo-preview">
-                                <span class="help">No back image captured yet</span>
-                            </div>
-
-                            <div class="row-actions">
-                                <button type="button" id="openCameraBackBtn" class="btn small">Scan back
-                                    (camera)</button>
-                                <input id="fileInputBack" name="idBack" accept="image/*" capture="environment"
-                                    type="file" />
-                                <button type="button" id="retakeDocBack" class="ghost small">Retake</button>
-                            </div>
-                            <div class="meta">Scan the back side of your ID document.</div>
-                        </div>
-                    </div>
-
-                    <div class="full">
-                        <label>Selfie</label>
-                        <div class="card" style="padding:12px">
-                            <div id="selfiePreview" class="photo-preview"><span class="help">No selfie</span></div>
-                            <div class="controls">
-                                <button type="button" id="openSelfieBtn" class="btn small">Open camera</button>
-                                <input id="selfieFile" name="selfie" accept="image/*" capture="user" type="file" />
-                                <button type="button" id="retakeSelfie" class="ghost small">Retake</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="full">
-                        <label>Payment ScreenShot</label>
-                        <div class="card" style="padding:12px">
-                            <div id="selfiePreview" class="photo-preview"><span class="help">No payment
-                                    screenshot</span></div>
-                            <div class="controls">
-                                <button type="button" id="paymentScreenshot" class="btn small">Open camera</button>
-                                <input id="paymentScreenshot" name="paymentScreenshot" accept="image/*"
-                                    capture="user" type="file" />
-                                <button type="button" id="retakeSelfie" class="ghost small">Retake</button>
-                            </div>
-                        </div>
-                    </div>
-
+    <div class="wrap">
+        <div class="card small">
+            <h3 style="margin:0 0 6px">Wallet Details</h3>
+            <div style="display:flex;gap:12px">
+                <div class="">
+                    <h4>Wallet: {{ $wallet->kyc_wallet }}</h4>
+                    <h4>Account Title: {{ $wallet->kyc_name }}</h4>
+                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->kyc_number }}"
+                            readonly />
+                        <span class="copy-icon" onclick="copyInputText()">📋 Copy</span>
+                    </h4>
                 </div>
-
-                <footer>
-                    <div class="meta">Your images are encrypted in transit.</div>
-                    <div>
-                        <button type="submit" class="btn">Submit KYC</button>
-                    </div>
-                </footer>
-            </form>
-
+            </div>
         </div>
 
-        <div class="right">
-            <div class="preview-wrap card">
-                <div class="camera" id="cameraArea">
-                    <video id="video" autoplay playsinline></video>
-                    <div id="cameraOverlay"
-                        style="position:absolute;inset:0;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;padding:12px">
-                        <div
-                            style="backdrop-filter:blur(6px);background:rgba(2,6,23,0.35);padding:6px 10px;border-radius:10px;font-size:13px;color:var(--muted)">
-                            Camera preview</div>
-                    </div>
+        <div class="card small" style="margin-top: 30px">
+            <h3 style="margin:0 0 6px">Scanned Preview</h3>
+            <div style="display:flex;gap:12px">
+                <div style="flex:1">
+                    <label class="muted">Front (preview)</label>
+                    <div class="scanner-preview" id="frontThumb"></div>
                 </div>
-
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-                    <div class="help">Use the camera to scan document or selfie. Click capture to take photo.</div>
-                    <div>
-                        <button id="captureBtn" class="btn small">Capture</button>
-                        <button id="closeCamBtn" class="ghost small">Close</button>
-                    </div>
+                <div style="flex:1">
+                    <label class="muted">Back (preview)</label>
+                    <div class="scanner-preview" id="backThumb"></div>
                 </div>
-
             </div>
+        </div>
+
+        <section class="card">
+            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a>
+                Secure
+                ID Scan</h1>
+            <p class="lead">Capture front & back of your identity card using your device camera. Pay 540pkr to given
+                account and upload screenshot and add TrxID in form while doing kyc.
+            </p>
+            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <div style="flex:1;min-width:220px">
+                        <label for="fullName">Full name</label>
+                        <input id="fullName" name="name" type="text" placeholder="e.g. Ali Khan"
+                            autocomplete="name" required />
+                    </div>
+
+                    <div style="width:220px">
+                        <label for="cnic">Phone Num:</label>
+                        <input id="cnic" name="number" type="text" placeholder="12345123451"
+                            class="form-control" maxlength="11" pattern="\d{11}" title="Enter 11 digits"
+                            inputmode="numeric" required />
+                        <div class="muted">Max 11 digits — enforced in input.</div>
+                    </div>
+
+                    <div style="width:220px">
+                        <label for="cnic">Cnic:</label>
+                        <input id="cnic" name="cnic" type="number" placeholder="3370512345670" maxlength="13"
+                            pattern="\d{13}" title="Enter 13 digits" inputmode="numeric" required />
+                        <div class="muted">Max 13 digits — enforced in input.</div>
+                    </div>
+
+                    <div style="width:220px">
+                        <label for="cnic">Transaction ID (Trx ID)</label>
+                        <input id="cnic" name="trx_id" type="text" placeholder="12345123451" maxlength="11"
+                            pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
+                        <div class="muted">Max 11 digits — enforced in input.</div>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:13px;">
+                    <div style="flex:1;min-width:220px">
+                        <label for="Selfie">Selfie</label>
+                        <input id="selfie" name="selfie" type="file" required />
+                    </div>
+
+                    <div style="width:220px">
+                        <label for="cnic">Payment Screen Shot:</label>
+                        <input id="cnic" name="paymentScreenshot" type="file" placeholder="12345123451"
+                            maxlength="11" pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
+                    </div>
+                </div>
+
+                <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <!-- Front -->
+                    <div>
+                        <label>Identity Card — Front</label>
+                        <div class="scanner-preview" id="frontPreview">
+                            <div style="text-align:center;padding:12px;color:var(--muted)">
+                                <div style="font-weight:600">No front image</div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
+                                        Side</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;margin-top:10px">
+                            {{-- <button type="button" class="btn" onclick="openScanner('front')">
+                                Scan</button> --}}
+                            <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
+                                name="idFront" />
+                            <div style="flex:1"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Identity Card — Back</label>
+                        <div class="scanner-preview" id="backPreview">
+                            <div style="text-align:center;padding:12px;color:var(--muted)">
+                                <div style="font-weight:600">No Back image</div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
+                                        Side</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;margin-top:10px">
+                            {{-- <button type="button" class="btn" onclick="openScanner('back')">Scan</button> --}}
+                            <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
+                                name="idBack" />
+                            <div style="flex:1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </form>
+
+            <footer>
+                <small>Works best on mobile devices with a rear camera. Allow camera permission when prompted.</small>
+            </footer>
+        </section>
+
+        <!-- RIGHT: Info / Previews -->
+    </div>
+
+    <!-- Camera modal -->
+    <div id="cameraModal" class="camera-modal" role="dialog" aria-hidden="true">
+        <div class="camera-box">
+            <div class="camera-head">
+                <strong id="cameraTitle">Scanner</strong>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <button class="btn secondary" onclick="closeScanner()">Close</button>
+                    <button class="btn" onclick="captureFrame()">Capture</button>
+                </div>
+            </div>
+            <video id="video" autoplay playsinline></video>
+            <canvas id="captureCanvas"></canvas>
+            <div style="margin-top:8px;color:var(--muted);font-size:13px">Hold the card steady and press Capture. The
+                app will try to extract text automatically.</div>
         </div>
     </div>
 
     <script>
-        (() => {
-            const openCameraBtn = document.getElementById('openCameraBtn');
-            const openSelfieBtn = document.getElementById('openSelfieBtn');
-            const closeCamBtn = document.getElementById('closeCamBtn');
-            const captureBtn = document.getElementById('captureBtn');
-            const video = document.getElementById('video');
-            const cameraArea = document.getElementById('cameraArea');
-            const docPreview = document.getElementById('docPreview');
-            const selfiePreview = document.getElementById('selfiePreview');
-            const fileInput = document.getElementById('fileInput');
-            const selfieFile = document.getElementById('selfieFile');
-            const retakeDoc = document.getElementById('retakeDoc');
-            const retakeSelfie = document.getElementById('retakeSelfie');
-            const kycForm = document.getElementById('kycForm');
+        // State
+        let currentSide = null; // 'front' or 'back'
+        let stream = null;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('captureCanvas');
 
-            let stream = null;
-            let captureTarget = null; // 'doc' or 'selfie'
+        function openScanner(side) {
+            currentSide = side;
+            document.getElementById('cameraModal').classList.add('open');
+            document.getElementById('cameraModal').setAttribute('aria-hidden', 'false');
+            document.getElementById('cameraTitle').innerText = 'Scanner — ' + (side === 'front' ? 'Front side' :
+                'Back side');
+            startCamera();
+        }
 
-            function openCamera(forTarget) {
-                captureTarget = forTarget;
-                const constraints = {
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
                     video: {
-                        facingMode: forTarget === 'doc' ? {
-                            exact: "environment"
-                        } : 'user'
-                    }
-                };
-                // Try to get camera - fallback to default if facingMode exact fails
-                navigator.mediaDevices.getUserMedia(constraints).catch(() => navigator.mediaDevices.getUserMedia({
-                        video: true
-                    }))
-                    .then(s => {
-                        stream = s;
-                        video.srcObject = s;
-                        cameraArea.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                        // Show camera area visually
-                        cameraArea.style.boxShadow = '0 12px 40px rgba(2,8,23,0.6)';
-                    }).catch(err => {
-                        alert('Unable to access camera: ' + (err && err.message ? err.message : err));
-                    });
-            }
-
-            function closeCamera() {
-                if (stream) {
-                    stream.getTracks().forEach(t => t.stop());
-                    stream = null;
-                    video.srcObject = null;
-                }
-                captureTarget = null;
-            }
-
-            function dataUrlFromVideo() {
-                const w = video.videoWidth || 1280;
-                const h = video.videoHeight || 720;
-                const canvas = document.createElement('canvas');
-                canvas.width = w;
-                canvas.height = h;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, w, h);
-                return canvas.toDataURL('image/jpeg', 0.92);
-            }
-
-            function setPreview(elem, dataUrl) {
-                elem.innerHTML = '';
-                const img = document.createElement('img');
-                img.className = 'img-thumb';
-                img.alt = 'preview';
-                img.src = dataUrl;
-                elem.appendChild(img);
-            }
-
-            openCameraBtn.addEventListener('click', () => openCamera('doc'));
-            openSelfieBtn.addEventListener('click', () => openCamera('selfie'));
-            closeCamBtn.addEventListener('click', closeCamera);
-
-            captureBtn.addEventListener('click', () => {
-                if (!stream) {
-                    alert('Camera is not open');
-                    return;
-                }
-                const dataUrl = dataUrlFromVideo();
-                if (captureTarget === 'doc') {
-                    setPreview(docPreview, dataUrl);
-                    docPreview.dataset.image = dataUrl;
-                } else if (captureTarget === 'selfie') {
-                    setPreview(selfiePreview, dataUrl);
-                    selfiePreview.dataset.image = dataUrl;
-                }
-                // optionally auto-close camera
-                closeCamera();
-            });
-
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = () => {
-                    setPreview(docPreview, reader.result);
-                    docPreview.dataset.image = reader.result;
-                };
-                reader.readAsDataURL(file);
-            });
-
-            selfieFile.addEventListener('change', (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = () => {
-                    setPreview(selfiePreview, reader.result);
-                    selfiePreview.dataset.image = reader.result;
-                };
-                reader.readAsDataURL(file);
-            });
-
-            retakeDoc.addEventListener('click', () => {
-                docPreview.innerHTML = '<span class="help">No document captured yet</span>';
-                delete docPreview.dataset.image;
-            });
-            retakeSelfie.addEventListener('click', () => {
-                selfiePreview.innerHTML = '<span class="help">No selfie</span>';
-                delete selfiePreview.dataset.image;
-            });
-
-            kycForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                // simple validation: require doc image
-                if (!docPreview.dataset.image) {
-                    alert('Please capture or upload your document before submitting.');
-                    return;
-                }
-
-                const payload = {
-                    documentBackImage: docBackPreview.dataset.image || null,
-                    fullname: kycForm.fullname.value,
-                    dob: kycForm.dob.value,
-                    email: kycForm.email.value,
-                    phone: kycForm.phone.value,
-                    address: kycForm.address.value,
-                    docType: kycForm.docType.value,
-                    idNumber: kycForm.idNumber.value,
-                    documentFrontImage: docPreview.dataset.image, // data URL
-                    selfieImage: selfiePreview.dataset.image || null,
-                    submittedAt: new Date().toISOString()
-                };
-
-                // show a friendly uploading state
-                const submitBtn = kycForm.querySelector('button[type=submit]');
-                const prevText = submitBtn.textContent;
-                submitBtn.textContent = 'Uploading...';
-                submitBtn.disabled = true;
-
-                // Example POST: change URL to your backend.
-                fetch('/upload-kyc', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
+                        facingMode: 'environment'
                     },
-                    body: JSON.stringify(payload)
-                }).then(r => {
-                    if (!r.ok) throw new Error('Server error ' + r.status);
-                    return r.json();
-                }).then(data => {
-                    alert('KYC submitted successfully');
-                    // reset or redirect as needed
-                    kycForm.reset();
-                    docPreview.innerHTML = '<span class="help">No document captured yet</span>';
-                    selfiePreview.innerHTML = '<span class="help">No selfie</span>';
-                }).catch(err => {
-                    console.error(err);
-                    alert('Submission failed: ' + (err.message || err));
-                }).finally(() => {
-                    submitBtn.textContent = prevText;
-                    submitBtn.disabled = false;
+                    audio: false
                 });
-            });
+                video.srcObject = stream;
+            } catch (err) {
+                alert('Could not access camera. Please allow camera permission or use Upload Image.\nError: ' + err
+                    .message);
+                closeScanner();
+            }
+        }
 
-            // Accessibility: allow pressing 'c' to capture when camera open
-            document.addEventListener('keydown', e => {
-                if (e.key.toLowerCase() === 'c' && stream) captureBtn.click();
-            });
+        function closeScanner() {
+            document.getElementById('cameraModal').classList.remove('open');
+            document.getElementById('cameraModal').setAttribute('aria-hidden', 'true');
+            if (stream) {
+                stream.getTracks().forEach(t => t.stop());
+                stream = null;
+            }
+        }
 
-        })();
+        function captureFrame() {
+            if (!video.srcObject) return;
+            const w = video.videoWidth;
+            const h = video.videoHeight;
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, w, h);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            closeScanner();
+            setPreview(currentSide, dataUrl);
+            runOCR(dataUrl, currentSide);
+        }
+
+        function handleUpload(e, side) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                setPreview(side, reader.result);
+                runOCR(reader.result, side);
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function setPreview(side, dataUrl) {
+            const el = document.getElementById(side + 'Preview');
+            const thumb = document.getElementById(side + 'Thumb');
+            el.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' image' + '">';
+            thumb.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' thumb' + '">';
+        }
+
+        function resetForm() {
+            document.getElementById('kycForm').reset();
+            document.getElementById('frontPreview').innerHTML =
+                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No front image</div><div class="muted">Click Open Scanner to use camera or choose upload.</div></div>';
+            document.getElementById('backPreview').innerHTML =
+                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No back image</div><div class="muted">Click Open Scanner to use camera or choose upload.</div></div>';
+            document.getElementById('frontThumb').innerHTML = '';
+            document.getElementById('backThumb').innerHTML = '';
+            document.getElementById('detectedName').innerText = '—';
+            document.getElementById('detectedCnic').innerText = '—';
+        }
+
+        // Accessibility: close modal on Esc
+        window.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeScanner();
+        });
+
+        function copyInputText() {
+            const input = document.getElementById("copyInput");
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+
+            navigator.clipboard.writeText(input.value)
+                .then(() => {
+                    alert("Text copied to clipboard!");
+                })
+                .catch(err => {
+                    console.error("Failed to copy: ", err);
+                });
+        }
     </script>
 </body>
 
 </html>
 
-{{-- <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
+{{-- <form action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <div style="flex:1;min-width:220px">
-            <label for="fullName">Full name</label>
-            <input id="fullName" name="name" type="text" placeholder="e.g. Ali Khan"
-                autocomplete="name" required />
-        </div>
-
-        <div style="width:220px">
-            <label for="cnic">Phone Num:</label>
-            <input id="cnic" name="number" type="text" placeholder="12345123451"
-                class="form-control" maxlength="11" pattern="\d{11}" title="Enter 11 digits"
-                inputmode="numeric" required />
-            <div class="muted">Max 11 digits — enforced in input.</div>
-        </div>
-
-        <div style="width:220px">
-            <label for="cnic">Cnic:</label>
-            <input id="cnic" name="cnic" type="number" placeholder="3370512345670" maxlength="13"
-                pattern="\d{13}" title="Enter 13 digits" inputmode="numeric" required />
-            <div class="muted">Max 13 digits — enforced in input.</div>
-        </div>
-
-        <div style="width:220px">
-            <label for="cnic">Transaction ID (Trx ID)</label>
-            <input id="cnic" name="trx_id" type="text" placeholder="12345123451" maxlength="11"
-                pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
-            <div class="muted">Max 11 digits — enforced in input.</div>
-        </div>
+    <div class="form-group">
+        <label for="fullName" class="form-label">Full Name:</label>
+        <input type="text" class="form-control" id="fullName" name="name" required>
     </div>
 
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:13px;">
-        <div style="flex:1;min-width:220px">
-            <label for="Selfie">Selfie</label>
-            <input id="selfie" name="selfie" type="file" required />
-        </div>
-
-        <div style="width:220px">
-            <label for="cnic">Payment Screen Shot:</label>
-            <input id="cnic" name="paymentScreenshot" type="file" placeholder="12345123451"
-                maxlength="11" pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
-        </div>
+    <div class="form-group">
+        <label for="mobileNumber" class="form-label">Mobile Number:</label>
+        <input type="text" class="form-control" id="mobileNumber" name="number" required>
     </div>
 
-    <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <!-- Front -->
-        <div>
-            <label>Identity Card — Front</label>
-            <div class="scanner-preview" id="frontPreview">
-                <div style="text-align:center;padding:12px;color:var(--muted)">
-                    <div style="font-weight:600">No front image</div>
-                    <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
-                            Side</span>
-                    </div>
-                </div>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:10px">
-                <button type="button" class="btn" onclick="openScanner('front')">
-                    Scan</button>
-                <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
-                    name="idFront" style="display: none" />
-                <div style="flex:1"></div>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="id_front">Upload ID (Front Side):</label><br>
+        <input type="file" id="id_front" name="idFront" accept="image/*" capture="environment" style="display:none;"
+            onchange="previewFile(event, 'previewFront')">
+        <button type="button" onclick="document.getElementById('id_front').click()">📷 Scan
+            Front</button>
+        <div id="previewFront" style="margin-top:10px;"></div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <!-- Front -->
-        <div>
-            <label>Identity Card — Back</label>
-            <div class="scanner-preview" id="backPreview">
-                <div style="text-align:center;padding:12px;color:var(--muted)">
-                    <div style="font-weight:600">No back image</div>
-                    <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
-                            Side</span>
-                    </div>
-                </div>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:10px">
-                <button type="button" class="btn" onclick="openScanner('back')">
-                    Scan</button>
-                <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
-                    name="idBack" style="display: none" />
-                <div style="flex:1"></div>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="id_back">Upload ID (Back Side):</label><br>
+        <input type="file" id="id_back" name="idBack" accept="image/*" capture="environment" style="display:none;"
+            onchange="previewFile(event, 'previewBack')">
+        <button type="button" onclick="document.getElementById('id_back').click()">📷 Scan
+            Back</button>
+        <div id="previewBack" style="margin-top:10px;"></div>
+    </div>
+    <div class="form-group">
+        <label for="selfie" class="form-label">Selfie:</label>
+        <input type="file" class="form-control" id="selfie" name="selfie" accept="image/*" required>
     </div>
 
-    <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
-        <button type="submit" class="btn">Submit</button>
+    <div class="form-group">
+        <label for="paymentScreenshot" class="form-label">Payment Screenshot:</label>
+        <input type="file" class="form-control" id="paymentScreenshot" name="paymentScreenshot" accept="image/*"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="trx_id" class="form-label">Trx ID:</label>
+        <input type="number" class="form-control" id="trx_id" name="trx_id" required maxlength="11">
+    </div>
+    <div class="mt-3">
+        <input type="submit" class="btn btn-primary" value="Submit KYC Data">
     </div>
 </form> --}}
