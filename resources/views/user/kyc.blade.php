@@ -324,18 +324,23 @@
                             <div style="flex:1"></div>
                         </div>
                     </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <!-- Front -->
                     <div>
                         <label>Identity Card — Back</label>
                         <div class="scanner-preview" id="backPreview">
                             <div style="text-align:center;padding:12px;color:var(--muted)">
-                                <div style="font-weight:600">No Back image</div>
+                                <div style="font-weight:600">No back image</div>
                                 <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
                                         Side</span>
                                 </div>
                             </div>
                         </div>
                         <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
+                            <button type="button" class="btn" onclick="openScanner('back')">
+                                Scan</button>
                             <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
                                 name="idBack" style="display: none" />
                             <div style="flex:1"></div>
