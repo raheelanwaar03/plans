@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Buy/Sell Token</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />

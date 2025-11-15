@@ -91,6 +91,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
+                                                <label for="premium_name">Premium Name</label>
+                                                <input type="text" id="premium_name" class="form-control"
+                                                    name="premium_name" value="{{ $walletDetails->premium_name }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
                                                 <label for="premium_number">Premium Number</label>
                                                 <input type="text" id="premium_number" class="form-control"
                                                     name="premium_number" value="{{ $walletDetails->premium_number }}">
@@ -128,6 +135,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
+                                                <label for="kyc_name">Kyc Name</label>
+                                                <input type="text" id="kyc_name" class="form-control"
+                                                    name="kyc_name" value="{{ $walletDetails->kyc_name }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
                                                 <label for="kyc_number">Kyc Number</label>
                                                 <input type="text" id="kyc_number" class="form-control"
                                                     name="kyc_number" value="{{ $walletDetails->kyc_number }}">
@@ -160,9 +174,17 @@
                                 </div><!--end row-->
                             </div><!--end card-header-->
                             <div class="card-body pt-0">
-                                <form action="{{ route('Admin.Update.Lucky.Wallet', $walletDetails->id) }}" method="POST">
+                                <form action="{{ route('Admin.Update.Lucky.Wallet', $walletDetails->id) }}"
+                                    method="POST">
                                     @csrf
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="lucky_name">Lucky Name</label>
+                                                <input type="text" id="lucky_name" class="form-control"
+                                                    name="lucky_name" value="{{ $walletDetails->lucky_name }}">
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="lucky_number">Lucky Number</label>
@@ -200,6 +222,13 @@
                                 <form action="{{ route('Admin.Update.VIP.Wallet', $walletDetails->id) }}" method="POST">
                                     @csrf
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="vip_name">VIP Name</label>
+                                                <input type="text" id="vip_name" class="form-control"
+                                                    name="vip_name" value="{{ $walletDetails->vip_name }}">
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="vip_number">VIP Number</label>

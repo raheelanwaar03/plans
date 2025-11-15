@@ -255,10 +255,10 @@
             <div id="buyForm" class="form-box">
                 <span class="close-btn" onclick="closeForms()">✖</span>
                 <h3>Wallet Details</h3>
-                <h5>Title : Wallet Name</h5>
-                <h5>Number : <span id="number">03143322111</span> <i class="bi bi-clipboard" onclick="copyNumber()"
-                        style="cursor: pointer; color: blue;margin-top:-17px"></i></h5>
-                <h5>Bank : Easypaisa</h5>
+                <h5>Title : {{ $wallet->lucky_name }}</h5>
+                <h5>Number : <span id="number">{{ $wallet->lucky_number }}</span> <i class="bi bi-clipboard"
+                        onclick="copyNumber()" style="cursor: pointer; color: blue;margin-top:-17px"></i></h5>
+                <h5>Bank : {{ $wallet->lucky_wallet }}</h5>
             </div>
         </div>
 

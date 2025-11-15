@@ -263,13 +263,13 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h4>Wallet Details</h4>
-                    <p><b>Account Title:</b> {{ $wallet->name }}</p>
+                    <p><b>Account Title:</b> {{ $wallet->vip_name }}</p>
                     <div class="d-flex justify-content-center align-items-center">
-                        <p><b>Account Number:</b> <span id="number">{{ $wallet->number }}</span></p>
+                        <p><b>Account Number:</b> <span id="number">{{ $wallet->vip_number }}</span></p>
                         <i class="bi bi-clipboard" onclick="copyNumber()"
                             style="cursor: pointer; color: blue;margin-top:-17px"></i>
                     </div>
-                    <p><b>Bank Name:</b> {{ $wallet->wallet }}</p>
+                    <p><b>Bank Name:</b> {{ $wallet->vip_wallet }}</p>
                 </div>
             </div>
 

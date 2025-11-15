@@ -304,13 +304,13 @@
                     <div class="wallet-address">
                         <div class="d-flex justify-content-around align-items-center mb-2">
                             <h5>
-                                Title: <b class="text-warning">{{ $wallet->name }}</b>
+                                Title: <b class="text-warning">{{ $wallet->premium_name }}</b>
                             </h5>
                             <h5>
-                                Wallet: <b class="text-danger">{{ $wallet->wallet }}</b>
+                                Wallet: <b class="text-danger">{{ $wallet->premium_wallet }}</b>
                             </h5>
                         </div>
-                        <input type="text" class="form-control" id="kycWallet" value="{{ $wallet->number }}"
+                        <input type="text" class="form-control" id="kycWallet" value="{{ $wallet->premium_number }}"
                             readonly>
                         <i style="margin-top:-30px;margin-right:10px;float:right;color:blue" class="bi bi-clipboard"
                             id="kycCopyButton"></i>
@@ -359,7 +359,8 @@
                         </select>
                     </div>
                     <div class="form-group mt-2">
-                        <input type="number" name="trx_id" id="trx" class="form-control" placeholder="Transcation ID">
+                        <input type="number" name="trx_id" id="trx" class="form-control"
+                            placeholder="Transcation ID">
                     </div>
                     <div class="form-group">
                         <label for="paymentScreenshot" class="form-label">Payment Screenshot:</label>

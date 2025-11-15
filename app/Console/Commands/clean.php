@@ -110,12 +110,16 @@ class clean extends Command
         $wallet->name = 'Saad';
         $wallet->number = '03032211441';
         $wallet->wallet = 'easyPaisa';
+        $wallet->premium_name = 'saad';
         $wallet->premium_number = '03032211442';
         $wallet->premium_wallet = 'JazzCash';
+        $wallet->kyc_name = 'saad';
         $wallet->kyc_number = '03032211443';
         $wallet->kyc_wallet = 'NayaPay';
+        $wallet->lucky_name = 'saad';
         $wallet->lucky_number = '03032211444';
         $wallet->lucky_wallet = 'SadaPay';
+        $wallet->vip_name = 'saad';
         $wallet->vip_number = '093432234545';
         $wallet->vip_wallet = 'Allied Bank';
         $wallet->email = 'pigeonofficial6@gmail.com';

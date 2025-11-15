@@ -154,6 +154,7 @@ class AdminSettingController extends Controller
     public function premium_wallet(Request $request, $id)
     {
         $premium_wallet = Wallet::find($id);
+        $premium_wallet->premium_name =  $request->premium_name;
         $premium_wallet->premium_wallet =  $request->premium_wallet;
         $premium_wallet->premium_number =  $request->premium_number;
         $premium_wallet->save();
@@ -163,6 +164,7 @@ class AdminSettingController extends Controller
     public function kyc_wallet(Request $request, $id)
     {
         $kyc_wallet = Wallet::find($id);
+        $kyc_wallet->kyc_name =  $request->kyc_name;
         $kyc_wallet->kyc_wallet =  $request->kyc_wallet;
         $kyc_wallet->kyc_number =  $request->kyc_number;
         $kyc_wallet->save();
@@ -172,6 +174,7 @@ class AdminSettingController extends Controller
     public function lucky_wallet(Request $request, $id)
     {
         $lucky_wallet = Wallet::find($id);
+        $lucky_wallet->lucky_name =  $request->lucky_name;
         $lucky_wallet->lucky_wallet =  $request->lucky_wallet;
         $lucky_wallet->lucky_number =  $request->lucky_number;
         $lucky_wallet->save();
@@ -181,6 +184,7 @@ class AdminSettingController extends Controller
      public function vip_wallet(Request $request, $id)
     {
         $vip_wallet = Wallet::find($id);
+        $vip_wallet->vip_name =  $request->vip_name;
         $vip_wallet->vip_wallet =  $request->vip_wallet;
         $vip_wallet->vip_number =  $request->vip_number;
         $vip_wallet->save();

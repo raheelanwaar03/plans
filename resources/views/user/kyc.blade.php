@@ -226,9 +226,10 @@
             <h3 style="margin:0 0 6px">Wallet Details</h3>
             <div style="display:flex;gap:12px">
                 <div class="">
-                    <h4>Wallet: {{ $wallet->wallet }}</h4>
-                    <h4>Account Title: {{ $wallet->name }}</h4>
-                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->number }}" readonly />
+                    <h4>Wallet: {{ $wallet->kyc_wallet }}</h4>
+                    <h4>Account Title: {{ $wallet->kyc_name }}</h4>
+                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->kyc_number }}"
+                            readonly />
                         <span class="copy-icon" onclick="copyInputText()">📋 Copy</span>
                     </h4>
                 </div>
@@ -336,7 +337,7 @@
                         <div style="display:flex;gap:8px;margin-top:10px">
                             {{-- <button type="button" class="btn" onclick="openScanner('back')">Scan</button> --}}
                             <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
-                                name="idBack"/>
+                                name="idBack" />
                             <div style="flex:1"></div>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\LuckyDrawItems;
+use App\Models\admin\Wallet;
 use App\Models\User;
 use App\Models\user\KYC;
 use App\Models\user\LuckyParticipant;
@@ -22,6 +23,8 @@ class LuckyDrawController extends Controller
         }
 
         $luck = LuckyDrawItems::get();
+        $wallet = Wallet::first();
+        return $wallet;
         return view('user.luckydraw.index', compact('luck'));
     }
 
