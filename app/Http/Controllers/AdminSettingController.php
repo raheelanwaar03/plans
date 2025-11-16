@@ -28,10 +28,10 @@ class AdminSettingController extends Controller
         ]);
 
         $token = TokenPrice::first();
-        $token->price = $request->input('price');
-        $token->selling_price = $request->input('selling_price');
-        $token->buying_price = $request->input('buying_price');
-        $token->vip_price = $request->input('vip_price');
+        $token->price = $request->price;
+        $token->selling_price = $request->selling_price;
+        $token->buying_price = $request->buying_price;
+        $token->vip_price = $request->vip_price;
         $token->save();
         return redirect()->back()->with('success', 'Token price updated successfully.');
     }
