@@ -26,18 +26,8 @@ class AdminSettingController extends Controller
             'buying_price' => 'numeric|min:0',
             'vip_price' => 'required|numeric|min:0',
         ]);
-        // Find the first token price record
+
         $token = TokenPrice::first();
-        if (!$token) {
-            // If no token price exists, create a new one
-            $token = new TokenPrice();
-            $token->price = $request->input('price');
-            $token->selling_price = $request->input('selling_price');
-            $token->buying_price = $request->input('buying_price');
-            $token->vip_price = $request->input('vip_price');
-            $token->save();
-        }
-        // Update the token price details
         $token->price = $request->input('price');
         $token->selling_price = $request->input('selling_price');
         $token->buying_price = $request->input('buying_price');
