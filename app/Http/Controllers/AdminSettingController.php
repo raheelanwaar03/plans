@@ -14,7 +14,6 @@ class AdminSettingController extends Controller
     public function settings()
     {
         $token = TokenPrice::first();
-        return $token;
         return view('admin.setting.index', compact('token'));
     }
 
