@@ -29,45 +29,50 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">Token Price ({{ $tokenPrice->price }} pkr)</h4>
+                                        <h4 class="card-title text-center">Token Price ({{ $token->price }} pkr)</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
                             <div class="card-body pt-0">
-                                <form action="{{ route('Admin.Token.Price') }}" method="POST">
+                                <form action="{{ route('Admin.Token.Price', $token->id) }}" method="POST">
                                     @csrf
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-6">
                                             <div class="form-group">
-                                                <label for="amount">Update Token Price</label>
-                                                <input type="text" id="amount" class="form-control" name="price"
-                                                    value="{{ $tokenPrice->price }}">
+                                                <label for="amount" class="form-label">Token Price</label>
+                                                <input type="number" name="price" class="form-control" id="amount"
+                                                    value="{{ $token->price }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-6">
                                             <div class="form-group">
-                                                <label for="selling_amount">Update Token Selling Price</label>
-                                                <input type="text" id="selling_amount" class="form-control"
-                                                    name="selling_price" value="{{ $tokenPrice->selling_price }}">
+                                                <label for="sell_price" class="form-label">Selling Price</label>
+                                                <input type="number" class="form-control" name="selling_price"
+                                                    value="{{ $token->selling_price }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
                                             <div class="form-group">
-                                                <label for="buying_amount">Update Token Buying Price</label>
-                                                <input type="text" id="buying_amount" class="form-control"
-                                                    name="buying_price" value="{{ $tokenPrice->buying_price }}">
+                                                <label for="buying" class="form-label">Buying Price</label>
+                                                <input type="number" name="buying_price" class="form-control"
+                                                    id="buying" value="{{ $token->buying_price }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-6">
                                             <div class="form-group">
-                                                <label for="vip_price">VIP Price</label>
-                                                <input type="number" id="vip_price" class="form-control" name="vip_price"
-                                                    value="{{ $tokenPrice->vip_price }}">
+                                                <label for="vip_price" class="form-label">VIP Price</label>
+                                                <input type="number" class="form-control" name="vip_price"
+                                                    value="{{ $token->vip_price }}">
                                             </div>
                                         </div>
-                                        <div class="mt-3">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                        </div>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

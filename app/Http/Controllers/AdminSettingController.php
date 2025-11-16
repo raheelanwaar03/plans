@@ -13,27 +13,19 @@ class AdminSettingController extends Controller
 {
     public function settings()
     {
-        $tokenPrice = TokenPrice::first();
-        return view('admin.setting.index', compact('tokenPrice'));
+        $token = TokenPrice::first();
+        return view('admin.setting.index', compact('token'));
     }
 
-    public function token_price(Request $request)
+    public function token_updation(Request $request, $id)
     {
-        // Validate the request data
-        $request->validate([
-            'price' => 'numeric|min:0',
-            'selling_price' => 'numeric|min:0',
-            'buying_price' => 'numeric|min:0',
-            'vip_price' => 'required|numeric|min:0',
-        ]);
-
-        $token = TokenPrice::first();
+        $token = TokenPrice::find($id);
         $token->price = $request->price;
         $token->selling_price = $request->selling_price;
         $token->buying_price = $request->buying_price;
         $token->vip_price = $request->vip_price;
         $token->save();
-        return redirect()->back()->with('success', 'Token price updated successfully.');
+        return redirect()->back()->with('success', 'Token Prices updated');
     }
 
     public function sell_token()
