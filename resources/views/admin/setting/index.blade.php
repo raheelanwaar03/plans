@@ -41,14 +41,14 @@
                                             <div class="form-group">
                                                 <label for="amount" class="form-label">Token Price</label>
                                                 <input type="number" name="price" class="form-control" id="amount"
-                                                    value="{{ $token->price }}">
+                                                    value="{{ $token->price }}" step="0.001">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="sell_price" class="form-label">Selling Price</label>
                                                 <input type="number" class="form-control" name="selling_price"
-                                                    value="{{ $token->selling_price }}">
+                                                    value="{{ $token->selling_price }}" step="0.001">
                                             </div>
                                         </div>
                                     </div>
@@ -58,14 +58,14 @@
                                             <div class="form-group">
                                                 <label for="buying" class="form-label">Buying Price</label>
                                                 <input type="number" name="buying_price" class="form-control"
-                                                    id="buying" value="{{ $token->buying_price }}">
+                                                    id="buying" value="{{ $token->buying_price }}" step="0.001">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="vip_price" class="form-label">VIP Price</label>
                                                 <input type="number" class="form-control" name="vip_price"
-                                                    value="{{ $token->vip_price }}">
+                                                    value="{{ $token->vip_price }}" step="0.001">
                                             </div>
                                         </div>
                                     </div>
