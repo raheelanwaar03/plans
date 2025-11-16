@@ -33,7 +33,7 @@ class AdminSettingController extends Controller
         $token->buying_price = $request->input('buying_price');
         $token->vip_price = $request->input('vip_price');
         $token->save();
-        return redirect()->route('Admin.Settings')->with('success', 'Token price updated successfully.');
+        return redirect()->back()->with('success', 'Token price updated successfully.');
     }
 
     public function sell_token()
