@@ -61,7 +61,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="vip_price">VIP Price</label>
-                                                <input type="text" id="vip_price" class="form-control" name="vip_price"
+                                                <input type="number" id="vip_price" class="form-control" name="vip_price"
                                                     value="{{ $tokenPrice->vip_price }}">
                                             </div>
                                         </div>
@@ -71,7 +71,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div> <!-- end col -->
+                    </div>
                 </div>
 
                 <div class="row">
