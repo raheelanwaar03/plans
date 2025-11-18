@@ -254,7 +254,7 @@
             <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a>
                 Secure
                 ID Scan</h1>
-            <p class="lead">Capture front & back of your identity card using your device camera. Pay 540pkr to given
+            <p class="lead">Capture front & back of your identity card using your device camera. Pay 580pkr to given
                 account and upload screenshot and add TrxID in form while doing kyc.
             </p>
             <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">

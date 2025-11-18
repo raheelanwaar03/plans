@@ -286,7 +286,7 @@
                         <option value="Jazzcash">Jazzcash</option>
                         <option value="Nayapay">Nayapay</option>
                         <option value="Sadapay">Sadapay</option>
-                        <option value="Payooner">Payooner</option>
+                        <option value="Binance">Binance</option>
                     </select>
                     <button type="submit">Sell</button>
                 </form>
@@ -310,15 +310,19 @@
         <div class="card-bg">
             <div class="card-body">
                 <h4>VIP Class</h4>
-                <p><b></b></p>
+                <p>You will get special rate for selling tokens if you add in VIP class. You only have to pay
+                    ({{ $tokenPrice->vip_fees }}) and you will get one pgn price ({{ $tokenPrice->vip_price }}).</p>
+                <p><b>Account Title:</b> {{ $wallet->vip_name }}</p>
                 <div class="d-flex justify-content-center align-items-center">
-                    <p>If you want to add in VIP Class you have to pay R.s {{ $tokenPrice->vip_fees }} on this account
-                        {{ $wallet->number }}. Then you
-                        will got {{ $tokenPrice->vip_price }}pkr while selling PGN and many more benefits.</p>
+                    <p><b>Email:</b> <span id="walletNumber">{{ $wallet->vip_number }}</span></p>
+                    <i class="bi bi-clipboard" onclick="copyVip()"
+                        style="cursor: pointer; color: blue;margin-top:-17px"></i>
                 </div>
+                <p><b>Bank Name:</b> {{ $wallet->vip_wallet }}</p>
                 <a href="{{ route('User.Buy.Vip') }}" class="btn btn-success text-white">Buy Now</a>
                 <a href="{{ route('User.Sell.Vip') }}" class="btn btn-warning text-white">Sell Now</a>
             </div>
+        </div>
         </div>
         <script>
             function showForm(type) {
