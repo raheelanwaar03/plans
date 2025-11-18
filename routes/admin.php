@@ -62,4 +62,5 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::post('Update/Kyc/Wallet/{id}', [AdminSettingController::class, 'kyc_wallet'])->name('Update.KYC.Wallet');
     Route::post('Update/Lucky/Wallet/{id}', [AdminSettingController::class, 'Lucky_wallet'])->name('Update.Lucky.Wallet');
     Route::post('Update/VIP/Wallet/{id}', [AdminSettingController::class, 'VIP_wallet'])->name('Update.VIP.Wallet');
+    Route::post('Update/Binance/Wallet/{id}', [AdminSettingController::class, 'binance_wallet'])->name('Update.Binance.Wallet');
 });

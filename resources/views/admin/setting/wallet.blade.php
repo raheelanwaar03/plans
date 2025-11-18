@@ -252,6 +252,44 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h4 class="card-title text-center">Binance</h4>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end card-header-->
+                            <div class="card-body pt-0">
+                                <form action="{{ route('Admin.Update.Binance.Wallet', $walletDetails->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="binance">Binance Wallet</label>
+                                                <input type="text" id="binance" class="form-control"
+                                                    name="binance_wallet" value="{{ $walletDetails->binance_wallet }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="address">Binance address</label>
+                                                <input type="text" id="address" class="form-control"
+                                                    name="binance_address" value="{{ $walletDetails->binance_address }}">
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div><!-- container -->
 
             <footer class="footer text-center text-sm-start d-print-none">

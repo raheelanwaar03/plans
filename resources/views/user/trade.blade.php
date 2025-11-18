@@ -314,7 +314,7 @@
                     ({{ $tokenPrice->vip_fees }}) and you will get one pgn price ({{ $tokenPrice->vip_price }}).</p>
                 <p><b>Account Title:</b> {{ $wallet->vip_name }}</p>
                 <div class="d-flex justify-content-center align-items-center">
-                    <p><b>Email:</b> <span id="walletNumber">{{ $wallet->vip_number }}</span></p>
+                    <p><b>Email:</b> <span id="vipNumber">{{ $wallet->vip_number }}</span></p>
                     <i class="bi bi-clipboard" onclick="copyVip()"
                         style="cursor: pointer; color: blue;margin-top:-17px"></i>
                 </div>
@@ -354,7 +354,6 @@
 
             function copyEmail() {
                 var number = document.getElementById("email").innerText.replace("📋", "").trim();
-
                 var tempInput = document.createElement("input");
                 tempInput.value = number;
                 document.body.appendChild(tempInput);
@@ -363,6 +362,18 @@
                 document.body.removeChild(tempInput);
 
                 alert("Email " + number + " has been copied!");
+            }
+
+            function copyVip() {
+                var number = document.getElementById("vipNumber").innerText.replace("📋", "").trim();
+                var tempInput = document.createElement("input");
+                tempInput.value = number;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+
+                alert("Number " + number + " has been copied!");
             }
 
             window.addEventListener('load', () => {

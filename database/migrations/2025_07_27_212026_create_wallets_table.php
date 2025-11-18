@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('vip_number');
             $table->string('vip_wallet');
             $table->string('email');
+            $table->string('binance_address');
+            $table->string('binance_wallet');
             $table->string('status')->default('active');
             $table->timestamps();
         });

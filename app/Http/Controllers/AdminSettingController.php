@@ -176,4 +176,13 @@ class AdminSettingController extends Controller
         $vip_wallet->save();
         return redirect()->back()->with('success', 'Premium wallet details update');
     }
+
+    public function binance_wallet(Request $request, $id)
+    {
+        $vip_wallet = Wallet::find($id);
+        $vip_wallet->binance_wallet =  $request->binance_wallet;
+        $vip_wallet->binance_address =  $request->binance_address;
+        $vip_wallet->save();
+        return redirect()->back()->with('success', 'Binance wallet details update');
+    }
 }
