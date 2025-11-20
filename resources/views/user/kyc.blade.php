@@ -228,9 +228,20 @@
                 <div class="">
                     <h4>Wallet: {{ $wallet->kyc_wallet }}</h4>
                     <h4>Account Title: {{ $wallet->kyc_name }}</h4>
-                    <h4>Account Number: <input type="text" id="copyInput" value="{{ $wallet->kyc_number }}"
-                            readonly />
-                        <span class="copy-icon" onclick="copyInputText()">📋 Copy</span>
+                    <div>Account Number:
+                        <h3 id="copyText">
+                            {{ $wallet->kyc_number }} <span class="copy-icon" onclick="copyById('copyText')">📋</span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div style="display:flex;gap:12px">
+                <div class="">
+                    <h4>Wallet: {{ $wallet->binance_wallet }}</h4>
+                    <h4>Address: <p id="binance_address">{{ $wallet->binance_address }} <span class="copy-icon"
+                                onclick="copyBinance()">📋</span></p>
                     </h4>
                 </div>
             </div>
@@ -462,70 +473,48 @@
         window.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeScanner();
         });
+    </script>
 
-        function copyInputText() {
-            const input = document.getElementById("copyInput");
-            input.select();
-            input.setSelectionRange(0, 99999); // For mobile devices
+    <script>
+        function copyById(id) {
+            const text = document.getElementById(id).innerText;
 
-            navigator.clipboard.writeText(input.value)
-                .then(() => {
-                    alert("Text copied to clipboard!");
-                })
-                .catch(err => {
-                    console.error("Failed to copy: ", err);
-                });
+            // Create a temporary textarea
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+
+            // Copy the text
+            ta.select();
+            document.execCommand("copy");
+
+            // Remove temporary element
+            document.body.removeChild(ta);
+
+            alert("Copied: " + text);
         }
     </script>
+
+    <script>
+        function copyBinance(id) {
+            const text = document.getElementById(id).innerText;
+
+            // Create a temporary textarea
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+
+            // Copy the text
+            ta.select();
+            document.execCommand("copy");
+
+            // Remove temporary element
+            document.body.removeChild(ta);
+
+            alert("Copied: " + text);
+        }
+    </script>
+
 </body>
 
 </html>
-
-{{-- <form action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="form-group">
-        <label for="fullName" class="form-label">Full Name:</label>
-        <input type="text" class="form-control" id="fullName" name="name" required>
-    </div>
-
-    <div class="form-group">
-        <label for="mobileNumber" class="form-label">Mobile Number:</label>
-        <input type="text" class="form-control" id="mobileNumber" name="number" required>
-    </div>
-
-    <div class="form-group">
-        <label for="id_front">Upload ID (Front Side):</label><br>
-        <input type="file" id="id_front" name="idFront" accept="image/*" capture="environment" style="display:none;"
-            onchange="previewFile(event, 'previewFront')">
-        <button type="button" onclick="document.getElementById('id_front').click()">📷 Scan
-            Front</button>
-        <div id="previewFront" style="margin-top:10px;"></div>
-    </div>
-
-    <div class="form-group">
-        <label for="id_back">Upload ID (Back Side):</label><br>
-        <input type="file" id="id_back" name="idBack" accept="image/*" capture="environment" style="display:none;"
-            onchange="previewFile(event, 'previewBack')">
-        <button type="button" onclick="document.getElementById('id_back').click()">📷 Scan
-            Back</button>
-        <div id="previewBack" style="margin-top:10px;"></div>
-    </div>
-    <div class="form-group">
-        <label for="selfie" class="form-label">Selfie:</label>
-        <input type="file" class="form-control" id="selfie" name="selfie" accept="image/*" required>
-    </div>
-
-    <div class="form-group">
-        <label for="paymentScreenshot" class="form-label">Payment Screenshot:</label>
-        <input type="file" class="form-control" id="paymentScreenshot" name="paymentScreenshot" accept="image/*"
-            required>
-    </div>
-
-    <div class="form-group">
-        <label for="trx_id" class="form-label">Trx ID:</label>
-        <input type="number" class="form-control" id="trx_id" name="trx_id" required maxlength="11">
-    </div>
-    <div class="mt-3">
-        <input type="submit" class="btn btn-primary" value="Submit KYC Data">
-    </div>
-</form> --}}

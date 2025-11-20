@@ -175,6 +175,10 @@ class UserDashboardController extends Controller
     public function boost(Request $request)
     {
         $user = User::find(auth()->user()->id);
+        if($request->tokens == null)
+        {
+            return redirect()->back()->with('error', 'Please select tokens first!');
+        }
         // check if user have enough coins
         if ($user->balance < $request->tokens) {
             return redirect()->back()->with('error', 'You have not enough coins');

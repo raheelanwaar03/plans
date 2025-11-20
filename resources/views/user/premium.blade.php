@@ -317,6 +317,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h4 class="text-center"><u>Binance Details</u></h4>
+                    <div class="wallet-address">
+                        <div class="d-flex justify-content-around align-items-center mb-2">
+                            <h5>
+                                Wallet: <b class="text-danger">{{ $wallet->binance_wallet }}</b>
+                            </h5>
+                        </div>
+                        <input type="text" class="form-control" id="binance_address" value="{{ $wallet->binance_address }}"
+                            readonly>
+                        <i style="margin-top:-30px;margin-right:10px;float:right;color:blue" class="bi bi-clipboard"
+                            id="binance_address"></i>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 
@@ -415,6 +433,17 @@
         window.addEventListener('load', () => {
             document.getElementById('preloader').style.display = 'none';
             document.getElementById('content').style.display = 'block';
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#binance_address').click(function() {
+                let input = $('#binance_address');
+                input.select();
+                document.execCommand('copy');
+                alert('Link copied to clipboard: ' + input.val());
+            });
         });
     </script>
 
