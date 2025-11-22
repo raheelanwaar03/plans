@@ -229,8 +229,9 @@
                     <h4>Wallet: {{ $wallet->kyc_wallet }}</h4>
                     <h4>Account Title: {{ $wallet->kyc_name }}</h4>
                     <div>Account Number:
-                        <h3 id="copyText">
-                            {{ $wallet->kyc_number }} <span class="copy-icon" onclick="copyById('copyText')">📋</span>
+                        <h3>
+                            <span id="copyText">{{ $wallet->kyc_number }}</span>
+                            <span class="copy-icon" onclick="copyById('copyText')">📋</span>
                         </h3>
                     </div>
                 </div>
@@ -240,8 +241,11 @@
             <div style="display:flex;gap:12px">
                 <div class="">
                     <h4>Wallet: {{ $wallet->binance_wallet }}</h4>
-                    <h4>Address: <p id="binance_address">{{ $wallet->binance_address }} <span class="copy-icon"
-                                onclick="copyBinance()">📋</span></p>
+                    <h4>
+                        Address:
+                        <span id="binance_address">{{ $wallet->binance_address }}</span>
+                        <span class="copy-icon" onclick="copyBinance()"
+                            style="cursor:pointer; margin-left:6px;">📋</span>
                     </h4>
                 </div>
             </div>
@@ -496,22 +500,51 @@
     </script>
 
     <script>
-        function copyBinance(id) {
-            const text = document.getElementById(id).innerText;
+        function copyBinance() {
+            const el = document.getElementById("binance_address");
+            if (!el) {
+                alert("Address element not found.");
+                return;
+            }
+            const text = el.innerText.trim();
 
-            // Create a temporary textarea
-            const ta = document.createElement("textarea");
-            ta.value = text;
-            document.body.appendChild(ta);
+            // Preferred modern API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("Copied: " + text);
+                }).catch(err => {
+                    // Fallback if navigator.clipboard fails
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(text);
+            }
+        }
 
-            // Copy the text
-            ta.select();
-            document.execCommand("copy");
+        function fallbackCopyTextToClipboard(text) {
+            try {
+                // create a temporary textarea to select & copy
+                const textarea = document.createElement("textarea");
+                textarea.value = text;
+                // avoid showing on screen
+                textarea.style.position = "fixed";
+                textarea.style.left = "-9999px";
+                document.body.appendChild(textarea);
+                textarea.select();
+                textarea.setSelectionRange(0, textarea.value.length);
 
-            // Remove temporary element
-            document.body.removeChild(ta);
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textarea);
 
-            alert("Copied: " + text);
+                if (successful) {
+                    alert("Copied: " + text);
+                } else {
+                    alert("Unable to copy automatically. Please copy manually:\n\n" + text);
+                }
+            } catch (err) {
+                alert("Copy failed. Please copy manually:\n\n" + text);
+            }
         }
     </script>
 
