@@ -64,7 +64,7 @@
                 background-color: #ffffff;
                 border-radius: 10px;
                 text-align: center;
-                width: 500px;
+                width: 400px;
                 transition: 0.3s;
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             }
@@ -255,8 +255,7 @@
                                     style="cursor: pointer; color: blue;margin-top:-17px"></i>
                             </div>
                             <p class="text-danger" style="font-size:10px;">
-                                <small>Confirm before transfer that you have select the right type while
-                                    transferring.</small>
+                                <small>Confirm before transferring that you have selected the right type.</small>
                             </p>
                         </div>
                     </div>

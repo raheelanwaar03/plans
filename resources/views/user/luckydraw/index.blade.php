@@ -259,6 +259,19 @@
                 <h5>Number : <span id="number">{{ $wallet->lucky_number }}</span> <i class="bi bi-clipboard"
                         onclick="copyNumber()" style="cursor: pointer; color: blue;margin-top:-17px"></i></h5>
                 <h5>Bank : {{ $wallet->lucky_wallet }}</h5>
+                <hr>
+
+                <h3>Binance Details</h3>
+                <h5>Type: {{ $wallet->binance_wallet }}</h5>
+                <h5>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <p><b>Address:</b> <span id="email">{{ $wallet->binance_address }}</span> <span><i
+                                    class="bi bi-clipboard" onclick="copyEmail()"
+                                    style="cursor: pointer; color: blue;margin-top:-17px"></i></span> </p>
+
+                    </div>
+                </h5>
+
             </div>
         </div>
 
@@ -271,7 +284,8 @@
                                 height="150px" width="150px">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->name }}</h5>
-                                <p class="card-text">You have to invest <b>{{ $item->amount }}</b> for participating</p>
+                                <p class="card-text">You have to invest <b>{{ $item->amount }}</b> for participating
+                                </p>
                                 <a href="{{ route('User.Participate', $item->id) }}"
                                     class="btn btn-primary">Participate</a>
                             </div>
@@ -308,6 +322,18 @@
                 document.body.removeChild(tempInput);
 
                 alert("Number " + number + " has been copied!");
+            }
+
+            function copyEmail() {
+                var number = document.getElementById("email").innerText.replace("📋", "").trim();
+                var tempInput = document.createElement("input");
+                tempInput.value = number;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+
+                alert("Address " + number + " has been copied!");
             }
         </script>
 
