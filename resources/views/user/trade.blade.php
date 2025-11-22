@@ -246,15 +246,18 @@
                 <div class="col-md-6">
                     <div class="card-bg">
                         <div class="card-body">
-                            <h4>Payooner Details</h4>
-                            <p><b>Account Title:</b> Pigeon Mining</p>
+                            <h4>Binance Details</h4>
+                            <p><b>Type:</b>{{ $wallet->binance_wallet }}</p>
                             <div class="d-flex justify-content-center align-items-center">
-                                <p><b>Email:</b> <span id="email">pigeonofficial6@gmail.com</span></p>
+                                <p><b>Address:</b> <span id="email">{{ $wallet->binance_address }}</span></p>
                                 {{-- add icon to copy the account number --}}
                                 <i class="bi bi-clipboard" onclick="copyEmail()"
                                     style="cursor: pointer; color: blue;margin-top:-17px"></i>
                             </div>
-                            <p><b>Bank Name:</b> Payooner</p>
+                            <p class="text-danger" style="font-size:10px;">
+                                <small>Confirm before transfer that you have select the right type while
+                                    transferring.</small>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -312,16 +315,27 @@
                 <h4>VIP Class</h4>
                 <p>You will get special rate for selling tokens if you add in VIP class. You only have to pay
                     ({{ $tokenPrice->vip_fees }}) and you will get one pgn price ({{ $tokenPrice->vip_price }}).</p>
-                <p><b>Account Title:</b> {{ $wallet->vip_name }}</p>
+                <p><b>Bank Name:</b> {{ $wallet->vip_wallet }}</p>
                 <div class="d-flex justify-content-center align-items-center">
-                    <p><b>Email:</b> <span id="vipNumber">{{ $wallet->vip_number }}</span></p>
+                    <p><b>Account Number:</b> <span id="vipNumber">{{ $wallet->vip_number }}</span></p>
                     <i class="bi bi-clipboard" onclick="copyVip()"
                         style="cursor: pointer; color: blue;margin-top:-17px"></i>
                 </div>
-                <p><b>Bank Name:</b> {{ $wallet->vip_wallet }}</p>
+                <p><b>Account Title:</b> {{ $wallet->vip_name }}</p>
+                <hr>
+
+                <h4>Binance Detials</h4>
+
+                <h6>Type: {{ $wallet->binance_wallet }}</h6>
+                <p><b>Address:</b> <span id="email">{{ $wallet->binance_address }}</span> <span><i
+                            class="bi bi-clipboard" onclick="copyEmail()"
+                            style="cursor: pointer; color: blue;margin-top:-17px"></i></span></p>
+                <hr>
                 <a href="{{ route('User.Buy.Vip') }}" class="btn btn-success text-white">Buy Now</a>
                 <a href="{{ route('User.Sell.Vip') }}" class="btn btn-warning text-white">Sell Now</a>
             </div>
+
+
         </div>
         </div>
         <script>
@@ -361,7 +375,7 @@
                 document.execCommand("copy");
                 document.body.removeChild(tempInput);
 
-                alert("Email " + number + " has been copied!");
+                alert("Address " + number + " has been copied!");
             }
 
             function copyVip() {

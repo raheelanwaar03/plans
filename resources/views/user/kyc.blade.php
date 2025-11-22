@@ -319,6 +319,8 @@
 
                 <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
 
+                {{-- camera --}}
+
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
                     <!-- Front -->
                     <div>
