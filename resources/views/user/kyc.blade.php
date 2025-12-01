@@ -214,6 +214,14 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        #backUpload {
+            display: none;
+        }
+
+        #frontUpload {
+            display: none;
+        }
     </style>
 </head>
 
@@ -337,7 +345,7 @@
                             <button type="button" class="btn" onclick="openScanner('front')">
                                 Scan</button>
                             <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
-                                name="idFront" hidden/>
+                                name="idFront" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
@@ -354,7 +362,7 @@
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
                             <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
-                                name="idBack" hidden/>
+                                name="idBack" />
                             <div style="flex:1"></div>
                         </div>
                     </div>
