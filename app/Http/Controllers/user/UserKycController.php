@@ -18,13 +18,12 @@ class UserKycController extends Controller
 
     public function index(Request $request)
     {
-        return $request;
         $request->validate([
             'name' => 'required',
             'number' => 'required|string|min:11',
             'cnic' => ['required', 'unique:' . KYC::class],
             'idFront' => 'required',
-            'idBack' => 'required',
+            'back_image' => 'required',
             'selfie' => 'required',
             'trx_id' => 'required|string|min:11',
             'paymentScreenshot' => 'required',
@@ -40,7 +39,7 @@ class UserKycController extends Controller
         $idFrontImage = rand(1111111, 99999999) . '.' . $request->idFront->extension();
         $request->idFront->move(public_path('images/KYC'), $idFrontImage);
         // back ID image save
-        $idBackImage = rand(1111111, 99999999) . '.' . $request->idBack->extension();
+        $idBackImage = rand(1111111, 99999999) . '.' . $request->back_image->extension();
         $request->idBack->move(public_path('images/KYC'), $idBackImage);
         // selfie image save
         $selfieImage = rand(1111111, 99999999) . '.' . $request->selfie->extension();
