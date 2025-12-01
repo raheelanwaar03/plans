@@ -171,8 +171,9 @@
 
 <body>
 
-    <div class="wrap">
+    <x-alert />
 
+    <div class="wrap">
         <!-- Left: KYC Form -->
         <section class="card">
             <h1>KYC - Secure ID Scan</h1>
