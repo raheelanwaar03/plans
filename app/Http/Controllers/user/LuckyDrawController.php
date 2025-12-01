@@ -68,7 +68,7 @@ class LuckyDrawController extends Controller
             $user_balance->balance -= $item->amount;
             $user_balance->save();
             // Lucky draw ID
-            $luckyDrawId = rand(111111,999999);
+            $luckyDrawId = rand(111111, 999999);
             // participate
             $participant = new LuckyParticipant();
             $participant->user_id = auth()->user()->id;
@@ -82,7 +82,7 @@ class LuckyDrawController extends Controller
             return redirect()->back()->with('error', 'Please Add Balance into your account');
         }
 
-        return redirect()->back()->with('success', 'Congrats! You have participated');
+        return redirect()->back()->with('success', 'Congrats! You have participated,Your Lucky Draw ID is ' . $luckyDrawId . '.');
     }
 
     public function winner()

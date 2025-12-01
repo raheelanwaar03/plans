@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
     <title>Lottery Winners</title>
     <style>
         body {
@@ -152,7 +153,8 @@
             <div class="card">
                 <img src="{{ asset('images/luckyDraw/' . $winner->image) }}" alt="Prize Image">
                 <div class="card-body">
-                    <h2>{{ $winner->user_email }} is the winner</h2>
+                    <h2>{{ $winner->user_email }} is the winner.</h2>
+                    <h2>{{ $winner->user_luckyDrawID }} was his ticket number.</h2>
                     <p>Ticket Price: {{ $winner->item_price }}</p>
                     <p>Date: {{ $winner->created_at->format('d M, Y') }}</p>
                     <p>Organized by: {{ env('APP_NAME') }}
