@@ -323,47 +323,43 @@
                         <input id="cnic" name="paymentScreenshot" type="file" placeholder="12345123451"
                             maxlength="11" pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
                     </div>
-                </div>
-
-                <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-                {{-- camera --}}
-
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                    <!-- Front -->
-                    <div>
-                        <label>Identity Card — Front</label>
-                        <div class="scanner-preview" id="frontPreview">
-                            <div style="text-align:center;padding:12px;color:var(--muted)">
-                                <div style="font-weight:600">No front image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
-                                        Side</span>
+                    {{-- camera --}}
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                        <!-- Front -->
+                        <div>
+                            <label>Identity Card — Front</label>
+                            <div class="scanner-preview" id="frontPreview">
+                                <div style="text-align:center;padding:12px;color:var(--muted)">
+                                    <div style="font-weight:600">No front image</div>
+                                    <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
+                                            Side</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('front')">
-                                Scan</button>
-                            <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
-                                name="idFront" />
-                            <div style="flex:1"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <label>Identity Card — Back</label>
-                        <div class="scanner-preview" id="backPreview">
-                            <div style="text-align:center;padding:12px;color:var(--muted)">
-                                <div style="font-weight:600">No Back image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
-                                        Side</span>
-                                </div>
+                            <div style="display:flex;gap:8px;margin-top:10px">
+                                <button type="button" class="btn" onclick="openScanner('front')">
+                                    Scan</button>
+                                <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
+                                    name="idFront" />
+                                <div style="flex:1"></div>
                             </div>
                         </div>
-                        <div style="display:flex;gap:8px;margin-top:10px">
-                            <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
-                            <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
-                                name="idBack" />
-                            <div style="flex:1"></div>
+                        <div>
+                            <label>Identity Card — Back</label>
+                            <div class="scanner-preview" id="backPreview">
+                                <div style="text-align:center;padding:12px;color:var(--muted)">
+                                    <div style="font-weight:600">No Back image</div>
+                                    <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
+                                            Side</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-top:10px">
+                                <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
+                                <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
+                                    name="idBack" />
+                                <div style="flex:1"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
