@@ -171,17 +171,16 @@
 
 <body>
 
-    <x-alert />
-
     <div class="wrap">
+
         <!-- Left: KYC Form -->
         <section class="card">
             <h1>KYC - Secure ID Scan</h1>
-            <p class="lead">Capture front & back of your identity card using your device camera. Also upload selfie
-                and payment screenshot.</p>
+            <p class="lead">Capture front & back of your identity card using your device camera. Also upload selfie and payment screenshot.</p>
 
             <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+
                 <!-- User Details -->
                 <div style="display:flex;gap:12px;flex-wrap:wrap">
                     <div style="flex:1;min-width:220px">
@@ -190,18 +189,15 @@
                     </div>
                     <div style="width:220px">
                         <label>Phone Number</label>
-                        <input name="number" type="text" maxlength="11" pattern="\d{11}" inputmode="numeric"
-                            required />
+                        <input name="number" type="text" maxlength="11" pattern="\d{11}" inputmode="numeric" required />
                     </div>
                     <div style="width:220px">
                         <label>CNIC</label>
-                        <input name="cnic" type="number" maxlength="13" pattern="\d{13}" inputmode="numeric"
-                            required />
+                        <input name="cnic" type="number" maxlength="13" pattern="\d{13}" inputmode="numeric" required />
                     </div>
                     <div style="width:220px">
                         <label>Transaction ID (Trx ID)</label>
-                        <input name="trx_id" type="text" maxlength="11" pattern="\d{11}" inputmode="numeric"
-                            required />
+                        <input name="trx_id" type="text" maxlength="11" pattern="\d{11}" inputmode="numeric" required />
                     </div>
                 </div>
 
@@ -234,8 +230,7 @@
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('front')">Scan</button>
                             {{-- <button type="button" class="btn secondary" onclick="document.getElementById('frontUpload').click()">Upload</button> --}}
-                            <input type="file" id="frontUpload" accept="image/*" style="display:none"
-                                onchange="handleUpload(event,'front')">
+                            <input type="file" id="frontUpload" accept="image/*" style="display:none" onchange="handleUpload(event,'front')">
                             <input type="hidden" id="frontImageInput" name="idFront">
                         </div>
                     </div>
@@ -252,8 +247,7 @@
                         <div style="display:flex;gap:8px;margin-top:10px">
                             <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
                             {{-- <button type="button" class="btn secondary" onclick="document.getElementById('backUpload').click()">Upload</button> --}}
-                            <input type="file" id="backUpload" accept="image/*" style="display:none"
-                                onchange="handleUpload(event,'back')">
+                            <input type="file" id="backUpload" accept="image/*" style="display:none" onchange="handleUpload(event,'back')">
                             <input type="hidden" id="backImageInput" name="back_image">
                         </div>
                     </div>
@@ -303,12 +297,7 @@
 
         async function startCamera() {
             try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: 'environment'
-                    },
-                    audio: false
-                });
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
                 video.srcObject = stream;
             } catch (err) {
                 alert("Camera permission denied: " + err.message);
@@ -319,10 +308,7 @@
         function closeScanner() {
             document.getElementById('cameraModal').classList.remove('open');
             document.getElementById('cameraModal').setAttribute('aria-hidden', 'true');
-            if (stream) {
-                stream.getTracks().forEach(t => t.stop());
-                stream = null;
-            }
+            if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
         }
 
         function captureFrame() {
@@ -352,11 +338,8 @@
             if (side === "back") document.getElementById("backImageInput").value = dataUrl;
         }
 
-        window.addEventListener("keydown", e => {
-            if (e.key === "Escape") closeScanner();
-        });
+        window.addEventListener("keydown", e => { if (e.key === "Escape") closeScanner(); });
     </script>
 
 </body>
-
 </html>
