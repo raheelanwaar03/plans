@@ -67,10 +67,13 @@ class LuckyDrawController extends Controller
             // deduct balance from user balance
             $user_balance->balance -= $item->amount;
             $user_balance->save();
+            // Lucky draw ID
+            $luckyDrawId = rand(111111,999999);
             // participate
             $participant = new LuckyParticipant();
             $participant->user_id = auth()->user()->id;
             $participant->user_email = auth()->user()->name;
+            $participant->user_luckyDrawID = $luckyDrawId;
             $participant->item_id = $item->id;
             $participant->image = $item->image;
             $participant->item_price = $item->amount;

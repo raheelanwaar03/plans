@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('user_email');
+            $table->string('user_luckyDrawID');
             $table->string('item_id');
             $table->string('image');
             $table->string('item_price');

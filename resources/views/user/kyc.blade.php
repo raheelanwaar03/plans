@@ -1,555 +1,284 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Eye-catching KYC Form with ID Scanner</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
-    <style>
-        :root {
-            --bg: #6b97ff;
-            --card: #3a7cff;
-            --accent: #06b6d4;
-            --glass: rgba(77, 46, 46, 0.04);
-            --muted: rgba(17, 17, 17, 0.7);
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        body {
-            font-family: Inter, system-ui, Segoe UI, Roboto, 'Helvetica Neue', Arial;
-            margin: 0;
-            min-height: 100vh;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            color: #0364db;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 32px
-        }
-
-        .wrap {
-            max-width: 980px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 420px;
-            gap: 28px
-        }
-
-        .card {
-            background: linear-gradient(180deg, rgba(77, 184, 231, 0.02), rgba(255, 255, 255, 0.01));
-            border-radius: 16px;
-            padding: 26px;
-            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.04)
-        }
-
-        h1 {
-            margin: 0 0 8px;
-            font-size: 22px
-        }
-
-        p.lead {
-            color: var(--muted);
-            margin-top: 0;
-            margin-bottom: 18px
-        }
-
-        form .row {
-            display: flex;
-            gap: 12px
-        }
-
-        label {
-            font-size: 13px;
-            color: var(--muted);
-            display: block;
-            margin-bottom: 6px
-        }
-
-        input[type=text],
-        input[type=file],
-        input[type=date],
-        input[type=number],
-        input[type=tel] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            background: var(--glass);
-            color: inherit;
-            font-size: 15px
-        }
-
-        .muted {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.55)
-        }
-
-        .scanner-preview {
-            width: 100%;
-            height: 220px;
-            background: #29446d;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-            border: 1px dashed rgba(255, 255, 255, 0.03)
-        }
-
-        .scanner-preview img {
-            max-width: 100%;
-            height: auto
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            border: 0;
-            background: linear-gradient(90deg, var(--accent), #7c3aed);
-            color: #021026;
-            font-weight: 600;
-            cursor: pointer
-        }
-
-        .btn.secondary {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.345);
-            color: var(--muted)
-        }
-
-        .camera-modal {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(180deg, rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.9));
-            z-index: 999
-        }
-
-        .camera-modal.open {
-            display: flex
-        }
-
-        .camera-box {
-            width: 920px;
-            max-width: 96%;
-            background: #041226;
-            border-radius: 14px;
-            padding: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.04)
-        }
-
-        .camera-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px
-        }
-
-        video {
-            width: 100%;
-            border-radius: 10px;
-            background: #000
-        }
-
-        canvas {
-            display: none
-        }
-
-        .note {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 12px
-        }
-
-        .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 16px
-        }
-
-        .card.small {
-            padding: 16px
-        }
-
-        .kpi {
-            display: flex;
-            gap: 12px
-        }
-
-        .kpi .item {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
-            border: 1px solid rgba(255, 255, 255, 0.03)
-        }
-
-        .kpi h3 {
-            margin: 0;
-            font-size: 20px
-        }
-
-        footer {
-            margin-top: 14px;
-            font-size: 13px;
-            color: var(--muted)
-        }
-
-        @media(max-width:980px) {
-            .wrap {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>KYC — Capture ID</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#06b6d4;--white:#e6eef6}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; background:linear-gradient(180deg,#071028 0%, #071824 100%);color:var(--white);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .container{width:100%;max-width:980px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:20px;box-shadow:0 6px 30px rgba(2,6,23,0.7);display:grid;grid-template-columns:440px 1fr;gap:18px}
+    .panel{background:rgba(255,255,255,0.02);border-radius:10px;padding:12px}
+    header{display:flex;align-items:center;gap:12px}
+    h1{margin:0;font-size:18px}
+    p.lead{color:var(--muted);margin:6px 0 12px;font-size:13px}
+    .video-wrap{background:#050816;border-radius:10px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:8px}
+    video{width:100%;height:260px;border-radius:8px;object-fit:cover;background:#000}
+    canvas{display:none}
+    .preview{width:100%;height:140px;border-radius:8px;object-fit:contain;background:#071022;display:flex;align-items:center;justify-content:center}
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    button{background:var(--accent);border:none;padding:8px 12px;border-radius:8px;color:#032;cursor:pointer;font-weight:600}
+    button.ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.06)}
+    .muted{color:var(--muted);font-size:13px}
+    .small{font-size:12px}
+    .form{display:flex;flex-direction:column;gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .row{display:flex;gap:8px}
+    .success{color:#4ade80}
+    .error{color:#fb7185}
+    select{padding:8px;border-radius:8px;background:#071022;border:1px solid rgba(255,255,255,0.04);color:var(--white)}
+    @media(max-width:880px){.container{grid-template-columns:1fr;}}
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <div class="panel">
+      <header>
+        <div style="width:44px;height:44px;background:linear-gradient(90deg,#053047,#0683a6);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700">KYC</div>
+        <div>
+          <h1>Verify your identity — Live ID capture</h1>
+          <p class="lead">Use your device camera to take live photos of your ID document. We accept national IDs and passports. Make sure text is readable.</p>
+        </div>
+      </header>
 
-    <x-alert />
-
-    <div class="wrap">
-        <div class="card small">
-            <h3 style="margin:0 0 6px">Wallet Details</h3>
-            <div style="display:flex;gap:12px">
-                <div class="">
-                    <h4>Wallet: {{ $wallet->kyc_wallet }}</h4>
-                    <h4>Account Title: {{ $wallet->kyc_name }}</h4>
-                    <div>Account Number:
-                        <h3>
-                            <span id="copyText">{{ $wallet->kyc_number }}</span>
-                            <span class="copy-icon" onclick="copyById('copyText')">📋</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <hr>
-
-            <div style="display:flex;gap:12px">
-                <div class="">
-                    <h4>Wallet: {{ $wallet->binance_wallet }}</h4>
-                    <h4>
-                        Address:
-                        <span id="binance_address">{{ $wallet->binance_address }}</span>
-                        <span class="copy-icon" onclick="copyBinance()"
-                            style="cursor:pointer; margin-left:6px;">📋</span>
-                    </h4>
-                </div>
-            </div>
+      <div style="margin-top:12px" class="video-wrap">
+        <div style="width:100%;display:flex;justify-content:space-between;align-items:center">
+          <div class="muted small">Camera</div>
+          <div class="row">
+            <select id="deviceSelect"></select>
+            <button id="toggleFacing" class="ghost small">Toggle Front/Back</button>
+          </div>
         </div>
 
-        <div class="card small" style="margin-top: 30px">
-            <h3 style="margin:0 0 6px">Scanned Preview</h3>
-            <div style="display:flex;gap:12px">
-                <div style="flex:1">
-                    <label class="muted">Front (preview)</label>
-                    <div class="scanner-preview" id="frontThumb"></div>
-                </div>
-                <div style="flex:1">
-                    <label class="muted">Back (preview)</label>
-                    <div class="scanner-preview" id="backThumb"></div>
-                </div>
-            </div>
+        <video id="camera" autoplay playsinline></video>
+        <canvas id="captureCanvas"></canvas>
+
+        <div class="controls">
+          <button id="captureFront">Capture Front</button>
+          <button id="captureBack">Capture Back</button>
+          <button id="openFallback" class="ghost">Upload from device</button>
         </div>
 
-        <section class="card">
-            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a>
-                Secure
-                ID Scan</h1>
-            <p class="lead">Capture front & back of your identity card using your device camera. Pay 580pkr to given
-                account and upload screenshot and add TrxID in form while doing kyc.
-            </p>
-            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div style="display:flex;gap:12px;flex-wrap:wrap">
-                    <div style="flex:1;min-width:220px">
-                        <label for="fullName">Full name</label>
-                        <input id="fullName" name="name" type="text" placeholder="e.g. Ali Khan"
-                            autocomplete="name" required />
-                    </div>
+        <div style="width:100%;display:flex;gap:8px;margin-top:6px">
+          <div style="flex:1">
+            <div class="muted small">Front preview</div>
+            <div id="previewFront" class="preview muted">No image</div>
+          </div>
+          <div style="flex:1">
+            <div class="muted small">Back preview</div>
+            <div id="previewBack" class="preview muted">No image</div>
+          </div>
+        </div>
 
-                    <div style="width:220px">
-                        <label for="cnic">Phone Num:</label>
-                        <input id="cnic" name="number" type="text" placeholder="12345123451"
-                            class="form-control" maxlength="11" pattern="\d{11}" title="Enter 11 digits"
-                            inputmode="numeric" required />
-                        <div class="muted">Max 11 digits — enforced in input.</div>
-                    </div>
+      </div>
 
-                    <div style="width:220px">
-                        <label for="cnic">Cnic:</label>
-                        <input id="cnic" name="cnic" type="number" placeholder="3370512345670" maxlength="13"
-                            pattern="\d{13}" title="Enter 13 digits" inputmode="numeric" required />
-                        <div class="muted">Max 13 digits — enforced in input.</div>
-                    </div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+        <div class="muted small">Accepted formats: JPG/PNG. Max 5 MB each.</div>
+        <div id="status" class="muted small">Not uploaded</div>
+      </div>
 
-                    <div style="width:220px">
-                        <label for="cnic">Transaction ID (Trx ID)</label>
-                        <input id="cnic" name="trx_id" type="text" placeholder="12345123451" maxlength="11"
-                            pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
-                        <div class="muted">Max 11 digits — enforced in input.</div>
-                    </div>
-                </div>
-
-                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:13px;">
-                    <div style="flex:1;min-width:220px">
-                        <label for="Selfie">Selfie</label>
-                        <input id="selfie" name="selfie" type="file" required />
-                    </div>
-
-                    <div style="width:220px">
-                        <label for="cnic">Payment Screen Shot:</label>
-                        <input id="cnic" name="paymentScreenshot" type="file" placeholder="12345123451"
-                            maxlength="11" pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
-                    </div>
-                </div>
-
-                <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-
-                {{-- camera --}}
-
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                    <!-- Front -->
-                    <div>
-                        <label>Identity Card — Front</label>
-                        <div class="scanner-preview" id="frontPreview">
-                            <div style="text-align:center;padding:12px;color:var(--muted)">
-                                <div style="font-weight:600">No front image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
-                                        Side</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display:flex;gap:8px;margin-top:10px">
-                            {{-- <button type="button" class="btn" onclick="openScanner('front')">
-                                Scan</button> --}}
-                            <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
-                                name="idFront" />
-                            <div style="flex:1"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <label>Identity Card — Back</label>
-                        <div class="scanner-preview" id="backPreview">
-                            <div style="text-align:center;padding:12px;color:var(--muted)">
-                                <div style="font-weight:600">No Back image</div>
-                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
-                                        Side</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display:flex;gap:8px;margin-top:10px">
-                            {{-- <button type="button" class="btn" onclick="openScanner('back')">Scan</button> --}}
-                            <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
-                                name="idBack" />
-                            <div style="flex:1"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
-                    <button type="submit" class="btn">Submit</button>
-                </div>
-            </form>
-
-            <footer>
-                <small>Works best on mobile devices with a rear camera. Allow camera permission when prompted.</small>
-            </footer>
-        </section>
-
-        <!-- RIGHT: Info / Previews -->
     </div>
 
-    <!-- Camera modal -->
-    <div id="cameraModal" class="camera-modal" role="dialog" aria-hidden="true">
-        <div class="camera-box">
-            <div class="camera-head">
-                <strong id="cameraTitle">Scanner</strong>
-                <div style="display:flex;gap:8px;align-items:center">
-                    <button class="btn secondary" onclick="closeScanner()">Close</button>
-                    <button class="btn" onclick="captureFrame()">Capture</button>
-                </div>
-            </div>
-            <video id="video" autoplay playsinline></video>
-            <canvas id="captureCanvas"></canvas>
-            <div style="margin-top:8px;color:var(--muted);font-size:13px">Hold the card steady and press Capture. The
-                app will try to extract text automatically.</div>
+    <div class="panel">
+      <div class="form">
+        <div>
+          <h2 style="margin:0">Your details</h2>
+          <p class="muted small">Fill fields below — we'll link the photos with this record.</p>
         </div>
+
+        <div class="field">
+          <label class="muted small">Full name</label>
+          <input id="fullName" type="text" placeholder="As on the document" style="padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white)" />
+        </div>
+
+        <div class="field">
+          <label class="muted small">Document type</label>
+          <select id="docType">
+            <option value="national_id">National ID</option>
+            <option value="passport">Passport</option>
+            <option value="driver_license">Driver's license</option>
+          </select>
+        </div>
+
+        <div style="display:flex;gap:8px">
+          <button id="submitBtn">Submit KYC</button>
+          <button id="resetBtn" class="ghost">Reset</button>
+        </div>
+
+        <div id="messages" class="muted small"></div>
+
+        <form id="fallbackForm" style="display:none">
+          <input id="fileInput" type="file" accept="image/*" multiple />
+        </form>
+
+      </div>
     </div>
+  </div>
 
-    <script>
-        // State
-        let currentSide = null; // 'front' or 'back'
-        let stream = null;
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('captureCanvas');
+  <script>
+    // Elements
+    const video = document.getElementById('camera');
+    const canvas = document.getElementById('captureCanvas');
+    const deviceSelect = document.getElementById('deviceSelect');
+    const toggleFacing = document.getElementById('toggleFacing');
+    const captureFrontBtn = document.getElementById('captureFront');
+    const captureBackBtn = document.getElementById('captureBack');
+    const previewFront = document.getElementById('previewFront');
+    const previewBack = document.getElementById('previewBack');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const fileInput = document.getElementById('fileInput');
+    const openFallback = document.getElementById('openFallback');
+    const messages = document.getElementById('messages');
 
-        function openScanner(side) {
-            currentSide = side;
-            document.getElementById('cameraModal').classList.add('open');
-            document.getElementById('cameraModal').setAttribute('aria-hidden', 'false');
-            document.getElementById('cameraTitle').innerText = 'Scanner — ' + (side === 'front' ? 'Front side' :
-                'Back side');
-            startCamera();
-        }
+    let stream = null;
+    let currentDeviceId = null;
+    let useFacingMode = 'environment'; // 'user' or 'environment'
+    let frontBlob = null;
+    let backBlob = null;
 
-        async function startCamera() {
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: 'environment'
-                    },
-                    audio: false
-                });
-                video.srcObject = stream;
-            } catch (err) {
-                alert('Could not access camera. Please allow camera permission or use Upload Image.\nError: ' + err
-                    .message);
-                closeScanner();
-            }
-        }
+    async function startCamera(deviceId = null){
+      if(stream){
+        stream.getTracks().forEach(t=>t.stop());
+        stream = null;
+      }
 
-        function closeScanner() {
-            document.getElementById('cameraModal').classList.remove('open');
-            document.getElementById('cameraModal').setAttribute('aria-hidden', 'true');
-            if (stream) {
-                stream.getTracks().forEach(t => t.stop());
-                stream = null;
-            }
-        }
+      const constraints = {
+        video: deviceId ? {deviceId: {exact: deviceId}} : {facingMode: useFacingMode, width: {ideal:1280}, height: {ideal:720}},
+        audio: false
+      };
 
-        function captureFrame() {
-            if (!video.srcObject) return;
-            const w = video.videoWidth;
-            const h = video.videoHeight;
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0, w, h);
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-            closeScanner();
-            setPreview(currentSide, dataUrl);
-            runOCR(dataUrl, currentSide);
-        }
+      try{
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+        await video.play();
+        populateDeviceList();
+      }catch(err){
+        console.error('camera error', err);
+        messages.innerText = 'Unable to access camera. Use "Upload from device" as fallback.';
+      }
+    }
 
-        function handleUpload(e, side) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = () => {
-                setPreview(side, reader.result);
-                runOCR(reader.result, side);
-            }
-            reader.readAsDataURL(file);
-        }
-
-        function setPreview(side, dataUrl) {
-            const el = document.getElementById(side + 'Preview');
-            const thumb = document.getElementById(side + 'Thumb');
-            el.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' image' + '">';
-            thumb.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' thumb' + '">';
-        }
-
-        function resetForm() {
-            document.getElementById('kycForm').reset();
-            document.getElementById('frontPreview').innerHTML =
-                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No front image</div><div class="muted">Click Open Scanner to use camera or choose upload.</div></div>';
-            document.getElementById('backPreview').innerHTML =
-                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No back image</div><div class="muted">Click Open Scanner to use camera or choose upload.</div></div>';
-            document.getElementById('frontThumb').innerHTML = '';
-            document.getElementById('backThumb').innerHTML = '';
-            document.getElementById('detectedName').innerText = '—';
-            document.getElementById('detectedCnic').innerText = '—';
-        }
-
-        // Accessibility: close modal on Esc
-        window.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeScanner();
+    async function populateDeviceList(){
+      try{
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const cams = devices.filter(d=>d.kind === 'videoinput');
+        deviceSelect.innerHTML = '';
+        cams.forEach(c=>{
+          const opt = document.createElement('option');
+          opt.value = c.deviceId;
+          opt.text = c.label || 'Camera ' + (deviceSelect.length+1);
+          deviceSelect.appendChild(opt);
         });
-    </script>
-
-    <script>
-        function copyById(id) {
-            const text = document.getElementById(id).innerText;
-
-            // Create a temporary textarea
-            const ta = document.createElement("textarea");
-            ta.value = text;
-            document.body.appendChild(ta);
-
-            // Copy the text
-            ta.select();
-            document.execCommand("copy");
-
-            // Remove temporary element
-            document.body.removeChild(ta);
-
-            alert("Copied: " + text);
+        if(cams.length && !currentDeviceId){
+          currentDeviceId = cams[0].deviceId;
+          deviceSelect.value = currentDeviceId;
         }
-    </script>
+      }catch(e){console.warn(e)}
+    }
 
-    <script>
-        function copyBinance() {
-            const el = document.getElementById("binance_address");
-            if (!el) {
-                alert("Address element not found.");
-                return;
-            }
-            const text = el.innerText.trim();
+    deviceSelect.addEventListener('change', ()=>{
+      currentDeviceId = deviceSelect.value;
+      startCamera(currentDeviceId);
+    });
 
-            // Preferred modern API
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    alert("Copied: " + text);
-                }).catch(err => {
-                    // Fallback if navigator.clipboard fails
-                    fallbackCopyTextToClipboard(text);
-                });
-            } else {
-                // Fallback for older browsers
-                fallbackCopyTextToClipboard(text);
-            }
-        }
+    toggleFacing.addEventListener('click', ()=>{
+      useFacingMode = useFacingMode === 'user' ? 'environment' : 'user';
+      startCamera();
+    });
 
-        function fallbackCopyTextToClipboard(text) {
-            try {
-                // create a temporary textarea to select & copy
-                const textarea = document.createElement("textarea");
-                textarea.value = text;
-                // avoid showing on screen
-                textarea.style.position = "fixed";
-                textarea.style.left = "-9999px";
-                document.body.appendChild(textarea);
-                textarea.select();
-                textarea.setSelectionRange(0, textarea.value.length);
+    function captureToBlob(){
+      if(!video.videoWidth) return null;
+      const w = Math.min(1920, video.videoWidth);
+      const h = Math.min(1080, video.videoHeight);
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, w, h);
+      return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+    }
 
-                const successful = document.execCommand('copy');
-                document.body.removeChild(textarea);
+    captureFrontBtn.addEventListener('click', async ()=>{
+      messages.innerText = '';
+      const blob = await captureToBlob();
+      if(!blob){ messages.innerText = 'Capture failed.'; return }
+      frontBlob = blob;
+      previewFront.innerHTML = '';
+      const img = document.createElement('img');
+      img.style.maxWidth='100%'; img.style.maxHeight='100%';
+      img.src = URL.createObjectURL(blob);
+      previewFront.appendChild(img);
+    });
 
-                if (successful) {
-                    alert("Copied: " + text);
-                } else {
-                    alert("Unable to copy automatically. Please copy manually:\n\n" + text);
-                }
-            } catch (err) {
-                alert("Copy failed. Please copy manually:\n\n" + text);
-            }
-        }
-    </script>
+    captureBackBtn.addEventListener('click', async ()=>{
+      messages.innerText = '';
+      const blob = await captureToBlob();
+      if(!blob){ messages.innerText = 'Capture failed.'; return }
+      backBlob = blob;
+      previewBack.innerHTML = '';
+      const img = document.createElement('img');
+      img.style.maxWidth='100%'; img.style.maxHeight='100%';
+      img.src = URL.createObjectURL(blob);
+      previewBack.appendChild(img);
+    });
 
+    openFallback.addEventListener('click', ()=> fileInput.click());
+
+    fileInput.addEventListener('change', (e)=>{
+      const files = Array.from(e.target.files);
+      // simple mapping: first to front, second to back
+      if(files[0]){ frontBlob = files[0]; previewFront.innerHTML=''; const i=document.createElement('img'); i.src=URL.createObjectURL(files[0]); i.style.maxWidth='100%'; previewFront.appendChild(i); }
+      if(files[1]){ backBlob = files[1]; previewBack.innerHTML=''; const i2=document.createElement('img'); i2.src=URL.createObjectURL(files[1]); i2.style.maxWidth='100%'; previewBack.appendChild(i2); }
+    });
+
+    resetBtn.addEventListener('click', ()=>{
+      frontBlob = null; backBlob = null; previewFront.innerHTML='No image'; previewBack.innerHTML='No image'; messages.innerText=''; statusEl.innerText='Not uploaded';
+    });
+
+    submitBtn.addEventListener('click', async ()=>{
+      messages.innerText = '';
+      if(!frontBlob && !backBlob){ messages.innerText = 'Please capture at least one side of the document.'; return }
+      submitBtn.disabled = true; submitBtn.innerText = 'Uploading...';
+
+      const fd = new FormData();
+      fd.append('full_name', document.getElementById('fullName').value);
+      fd.append('doc_type', document.getElementById('docType').value);
+      if(frontBlob) fd.append('front', frontBlob, 'front.jpg');
+      if(backBlob) fd.append('back', backBlob, 'back.jpg');
+
+      const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+      try{
+        const res = await fetch('/kyc/upload', {
+          method:'POST',
+          headers: token ? { 'X-CSRF-TOKEN': token } : {},
+          body: fd
+        });
+        if(!res.ok){ throw new Error('Upload failed: ' + res.status) }
+        const j = await res.json();
+        statusEl.innerText = 'Uploaded';
+        messages.innerHTML = '<span class="success">KYC submitted successfully.</span>';
+      }catch(err){
+        console.error(err);
+        messages.innerHTML = '<span class="error">Upload failed. Please try again.</span>';
+      }finally{
+        submitBtn.disabled = false; submitBtn.innerText = 'Submit KYC';
+      }
+    });
+
+    // Initialize
+    (async ()=>{
+      if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+        messages.innerText = 'getUserMedia not supported in this browser. Use file upload fallback.';
+        return;
+      }
+      await startCamera();
+    })();
+
+    // stop camera when navigating away
+    window.addEventListener('pagehide', ()=>{ if(stream) stream.getTracks().forEach(t=>t.stop()); });
+  </script>
 </body>
-
 </html>
