@@ -280,7 +280,7 @@
             <p class="lead">Capture front & back of your identity card using your device camera. Pay 580pkr to given
                 account and upload screenshot and add TrxID in form while doing kyc.
             </p>
-            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST">
                 @csrf
                 <div style="display:flex;gap:12px;flex-wrap:wrap">
                     <div style="flex:1;min-width:220px">
