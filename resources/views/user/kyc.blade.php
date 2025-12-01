@@ -214,14 +214,6 @@
                 grid-template-columns: 1fr;
             }
         }
-
-        #backUpload {
-            display: none;
-        }
-
-        #frontUpload {
-            display: none;
-        }
     </style>
 </head>
 
@@ -280,7 +272,7 @@
             <p class="lead">Capture front & back of your identity card using your device camera. Pay 580pkr to given
                 account and upload screenshot and add TrxID in form while doing kyc.
             </p>
-            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST">
+            <form id="form" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div style="display:flex;gap:12px;flex-wrap:wrap">
                     <div style="flex:1;min-width:220px">
@@ -323,43 +315,45 @@
                         <input id="cnic" name="paymentScreenshot" type="file" placeholder="12345123451"
                             maxlength="11" pattern="\d{11}" title="Enter 11 digits" inputmode="numeric" required />
                     </div>
-                    {{-- camera --}}
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                        <!-- Front -->
-                        <div>
-                            <label>Identity Card — Front</label>
-                            <div class="scanner-preview" id="frontPreview">
-                                <div style="text-align:center;padding:12px;color:var(--muted)">
-                                    <div style="font-weight:600">No front image</div>
-                                    <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
-                                            Side</span>
-                                    </div>
+                </div>
+
+                <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+
+                {{-- camera --}}
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <!-- Front -->
+                    <div>
+                        <label>Identity Card — Front</label>
+                        <div class="scanner-preview" id="frontPreview">
+                            <div style="text-align:center;padding:12px;color:var(--muted)">
+                                <div style="font-weight:600">No front image</div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Front
+                                        Side</span>
                                 </div>
-                            </div>
-                            <div style="display:flex;gap:8px;margin-top:10px">
-                                <button type="button" class="btn" onclick="openScanner('front')">
-                                    Scan</button>
-                                <input id="frontUpload" type="file" onchange="handleUpload(event,'front')"
-                                    name="idFront" />
-                                <div style="flex:1"></div>
                             </div>
                         </div>
-                        <div>
-                            <label>Identity Card — Back</label>
-                            <div class="scanner-preview" id="backPreview">
-                                <div style="text-align:center;padding:12px;color:var(--muted)">
-                                    <div style="font-weight:600">No Back image</div>
-                                    <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
-                                            Side</span>
-                                    </div>
+                        <div style="display:flex;gap:8px;margin-top:10px">
+                            <button type="button" class="btn" onclick="openScanner('front')">
+                                Scan</button>
+                            <input type="hidden" id="frontImageInput" name="idFront">
+                            <div style="flex:1"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Identity Card — Back</label>
+                        <div class="scanner-preview" id="backPreview">
+                            <div style="text-align:center;padding:12px;color:var(--muted)">
+                                <div style="font-weight:600">No Back image</div>
+                                <div class="muted"><span style="font-weight:700;color:#9be7ef">Upload Back
+                                        Side</span>
                                 </div>
                             </div>
-                            <div style="display:flex;gap:8px;margin-top:10px">
-                                <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
-                                <input id="backUpload" type="file" onchange="handleUpload(event,'back')"
-                                    name="idBack" />
-                                <div style="flex:1"></div>
-                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;margin-top:10px">
+                            <button type="button" class="btn" onclick="openScanner('back')">Scan</button>
+                            <input type="hidden" id="backImageInput" name="back_image">
+                            <div style="flex:1"></div>
                         </div>
                     </div>
                 </div>
@@ -401,15 +395,22 @@
         const video = document.getElementById('video');
         const canvas = document.getElementById('captureCanvas');
 
+        /* ---------------------------
+            OPEN SCANNER (MODAL)
+        ---------------------------- */
         function openScanner(side) {
             currentSide = side;
             document.getElementById('cameraModal').classList.add('open');
             document.getElementById('cameraModal').setAttribute('aria-hidden', 'false');
-            document.getElementById('cameraTitle').innerText = 'Scanner — ' + (side === 'front' ? 'Front side' :
-                'Back side');
+            document.getElementById('cameraTitle').innerText =
+                'Scanner — ' + (side === 'front' ? 'Front Side' : 'Back Side');
+
             startCamera();
         }
 
+        /* ---------------------------
+            START CAMERA
+        ---------------------------- */
         async function startCamera() {
             try {
                 stream = await navigator.mediaDevices.getUserMedia({
@@ -420,70 +421,95 @@
                 });
                 video.srcObject = stream;
             } catch (err) {
-                alert('Could not access camera. Please allow camera permission or use Upload Image.\nError: ' + err
-                    .message);
+                alert('Could not access camera. Please allow permission.\nError: ' + err.message);
                 closeScanner();
             }
         }
 
+        /* ---------------------------
+            CLOSE CAMERA / MODAL
+        ---------------------------- */
         function closeScanner() {
             document.getElementById('cameraModal').classList.remove('open');
             document.getElementById('cameraModal').setAttribute('aria-hidden', 'true');
+
             if (stream) {
                 stream.getTracks().forEach(t => t.stop());
                 stream = null;
             }
         }
 
+        /* ---------------------------
+            CAPTURE FRAME (no OCR)
+        ---------------------------- */
         function captureFrame() {
             if (!video.srcObject) return;
+
             const w = video.videoWidth;
             const h = video.videoHeight;
+
             canvas.width = w;
             canvas.height = h;
+
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, w, h);
+
             const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+
             closeScanner();
-            setPreview(currentSide, dataUrl);
-            runOCR(dataUrl, currentSide);
+            setPreview(currentSide, dataUrl); // Only preview
         }
 
+        /* ---------------------------
+            FILE UPLOAD INPUT (no OCR)
+        ---------------------------- */
         function handleUpload(e, side) {
             const file = e.target.files[0];
             if (!file) return;
+
             const reader = new FileReader();
             reader.onload = () => {
-                setPreview(side, reader.result);
-                runOCR(reader.result, side);
-            }
+                setPreview(side, reader.result); // Only preview, no OCR
+            };
             reader.readAsDataURL(file);
         }
 
+        /* ---------------------------
+            SET IMAGE PREVIEW
+        ---------------------------- */
         function setPreview(side, dataUrl) {
             const el = document.getElementById(side + 'Preview');
             const thumb = document.getElementById(side + 'Thumb');
-            el.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' image' + '">';
-            thumb.innerHTML = '<img src="' + dataUrl + '" alt="' + side + ' thumb' + '">';
+
+            el.innerHTML = `<img src="${dataUrl}" alt="${side} image">`;
+            thumb.innerHTML = `<img src="${dataUrl}" alt="${side} thumb">`;
+
+            // Also save Base64 to hidden input (for Laravel backend)
+            document.getElementById(side + 'ImageInput').value = dataUrl;
         }
 
+        /* ---------------------------
+            RESET FORM
+        ---------------------------- */
         function resetForm() {
             document.getElementById('kycForm').reset();
+
             document.getElementById('frontPreview').innerHTML =
-                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No front image</div><div class="muted">Click Open Scanner to use camera or choose upload.</div></div>';
+                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No front image</div><div class="muted">Click Open Scanner or Upload Image.</div></div>';
+
             document.getElementById('backPreview').innerHTML =
-                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No back image</div><div class="muted">Click Open Scanner to use camera or choose upload.</div></div>';
+                '<div style="text-align:center;padding:12px;color:var(--muted)"><div style="font-weight:600">No back image</div><div class="muted">Click Open Scanner or Upload Image.</div></div>';
+
             document.getElementById('frontThumb').innerHTML = '';
             document.getElementById('backThumb').innerHTML = '';
-            document.getElementById('detectedName').innerText = '—';
-            document.getElementById('detectedCnic').innerText = '—';
         }
 
-        // Accessibility: close modal on Esc
+        // Close modal on ESC key
         window.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeScanner();
         });
     </script>
+
 
     <script>
         function copyById(id) {
