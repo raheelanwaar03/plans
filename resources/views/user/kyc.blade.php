@@ -96,6 +96,7 @@
 </head>
 
 <body>
+    <x-alert />
     <div class="card">
         <h2>KYC Form</h2>
         <form id="kycForm" action="{{ route('User.KYC.Data') }}" method="POST" enctype="multipart/form-data">
@@ -157,7 +158,11 @@
             currentSide = side;
             document.getElementById('cameraModal').classList.add('open');
 
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+            navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: "environment"
+                    }
+                })
                 .then(s => {
                     stream = s;
                     video.srcObject = stream;
