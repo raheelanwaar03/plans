@@ -4,345 +4,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ env('APP_NAME') }} | Register Page</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
+    <title>Authentication | Pigeon Mining</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            /* add gradient color to the body with #00a99d */
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
             height: 100vh;
-            overflow-x: hidden;
-        }
-
-        header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #2e3b4e;
-        }
-
-        header .icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        header .icons .menu-icon {
-            font-size: 24px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        main {
-            flex: 1;
-            font-size: 15px;
-            padding: 20px;
-        }
-
-        footer {
-            background-color: #2e3b4e;
-            color: #fff;
-            padding: 10px 20px;
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 300px;
-            height: 100%;
-            background-color: #fff;
-            color: #333;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-            transition: left 0.3s ease;
-            overflow-y: auto;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .sidebar header .close-icon {
-            font-size: 20px;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .sidebar section {
-            margin-bottom: 30px;
-        }
-
-        .sidebar section h3 {
-            font-size: 16px;
-            color: #2e3b4e;
-            margin-bottom: 10px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar ul li .fa-chevron-right {
-            color: #ccc;
-        }
-
-        .sidebar .logout {
-            color: red;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
-
-        .sidebar .logout a {
-            color: red;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .icon-style {
-            background-color: white;
-            font-size: 20px;
-            color: #00a99d;
-            padding: 15px;
-            border-radius: 40px;
-        }
-
-        .font-2 {
-            font-size: 13px;
-        }
-
-        /* preloader */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            align-items: center;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
         }
 
-        #preloader.hide {
-            opacity: 0;
-            visibility: hidden;
+        /* Pigeon animation */
+        .pigeon {
+            position: absolute;
+            width: 120px;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: dropIn 4s ease forwards;
         }
 
-        /* Text style */
-        .loader-text {
-            font-size: 5rem;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
-            color: white;
-            display: flex;
-            gap: 15px;
-        }
-
-        .p {
-            color: #00f2fe;
-        }
-
-        .g,
-        .n {
-            display: inline-block;
-            animation: rotate 1s linear infinite;
-        }
-
-        .g {
-            color: #00ffff;
-            animation-delay: 0.1s;
-        }
-
-        .n {
-            color: #00f2fe;
-            animation-delay: 0.3s;
-        }
-
-        @keyframes rotate {
+        @keyframes dropIn {
             0% {
-                transform: rotate(0deg);
+                top: -200px;
+                opacity: 0;
+            }
+
+            50% {
+                top: 10%;
+                opacity: 1;
             }
 
             100% {
-                transform: rotate(360deg);
+                top: 25%;
+                opacity: 1;
             }
         }
 
-        .content {
-            display: none;
-            padding: 50px;
+        /* Logo animation */
+        .logo {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            opacity: 0;
+            animation: fadeLogo 2s ease forwards;
+            animation-delay: 5s;
+        }
+
+        @keyframes fadeLogo {
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        /* Register card */
+        .register-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            width: 340px;
             text-align: center;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: riseUp 2s ease forwards;
+            animation-delay: 3s;
+            backdrop-filter: blur(8px);
+        }
+
+        @keyframes riseUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-card h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .register-card .input-group {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .register-card input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .register-card input:focus {
+            border-color: #ff6ec7;
+            box-shadow: 0 0 8px rgba(255, 110, 199, 0.4);
+        }
+
+        /* Toggle icon */
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 16px;
+            color: #6c63ff;
+        }
+
+        .register-card .checkbox {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #444;
+            margin: 15px 0;
+        }
+
+        .register-card .checkbox input {
+            margin-right: 8px;
+            accent-color: #6c63ff;
+            height: 15px;
+            width: 15px;
+        }
+
+        .register-card button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff6ec7, #6c63ff);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.3s;
+            margin-top: 10px;
+        }
+
+        .register-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 110, 199, 0.4);
+        }
+
+        .register-card .links {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .register-card .links a {
+            text-decoration: none;
+            color: #6c63ff;
+            transition: color 0.3s;
+        }
+
+        .register-card .links a:hover {
+            color: #4b42d4;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .register-card {
+                width: 90%;
+                padding: 25px;
+            }
+
+            .logo {
+                width: 80px;
+            }
+
+            .pigeon {
+                width: 90px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="icons">
-        </div>
-    </header>
+    <!-- Pigeon -->
+    <img src="{{ asset('assets/images/pigeon.png') }}" alt="Pigeon" class="pigeon">
 
-    <div id="preloader">
-        <div class="loader-text">
-            <span class="p">P</span>
-            <span class="g">G</span>
-            <span class="n">N</span>
+    <!-- Logo -->
+    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="logo">
+
+    <!-- Register Card -->
+    <div class="register-card">
+        <form action="{{ route('register') }}" method="POST">
+            @csrf
+            <h2>Create Account</h2>
+            <div style="margin-bottom: 10px">
+                <input type="text" name="name" placeholder="Full Name">
+            </div>
+            <div class="">
+                <input type="email" name="email" placeholder="Email">
+            </div>
+
+            <!-- Password with toggle -->
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password_confirmation" id="confirm-password"
+                    placeholder="Confirm Password">
+                <span class="toggle-password" onclick="togglePassword('confirm-password')">👁️</span>
+            </div>
+
+            <div class="">
+                <input type="text" value="{{ $referral }}" name="referral" readonly>
+            </div>
+
+            <!-- Terms & Conditions checkbox -->
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> I agree to the <a href="#">Terms & Conditions</a>
+                </label>
+            </div>
+
+            <button>Register</button>
+        </form>
+        <div class="links">
+            <a href="{{ route('login') }}">Already have an account? Login</a>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="logo" height="80px" width="180px">
-                </div>
-                <div class="col-12">
-                    <div class="card">
-                        <div class="row p-3">
-                            <div class="col-12 d-flex justify-content-between align-items-center">
-                                <div class="">
-                                    <h5>Register Now</h5>
-                                </div>
-                                <div class="">
-                                    <a href="{{ route('login') }}">Login Now!</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ route('register') }}" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="name" class="form-label">Username</label>
-                                    <input type="text" name="name" id="name" class="form-control"
-                                        placeholder="Enter your username">
-                                    <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="text" name="email" id="email" class="form-control"
-                                        placeholder="Enter your email">
-                                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="form-label">Password</label>
-                                    <div class="d-flex">
-                                        <input type="password" name="password" id="password" class="form-control"
-                                            placeholder="Enter your password">
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
-                                        <i class="bi bi-eye" style="margin-left: -28px;margin-top:8px"
-                                            onclick="togglePasswordVisibility('password')"></i>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="form-label"> Confirm Password</label>
-                                    <div class="d-flex">
-                                        <input type="password" name="password_confirmation" id="confirm_password"
-                                            class="form-control" placeholder="Enter your password">
-                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-danger" />
-                                        <i class="bi bi-eye" style="margin-left: -28px;margin-top:8px"
-                                            onclick="togglePasswordVisibility('confirm_password')"></i>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="referral" class="form-label">Refer By:</label>
-                                    <input type="text" name="referral" readonly id="referral" class="form-control"
-                                        value="{{ $referral }}">
-                                </div>
-
-                                <div class="form-group mt-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="terms" id="terms"
-                                            value="1">
-                                        <label class="form-check-label" for="terms">
-                                            I agree to the <span style="color:rgb(105, 105, 239)" data-toggle="modal"
-                                                data-target="#t&C"><u>Term's and Conditions</u></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="mt-2 d-flex justify-content-between align-items-center">
-                                    <button type="submit" class="btn btn-info text-white">Register</button>
-                                    <a href="{{ route('login') }}" class="btn btn-outline-info text-dark">Already have
-                                        Account?</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <script>
-            function togglePasswordVisibility(fieldId) {
-                const field = document.getElementById(fieldId);
-                field.type = field.type === 'password' ? 'text' : 'password';
+    <script>
+        function togglePassword(id) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
             }
-        </script>
-
-        <script>
-            // Hide preloader after page load
-            window.addEventListener("load", () => {
-                const preloader = document.getElementById("preloader");
-                const content = document.querySelector(".content");
-
-                preloader.classList.add("hide");
-
-                setTimeout(() => {
-                    preloader.style.display = "none";
-                    content.style.display = "block";
-                }, 600); // Match fade out time
-            });
-        </script>
-
-
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-    </footer>
+        }
+    </script>
 </body>
 
 </html>

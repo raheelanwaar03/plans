@@ -4,321 +4,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ env('APP_NAME') }} | Authentication</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
+    <title>Authentication | Pigeon Mining</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            /* add gradient color to the body with #00a99d */
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
             height: 100vh;
-            overflow-x: hidden;
-        }
-
-        header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #2e3b4e;
-        }
-
-        header .icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        header .icons .menu-icon {
-            font-size: 24px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        main {
-            flex: 1;
-            font-size: 15px;
-            padding: 20px;
-        }
-
-        footer {
-            background-color: #2e3b4e;
-            color: #fff;
-            padding: 10px 20px;
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 300px;
-            height: 100%;
-            background-color: #fff;
-            color: #333;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-            transition: left 0.3s ease;
-            overflow-y: auto;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .sidebar header .close-icon {
-            font-size: 20px;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .sidebar section {
-            margin-bottom: 30px;
-        }
-
-        .sidebar section h3 {
-            font-size: 16px;
-            color: #2e3b4e;
-            margin-bottom: 10px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar ul li .fa-chevron-right {
-            color: #ccc;
-        }
-
-        .sidebar .logout {
-            color: red;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-        }
-
-        .sidebar .logout a {
-            color: red;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .icon-style {
-            background-color: white;
-            font-size: 20px;
-            color: #00a99d;
-            padding: 15px;
-            border-radius: 40px;
-        }
-
-        .font-2 {
-            font-size: 13px;
-        }
-
-        /* preloader */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            background: #0f172a;
-            z-index: 9999;
-        }
-
-
-        .loader {
-            font-size: 64px;
-            font-weight: 800;
-            color: white;
-            display: flex;
             align-items: center;
-            justify-content: center;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
         }
 
-
-        .p {
-            color: #7c3aed;
-            position: relative;
-            z-index: 2;
+        /* Pigeon animation */
+        .pigeon {
+            position: absolute;
+            width: 120px;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: dropIn 4s ease forwards;
         }
 
-
-        .g,
-        .n {
-            color: #e5e7eb;
-            position: relative;
-            opacity: 0;
-        }
-
-
-        .g {
-            animation: fromBehind 3s infinite;
-            animation-delay: 0.3s;
-        }
-
-        .n {
-            animation: fromBehind 3s infinite;
-            animation-delay: 1.6s;
-        }
-
-
-        @keyframes fromBehind {
+        @keyframes dropIn {
             0% {
+                top: -200px;
                 opacity: 0;
-                transform: translateX(-30px);
-            }
-
-            20% {
-                opacity: 1;
-                transform: translateX(0);
             }
 
             50% {
+                top: 10%;
                 opacity: 1;
-                transform: translateX(0);
-            }
-
-            70% {
-                opacity: 0;
-                transform: translateX(30px);
             }
 
             100% {
-                opacity: 0;
-                transform: translateX(30px);
+                top: 25%;
+                opacity: 1;
+            }
+        }
+
+        /* Logo animation */
+        .logo {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            opacity: 0;
+            animation: fadeLogo 2s ease forwards;
+            animation-delay: 5s;
+            /* appears after pigeon */
+        }
+
+        @keyframes fadeLogo {
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        /* Login card */
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            width: 320px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: riseUp 2s ease forwards;
+            animation-delay: 3s;
+        }
+
+        @keyframes riseUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .login-card input:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #6c63ff, #4b42d4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(108, 99, 255, 0.4);
+        }
+
+        .login-card .links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .login-card .links a {
+            text-decoration: none;
+            color: #6c63ff;
+            transition: color 0.3s;
+        }
+
+        .login-card .links a:hover {
+            color: #4b42d4;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .login-card {
+                width: 90%;
+                padding: 25px;
+            }
+
+            .logo {
+                width: 80px;
+            }
+
+            .pigeon {
+                width: 90px;
             }
         }
     </style>
 </head>
 
 <body>
+    <!-- Pigeon -->
+    <img src="{{ asset('assets/images/pigeon.png') }}" alt="Pigeon" class="pigeon">
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader">
-            <span class="p">P</span>
-            <span class="g">G</span>
-            <span class="n">N</span>
-        </div>
+    <!-- Logo (replace with your own logo image) -->
+    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="logo">
+
+    <!-- Login Card -->
+    <div class="login-card">
+        <h2>Welcome Back</h2>
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Login</button>
+            <div class="links">
+                <a href="#">Forgot Password?</a>
+                <a href="{{ route('register') }}">Register Now</a>
+            </div>
+        </form>
     </div>
-
-    <x-alert />
-    <header>
-        <div class="icons">
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <div class="container">
-            <div class="col-md-12 text-center">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="logo" height="80px" width="180px">
-            </div>
-            <div class="row alin-items-center">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="row p-3">
-                            <div class="col-12 d-flex justify-content-between align-items-center">
-                                <div class="">
-                                    <h5>Login Now</h5>
-                                </div>
-                                <div class="">
-                                    <a href="{{ route('register') }}">Register Now?</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <x-auth-session-status class="mb-4" :status="session('status')" />
-                            <form action="{{ route('login') }}" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" id="name" class="form-control"
-                                        placeholder="Enter your email">
-                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <div class="d-flex">
-                                        <input type="password" name="password" id="password" class="form-control"
-                                            placeholder="Enter your password">
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                        <i class="bi bi-eye" style="margin-left: -28px;margin-top:8px"
-                                            id="togglePassword"></i>
-                                    </div>
-                                </div>
-                                <div class="mt-2 d-flex justify-content-between align-items-center">
-                                    <button type="submit" class="btn btn-info text-white">Login</button>
-                                    <a href="#" class="btn btn-outline-info text-dark">Forgot Password</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <script>
-            const passwordInput = document.getElementById('password');
-            const toggleButton = document.getElementById('togglePassword');
-
-            toggleButton.addEventListener('click', () => {
-                // Toggle the type attribute
-                const isPassword = passwordInput.type === 'password';
-                passwordInput.type = isPassword ? 'text' : 'password';
-
-            });
-        </script>
-
-        <script>
-            window.addEventListener('load', () => {
-                document.getElementById('preloader').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            });
-        </script>
-
-    </footer>
-
 </body>
 
 </html>
