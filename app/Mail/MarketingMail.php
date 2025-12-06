@@ -2,8 +2,6 @@
 
 namespace App\Mail;
 
-use Faker\Provider\ar_EG\Address;
-use Faker\Provider\ar_JO\Address as Ar_JOAddress;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -15,16 +13,14 @@ class MarketingMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subjectLine;
-    public $bodyMessage;
+    public $content;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($subject, $message)
+    public function __construct($content)
     {
-        $this->subjectLine = $subject;
-        $this->bodyMessage = $message;
+        $this->content = $content;
     }
 
     /**
@@ -33,24 +29,21 @@ class MarketingMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            'from' =>
-            [
-                    'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                    'name' => env('MAIL_FROM_NAME', 'Example'),
-            ],
+            subject: 'Latest Update From Our Website',
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content()
+    public function content(): Content
     {
-        return $this->subject($this->subjectLine)
-            ->view('emails.marketing')
-            ->with([
-                'bodyMessage' => $this->bodyMessage,
-            ]);
+        return new Content(
+            view: 'emails.marketing',
+            with: [
+                'content' => $this->content
+            ]
+        );
     }
 
     /**

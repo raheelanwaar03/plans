@@ -18,9 +18,18 @@ class EmailMarketingcontroller extends Controller
     public function content(Request $request)
     {
         $request->validate([
-            'subject' => 'required|string',
             'message' => 'required|string',
         ]);
+
+        $users = User::pluck('email')->toArray();
+
+        foreach ($users as $email) {
+            Mail::to($email)->send(new MarketingMail($request->message));
+        }
+
+        return back()->with('success', 'Emails sent successfully!');
+
+
         // Get verified users
         $user = User::find(2);
         // return $user->email;

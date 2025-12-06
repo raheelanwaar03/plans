@@ -37,11 +37,6 @@
                                 <form action="{{ route('Admin.Email.Marketing.Content') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
-                                        <label>Subject</label>
-                                        <input type="text" name="subject" class="form-control" required>
-                                    </div>
-
-                                    <div class="mb-3">
                                         <label>Message</label>
                                         <textarea name="message" rows="8" class="form-control" required></textarea>
                                     </div>
