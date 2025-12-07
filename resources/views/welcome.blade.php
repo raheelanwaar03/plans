@@ -55,7 +55,6 @@
             opacity: 0;
             animation: fadeLogo 2s ease forwards;
             animation-delay: 5s;
-            /* appears after pigeon */
         }
 
         @keyframes fadeLogo {
@@ -65,18 +64,19 @@
             }
         }
 
-        /* Login card */
-        .login-card {
+        /* Register card */
+        .register-card {
             background: rgba(255, 255, 255, 0.95);
             padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-            width: 320px;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            width: 340px;
             text-align: center;
             opacity: 0;
             transform: translateY(100px);
             animation: riseUp 2s ease forwards;
             animation-delay: 3s;
+            backdrop-filter: blur(8px);
         }
 
         @keyframes riseUp {
@@ -86,66 +86,96 @@
             }
         }
 
-        .login-card h2 {
+        .register-card h2 {
             margin-bottom: 20px;
             color: #333;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 24px;
         }
 
-        .login-card input {
+        .register-card .input-group {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .register-card input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 8px;
+            border-radius: 10px;
             outline: none;
             transition: border 0.3s, box-shadow 0.3s;
         }
 
-        .login-card input:focus {
-            border-color: #6c63ff;
-            box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+        .register-card input:focus {
+            border-color: #ff6ec7;
+            box-shadow: 0 0 8px rgba(255, 110, 199, 0.4);
         }
 
-        .login-card button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #6c63ff, #4b42d4);
-            color: white;
-            border: none;
-            border-radius: 8px;
+        /* Toggle icon */
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
             cursor: pointer;
             font-size: 16px;
-            font-weight: 500;
+            color: #6c63ff;
+        }
+
+        .register-card .checkbox {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #444;
+            margin: 15px 0;
+        }
+
+        .register-card .checkbox input {
+            margin-right: 8px;
+            accent-color: #6c63ff;
+            height: 15px;
+            width: 15px;
+        }
+
+        .register-card button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff6ec7, #6c63ff);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
             transition: transform 0.2s, box-shadow 0.3s;
             margin-top: 10px;
         }
 
-        .login-card button:hover {
+        .register-card button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(108, 99, 255, 0.4);
+            box-shadow: 0 6px 15px rgba(255, 110, 199, 0.4);
         }
 
-        .login-card .links {
+        .register-card .links {
             margin-top: 15px;
-            display: flex;
-            justify-content: space-between;
             font-size: 14px;
         }
 
-        .login-card .links a {
+        .register-card .links a {
             text-decoration: none;
             color: #6c63ff;
             transition: color 0.3s;
         }
 
-        .login-card .links a:hover {
+        .register-card .links a:hover {
             color: #4b42d4;
         }
 
         /* Mobile responsiveness */
         @media (max-width: 480px) {
-            .login-card {
+            .register-card {
                 width: 90%;
                 padding: 25px;
             }
@@ -165,23 +195,48 @@
     <!-- Pigeon -->
     <img src="{{ asset('assets/images/pigeon.png') }}" alt="Pigeon" class="pigeon">
 
-    <!-- Logo (replace with your own logo image) -->
+    <!-- Logo -->
     <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="logo">
 
-    <!-- Login Card -->
-    <div class="login-card">
-        <h2>Welcome Back</h2>
+    <!-- Register Card -->
+    <div class="register-card">
         <form action="{{ route('login') }}" method="POST">
             @csrf
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
-            <button type="submit">Login</button>
-            <div class="links">
-                <a href="#">Forgot Password?</a>
-                <a href="{{ route('register') }}">Register Now</a>
+            <h2>Login to your account</h2>
+            <div class="">
+                <input type="email" name="email" placeholder="Email">
             </div>
+
+            <!-- Password with toggle -->
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
+            </div>
+
+            <!-- Terms & Conditions checkbox -->
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember"> Keep me login in</a>
+                </label>
+            </div>
+
+            <button>Login</button>
         </form>
+        <div class="links">
+            <a href="{{ route('login') }}">Already have an account? Login</a>
+        </div>
     </div>
+
+    <script>
+        function togglePassword(id) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+    </script>
 </body>
 
 </html>
