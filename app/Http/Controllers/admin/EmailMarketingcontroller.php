@@ -24,16 +24,9 @@ class EmailMarketingcontroller extends Controller
         $users = User::pluck('email')->toArray();
 
         foreach ($users as $email) {
-            Mail::to($email)->send(new MarketingMail($request->message));
+            Mail::to($email)->queue(new MarketingMail($request->message));
         }
 
         return back()->with('success', 'Emails sent successfully!');
-
-
-        // Get verified users
-        $user = User::find(2);
-        // return $user->email;
-        Mail::to($user->email)->queue(new MarketingMail($request->subject, $request->message));
-        return back()->with('success', 'Email has been sent to all verified users!');
     }
 }
