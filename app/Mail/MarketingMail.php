@@ -29,7 +29,7 @@ class MarketingMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Latest Update From Our Website',
+            subject: 'Latest Update From PigeonMining',
         );
     }
 
