@@ -66,7 +66,6 @@
                                             <tr>
                                                 <th>Lucky Draw ID</th>
                                                 <th>User Name</th>
-                                                <th>Status</th>
                                                 <th>Amount</th>
                                                 <th>Image</th>
                                                 <th class="text-end">Action</th>
@@ -75,9 +74,8 @@
                                         <tbody>
                                             @forelse ($participante as $item)
                                                 <tr>
-                                                    <td>{{ $item->user_luckyDrawID }}</td>
-                                                    <td>{{ $item->user_email }}</td>
-                                                    <td>{{ $item->status }}</td>
+                                                    <td>{{ $item->lucky_draw_id }}</td>
+                                                    <td>{{ $item->user_name }}</td>
                                                     <td>{{ $item->item_price }}</td>
                                                     <td>
                                                         <img src="{{ asset('images/luckyDraw/' . $item->image) }}"

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('lucky_participants', function (Blueprint $table) {
             $table->id();
-            $table->integer('duration_minutes'); // duration in minutes
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('end_time')->nullable();
-            $table->string('winner_draw_id')->nullable();
-            $table->boolean('is_active')->default(false);
-            $table->string('status')->default('participant');
+            $table->string('user_id');
+            $table->string('user_name');
+            $table->string('lucky_draw_id');
+            $table->string('item_id');
+            $table->string('item_price');
+            $table->string('image');
             $table->timestamps();
         });
     }
