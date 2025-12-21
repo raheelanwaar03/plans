@@ -23,6 +23,32 @@
                     </div><!--end col-->
                 </div><!--end row-->
 
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-title">
+                                    <h4 class="text-center m-2 text-primary">Set Timer And Add Winner</h4>
+                                </div>
+                                <div class="card-body">
+                                    <form action="{{ route('Admin.Chosse.Winner') }}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <input type="text" name="winner" class="form-control" id="winner"
+                                                placeholder="Add Winner ID">
+                                            <input type="text" name="time" class="form-control mt-2" id="time"
+                                                placeholder="Enter Timer time">
+                                        </div>
+                                        <div class="mt-2">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -38,6 +64,7 @@
                                     <table class="table mb-0" id="datatable_1">
                                         <thead class="table-light">
                                             <tr>
+                                                <th>Lucky Draw ID</th>
                                                 <th>User Name</th>
                                                 <th>Status</th>
                                                 <th>Amount</th>
@@ -48,6 +75,7 @@
                                         <tbody>
                                             @forelse ($participante as $item)
                                                 <tr>
+                                                    <td>{{ $item->user_luckyDrawID }}</td>
                                                     <td>{{ $item->user_email }}</td>
                                                     <td>{{ $item->status }}</td>
                                                     <td>{{ $item->item_price }}</td>
@@ -56,8 +84,6 @@
                                                             height="60px" width="60px">
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="{{ route('Admin.Chosse.Winner', $item->id) }}"
-                                                            class="btn btn-sm btn-primary">Winner</a>
                                                         <a href="{{ route('Admin.Del.Participant', $item->id) }}"
                                                             class="btn btn-sm btn-danger">Del</a>
                                                     </td>

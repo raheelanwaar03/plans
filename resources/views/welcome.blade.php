@@ -219,11 +219,10 @@
                     <input type="checkbox" name="remember"> Keep me login in</a>
                 </label>
             </div>
-
             <button>Login</button>
         </form>
         <div class="links">
-            <a href="{{ route('login') }}">Already have an account? Login</a>
+            <a href="{{ route('register') }}">Haven't an account? Register Now!</a>
         </div>
     </div>
 

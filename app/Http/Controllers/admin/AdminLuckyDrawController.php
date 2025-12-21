@@ -90,12 +90,31 @@ class AdminLuckyDrawController extends Controller
         return view('admin.luckyDraw.participant', compact('participante'));
     }
 
-    public function winner($id)
+    public function winner(Request $request)
     {
-        $winner = LuckyParticipant::find($id);
-        $winner->status = "winner";
-        $winner->save();
-        return redirect()->back()->with('success', '' . $winner->user_email . ' selected as a Winner');
+        $request->validate([
+            'duration_minutes' => 'required|integer|min:1',
+            'winner_draw_id' => 'required|string|max:255',
+        ]);
+
+        $start = Carbon::now();
+        $end   = $start->copy()->addMinutes($request->duration_minutes);
+
+        $data = [
+            'duration_minutes' => $request->duration_minutes,
+            'start_time' => $start,
+            'end_time' => $end,
+            'winner_draw_id' => $request->winner_draw_id,
+            'is_active' => true,
+        ];
+
+        $draw = LuckyParticipant::create($data);
+
+
+        $lucky_winner = LuckyParticipant::where('user_luckyDrawID', $request->winner)->first();
+        $lucky_winner->status = "winner";
+        $lucky_winner->save();
+        return redirect()->back()->with('success', 'Great!' . $lucky_winner->user_email . ' selected as a Winner');
     }
 
     public function delItem($id)
