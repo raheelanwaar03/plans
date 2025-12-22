@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\LuckyDrawItems;
+use App\Models\admin\LuckyDrawWinner;
 use App\Models\User;
 use App\Models\user\LuckyParticipant;
 use App\Models\user\UserBalance;
@@ -93,29 +94,11 @@ class AdminLuckyDrawController extends Controller
 
     public function winner(Request $request)
     {
-        $request->validate([
-            'duration_minutes' => 'required|integer|min:1',
-            'winner_draw_id' => 'required|string|max:255',
-        ]);
-
-        $start = Carbon::now();
-        $end   = $start->copy()->addMinutes($request->duration_minutes);
-
-        $data = [
-            'duration_minutes' => $request->duration_minutes,
-            'start_time' => $start,
-            'end_time' => $end,
-            'winner_draw_id' => $request->winner_draw_id,
-            'is_active' => true,
-        ];
-
-        $draw = LuckyParticipant::create($data);
-
-
-        $lucky_winner = LuckyParticipant::where('user_luckyDrawID', $request->winner)->first();
+        $lucky_winner = new LuckyDrawWinner();
+        $lucky_winner->lucky_draw_id = $request->winner_draw_id;
         $lucky_winner->status = "winner";
         $lucky_winner->save();
-        return redirect()->back()->with('success', 'Great!' . $lucky_winner->user_email . ' selected as a Winner');
+        return redirect()->back()->with('success', 'Great!' . $request->winner_draw_id . ' selected as a Winner');
     }
 
     public function delItem($id)

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,8 @@
 
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
 
     <!-- DataTables -->
     <link href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" rel="stylesheet">
@@ -118,22 +120,48 @@
             gap: 5px;
         }
 
-        .p { color: #7c3aed; }
-        .g, .n {
+        .p {
+            color: #7c3aed;
+        }
+
+        .g,
+        .n {
             color: #e5e7eb;
             opacity: 0;
             animation: fadeMove 3s infinite;
         }
 
-        .g { animation-delay: .3s; }
-        .n { animation-delay: 1.6s; }
+        .g {
+            animation-delay: .3s;
+        }
+
+        .n {
+            animation-delay: 1.6s;
+        }
 
         @keyframes fadeMove {
-            0% { opacity: 0; transform: translateX(-30px); }
-            20% { opacity: 1; transform: translateX(0); }
-            50% { opacity: 1; }
-            70% { opacity: 0; transform: translateX(30px); }
-            100% { opacity: 0; }
+            0% {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            70% {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
 
         /* Table */
@@ -145,86 +173,85 @@
 
 <body>
 
-<x-alert />
+    <x-alert />
 
-<!-- Preloader -->
-<div id="preloader">
-    <div class="loader">
-        <span class="p">P</span>
-        <span class="g">G</span>
-        <span class="n">N</span>
-    </div>
-</div>
-
-<!-- Main Content -->
-<div class="container py-4">
-
-    <!-- Back Button -->
-    <div class="mb-3">
-        <a href="{{ route('User.Dashboard') }}" class="text-white fs-3">
-            <i class="bi bi-arrow-left-circle"></i>
-        </a>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <span class="p">P</span>
+            <span class="g">G</span>
+            <span class="n">N</span>
+        </div>
     </div>
 
-    <!-- Title -->
-    <h3 class="text-center fw-bold fs-4 fs-md-3 mb-4">History</h3>
+    <!-- Main Content -->
+    <div class="container py-4">
 
-    <!-- Table -->
-    <div class="table-responsive">
-        <table id="example" class="table table-striped table-bordered nowrap w-100">
-            <thead class="table-dark">
-                <tr>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($history as $item)
-                    <tr>
-                        <td>{{ $item->email }}</td>
-                        <td>{{ $item->title }}</td>
-                        <td>{{ $item->phoneNo }}</td>
-                        <td>{{ $item->amount }}</td>
-                        <td>
-                            @if ($item->status == 'pending')
-                                <span class="badge bg-warning text-dark">Pending</span>
-                            @elseif ($item->status == 'approved')
-                                <span class="badge bg-success">Approved</span>
-                            @else
-                                <span class="badge bg-danger">Rejected</span>
-                            @endif
-                        </td>
-                        <td>{{ $item->created_at }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <!-- Back Button -->
+        <div class="mb-3">
+            <a href="{{ route('User.Dashboard') }}" class="text-white fs-3">
+                <i class="bi bi-arrow-left-circle"></i>
+            </a>
+        </div>
+
+        <!-- Title -->
+        <h3 class="text-center fw-bold fs-4 fs-md-3 mb-4">History</h3>
+
+        <!-- Table -->
+        <div class="d-flex justify-content-center">
+            <div class="table-responsive w-50">
+                <table id="example" class="table table-striped table-bordered nowrap w-100">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($history as $item)
+                            <tr>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->amount }}</td>
+                                <td>
+                                    @if ($item->status == 'pending')
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    @elseif ($item->status == 'approved')
+                                        <span class="badge bg-success">Approved</span>
+                                    @else
+                                        <span class="badge bg-danger">Rejected</span>
+                                    @endif
+                                </td>
+                                <td>{{ $item->created_at }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
-</div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable({
-            responsive: true,
-            pageLength: 10,
-            autoWidth: false
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                responsive: true,
+                pageLength: 10,
+                autoWidth: false
+            });
         });
-    });
 
-    window.addEventListener('load', () => {
-        document.getElementById('preloader').style.display = 'none';
-    });
-</script>
+        window.addEventListener('load', () => {
+            document.getElementById('preloader').style.display = 'none';
+        });
+    </script>
 
 </body>
+
 </html>

@@ -2,138 +2,175 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
-    <title>Lottery Winners</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Lucky Draw Winner</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: #fff;
+        }
+
+        body {
             min-height: 100vh;
+            background: linear-gradient(135deg, #240046, #5a189a);
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            overflow-x: hidden;
+            align-items: center;
+            color: #fff;
+            padding: 20px;
         }
 
-        .celebration {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1000;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: gold;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(0);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(110vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        .container {
-            padding: 2rem 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            z-index: 1;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+        .winner-container {
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
-        }
-
-        .card img {
+            border-radius: 25px;
+            padding: 35px 30px;
+            max-width: 460px;
             width: 100%;
-            height: auto;
-            max-height: 240px;
-            object-fit: cover;
-            position: relative;
-            animation: glow 3s infinite linear;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+            animation: fadeIn 1.4s ease;
         }
 
-        @keyframes glow {
+        .trophy {
+            font-size: 64px;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        .winner-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ffd166;
+            margin-bottom: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Prize Section */
+        .prize-box {
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.12);
+            animation: slideUp 1.2s ease forwards;
+        }
+
+        .prize-box img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(255, 209, 102, 0.8);
+        }
+
+        .prize-text {
+            margin-top: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffd166;
+        }
+
+        .winner-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 20px;
+            text-shadow: 0 0 18px #ffd166;
+            animation: scaleUp 1s ease forwards;
+        }
+
+        .winner-id {
+            font-size: 15px;
+            opacity: 0.9;
+            margin-top: 6px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
             0% {
-                filter: brightness(1) drop-shadow(0 0 0px gold);
+                transform: scale(1);
             }
 
             50% {
-                filter: brightness(1.2) drop-shadow(0 0 12px gold);
+                transform: scale(1.06);
             }
 
             100% {
-                filter: brightness(1) drop-shadow(0 0 0px gold);
+                transform: scale(1);
             }
         }
 
-        .card-body {
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .card-body h2 {
-            margin: 0.5rem 0;
-            font-size: 1.3rem;
-            color: #ffeb3b;
-        }
-
-        .card-body p {
-            margin: 0.25rem 0;
-            font-size: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .card-body h2 {
-                font-size: 1.1rem;
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
             }
 
-            .card-body p {
-                font-size: 0.9rem;
+            to {
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
         @media (max-width: 480px) {
-            .card-body h2 {
-                font-size: 1rem;
+            .winner-name {
+                font-size: 26px;
             }
 
-            .card-body p {
-                font-size: 0.85rem;
+            .winner-title {
+                font-size: 24px;
             }
         }
     </style>
@@ -141,52 +178,43 @@
 
 <body>
 
-    <div class="">
-        <a href="{{ route('User.Dashboard') }}"
-            style="background: rgb(38, 222, 235);text-align:start;border-radius:5px;font-size:30px;text-decoration:none;color:white;padding-left:6px;padding-right:6px;">←</a>
+    <div class="winner-container">
+        <div class="trophy">🏆</div>
+        <div class="winner-title">Hurray! You Won 🎉</div>
+
+        <!-- Prize Section -->
+        <div class="prize-box">
+            <img src="{{ asset('images/luckyDraw/' . $participant->image) }}" alt="Prize">
+            <div class="prize-text">🎁 Congratulation: {{ $participant->user_name }}</div>
+            <div class="winner-name">#{{ $participant->lucky_draw_id }}</div>
+        </div>
+
     </div>
 
-    <div class="celebration" id="celebration"></div>
-
-    <div class="container">
-        @forelse ($winners as $winner)
-            <div class="card">
-                <img src="{{ asset('images/luckyDraw/' . $winner->image) }}" alt="Prize Image">
-                <div class="card-body">
-                    <h2>{{ $winner->user_email }} is the winner.</h2>
-                    <h2>{{ $winner->user_luckyDrawID }} was his ticket number.</h2>
-                    <p>Ticket Price: {{ $winner->item_price }}</p>
-                    <p>Date: {{ $winner->created_at->format('d M, Y') }}</p>
-                    <p>Organized by: {{ env('APP_NAME') }}
-                </div>
-            @empty
-                <h3>Winner is not announced yet!</h3>
-        @endforelse
-    </div>
+    <!-- Sounds -->
+    <audio id="hurraySound">
+        <source src="https://www.soundjay.com/human/cheering-01.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        // Celebration Confetti
-        function launchConfetti() {
-            const celebration = document.getElementById('celebration');
-            for (let i = 0; i < 60; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                confetti.style.opacity = Math.random();
-                celebration.appendChild(confetti);
+        // Play hurray sound
+        const hurray = document.getElementById('hurraySound');
+        setTimeout(() => {
+            hurray.play();
+        }, 900);
 
-                setTimeout(() => confetti.remove(), 5000);
-            }
-        }
-
-        // Trigger on load
-        window.onload = () => {
-            launchConfetti();
-            setInterval(launchConfetti, 5000);
-        };
+        // Confetti blast
+        setTimeout(() => {
+            confetti({
+                particleCount: 220,
+                spread: 100,
+                origin: {
+                    y: 0.6
+                }
+            });
+        }, 800);
     </script>
+
 </body>
 
 </html>

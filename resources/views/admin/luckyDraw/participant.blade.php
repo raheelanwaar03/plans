@@ -28,16 +28,14 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h4 class="text-center m-2 text-primary">Set Timer And Add Winner</h4>
+                                    <h4 class="text-center m-2 text-primary">Add Winner</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="{{ route('Admin.Chosse.Winner') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" name="winner" class="form-control" id="winner"
+                                            <input type="text" name="winner_draw_id" class="form-control" id="winner"
                                                 placeholder="Add Winner ID">
-                                            <input type="text" name="time" class="form-control mt-2" id="time"
-                                                placeholder="Enter Timer time">
                                         </div>
                                         <div class="mt-2">
                                             <button type="submit" class="btn btn-primary">Submit</button>

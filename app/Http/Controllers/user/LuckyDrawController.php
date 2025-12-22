@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\LuckyDrawItems;
+use App\Models\admin\LuckyDrawWinner;
 use App\Models\admin\Wallet;
 use App\Models\User;
 use App\Models\user\KYC;
@@ -51,7 +52,7 @@ class LuckyDrawController extends Controller
     {
         $item = LuckyDrawItems::find($id);
         // check if user already participated
-        $user_check = LuckyParticipant::where('user_id', auth()->user()->id)->where('item_id', $item->id)->whereDate('created_at', Carbon::today())->first();
+        $user_check = LuckyParticipant::where('user_id', auth()->user()->id)->where('item_id', $item->id)->first();
         if ($user_check) {
             return redirect()->back()->with('error', 'you have already participate in this lottery');
         }
@@ -87,7 +88,13 @@ class LuckyDrawController extends Controller
 
     public function winner()
     {
-        $winners = LuckyParticipant::where('status', 'winner')->get();
-        return view('user.luckydraw.winner', compact('winners'));
+        $winner = LuckyDrawWinner::where('status', 'winner')->first();
+        if ($winner == null) {
+            return redirect()->back()->with('error', 'Winner is not accouced yet! Please wait for the deadline');
+        }
+
+        $participant = LuckyParticipant::where('lucky_draw_id',$winner->lucky_draw_id)->first();
+
+        return view('user.luckydraw.winner', compact('participant'));
     }
 }
