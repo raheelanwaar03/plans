@@ -62,7 +62,8 @@
                                                     <td>{{ $item->premiumOption }}</td>
                                                     <td>
                                                         <img src="{{ asset('images/premium/' . $item->paymentScreenshot) }}"
-                                                            height="60px" width="60px" alt="$item->idFront">
+                                                            height="60px" width="60px" id="fullscreenImage"
+                                                            onclick="openModal(this.src)">
                                                     </td>
                                                     <td>
                                                         @if ($item->status == 'pending')
@@ -94,6 +95,11 @@
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
+
+                <div id="myModal" class="modal" onclick="closeModal()">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="modalImg">
+                </div>
 
             </div><!-- container -->
 
@@ -161,6 +167,21 @@
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    function openModal(src) {
+                        document.getElementById('myModal').style.display = "block";
+                        document.getElementById('modalImg').src = src;
+                    }
+
+                    function closeModal() {
+                        document.getElementById('myModal').style.display = "none";
+                    }
+
+                    // Optional: Close on "X" click
+                    document.querySelector('.close').addEventListener('click', closeModal);
+                </script>
+
             </footer>
         </div>
     </div>
