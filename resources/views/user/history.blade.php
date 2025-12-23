@@ -15,7 +15,7 @@
         }
 
         body {
-            background: #f7f8fc;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             /* neutral background */
             padding: 16px;
         }
