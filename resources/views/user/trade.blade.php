@@ -215,6 +215,23 @@
                     transform: translateX(130px);
                 }
             }
+
+            .highlight {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 8px;
+
+                    font-size: 14px;
+                    color: #000;
+
+                    /* 🔥 CRITICAL FIX */
+                    word-break: break-all;
+                    overflow-wrap: anywhere;
+
+                    background: #f5f7ff;
+                    padding: 10px;
+                    border-radius: 8px;
+                }
         </style>
     </head>
 
@@ -249,7 +266,8 @@
                             <h4>Binance Details</h4>
                             <p><b>Type:</b>{{ $wallet->binance_wallet }}</p>
                             <div class="d-flex justify-content-center align-items-center">
-                                <p><b>Address:</b> <span id="email">{{ $wallet->binance_address }}</span></p>
+                                <p><b>Address:</b> <span id="email"
+                                        class="highlight">{{ $wallet->binance_address }}</span></p>
                                 {{-- add icon to copy the account number --}}
                                 <i class="bi bi-clipboard" onclick="copyEmail()"
                                     style="cursor: pointer; color: blue;margin-top:-17px"></i>
@@ -326,7 +344,7 @@
                 <h4>Binance Detials</h4>
 
                 <h6>Type: {{ $wallet->binance_wallet }}</h6>
-                <p><b>Address:</b> <span id="email">{{ $wallet->binance_address }}</span> <span><i
+                <p><b>Address:</b> <span id="email" class="highlight">{{ $wallet->binance_address }}</span> <span><i
                             class="bi bi-clipboard" onclick="copyEmail()"
                             style="cursor: pointer; color: blue;margin-top:-17px"></i></span></p>
                 <hr>
