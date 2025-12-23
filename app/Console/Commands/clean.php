@@ -123,7 +123,7 @@ class clean extends Command
         $wallet->vip_number = '093432234545';
         $wallet->vip_wallet = 'Allied Bank';
         $wallet->binance_wallet = 'Bep20';
-        $wallet->binance_address = 'asdfaskldfashdaiguadfasdf';
+        $wallet->binance_address = 'asdfaskldfashdaiguadfasdfasdfaskldfashdaiguadfasdf';
         $wallet->email = 'pigeonofficial6@gmail.com';
         $wallet->save();
     }

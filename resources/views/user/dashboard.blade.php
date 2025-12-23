@@ -387,6 +387,9 @@
                         <p style="font-size: 20px;margin-top:10px;"><b>Pigeon Mining</b></p>
                     </div>
                 </div>
+                <div class="col-6">
+                    <img src="{{ asset('assets/images/pigeon.png') }}" height="80px" width="80px">
+                </div>
             </div>
 
             @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
@@ -458,9 +461,9 @@
 
             <div class="row justify-content-between align-items-center my-4 text-center">
                 <div class="col-12 bg-white text-dark text-center p-4 mb-3" style="border-radius: 10px;">
-                    <h3>
+                    {{-- <h3>
                         <i class="bi bi-coin"></i>
-                    </h3>
+                    </h3> --}}
                     <p><span style="font-size: 12px;">Mined PGN</span> <br>
                         <span><b>{{ auth()->user()->balance }} PGN</b></span>
                     </p>

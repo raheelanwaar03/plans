@@ -204,6 +204,23 @@
                     transform: translateX(30px);
                 }
             }
+
+            .address-box {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+
+                font-size: 14px;
+                color: #000;
+
+                /* 🔥 CRITICAL FIX */
+                word-break: break-all;
+                overflow-wrap: anywhere;
+
+                background: #f5f7ff;
+                padding: 10px;
+                border-radius: 8px;
+            }
         </style>
     </head>
 
@@ -265,7 +282,8 @@
                 <h5>Type: {{ $wallet->binance_wallet }}</h5>
                 <h5>
                     <div class="d-flex justify-content-center align-items-center">
-                        <p><b>Address:</b> <span id="email">{{ $wallet->binance_address }}</span> <span><i
+                        <p><b>Address:</b> <span id="email"
+                                class="address-box">{{ $wallet->binance_address }}</span> <span><i
                                     class="bi bi-clipboard" onclick="copyEmail()"
                                     style="cursor: pointer; color: blue;margin-top:-17px"></i></span> </p>
 
