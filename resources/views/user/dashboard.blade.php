@@ -461,9 +461,9 @@
 
             <div class="row justify-content-between align-items-center my-4 text-center">
                 <div class="col-12 bg-white text-dark text-center p-4 mb-3" style="border-radius: 10px;">
-                    {{-- <h3>
-                        <i class="bi bi-coin"></i>
-                    </h3> --}}
+                    <h3>
+                        <img src="{{ asset('assets/images/logo.png') }}" height="60px" width="60px" alt="Logo">
+                    </h3>
                     <p><span style="font-size: 12px;">Mined PGN</span> <br>
                         <span><b>{{ auth()->user()->balance }} PGN</b></span>
                     </p>
