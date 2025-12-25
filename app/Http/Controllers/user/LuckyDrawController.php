@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\admin\LuckyDrawItems;
 use App\Models\admin\LuckyDrawWinner;
 use App\Models\admin\Wallet;
-use App\Models\User;
 use App\Models\user\KYC;
 use App\Models\user\LuckyParticipant;
 use App\Models\user\UserBalance;
