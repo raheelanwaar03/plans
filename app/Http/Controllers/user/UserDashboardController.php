@@ -109,7 +109,8 @@ class UserDashboardController extends Controller
                 foreach ($booster_plan as $boost) {
                     $total_amount += $boost->amount;
                 }
-                if ($total_amount = 100) {
+                if ($total_amount == 100) {
+                    return 100;
                     $user->balance += 10;
                     $user->save();
                     $history = new History();
@@ -119,7 +120,8 @@ class UserDashboardController extends Controller
                     $history->save();
                     return redirect()->back()->with('success', 'You Mined PGN Successfully');
                 }
-                if ($total_amount = 300) {
+                if ($total_amount == 300) {
+                    return 300;
                     $user->balance += 30;
                     $user->save();
                     $history = new History();
@@ -129,7 +131,7 @@ class UserDashboardController extends Controller
                     $history->save();
                     return redirect()->back()->with('success', 'You Mined PGN Successfully');
                 }
-                if ($total_amount = 500) {
+                if ($total_amount == 500) {
                     $user->balance += 60;
                     $user->save();
                     $history = new History();
