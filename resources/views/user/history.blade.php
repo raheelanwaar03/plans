@@ -113,10 +113,10 @@
     @foreach ($history as $item)
         <div class="tx blue">
             <div class="tx-left">
-                <div class="method">{{ $item->email }}</div>
-                <div class="status-text">{{ $item->status }}</div>
+                <div class="method">{{ $item->title }}</div>
+                <div class="status-text">{{ $item->status }} ({{ $item->created_at }})</div>
             </div>
-            <div class="amount">-{{ $item->amount }} USDT</div>
+            <div class="amount">-{{ $item->amount }} PGN</div>
         </div>
     @endforeach
 

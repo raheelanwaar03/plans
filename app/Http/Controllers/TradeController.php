@@ -122,7 +122,6 @@ class TradeController extends Controller
     public function history()
     {
         $history = SellingTokens::where('user_id', auth()->user()->id)->get();
-        // return $history;
         return view('user.history', compact('history'));
     }
 }
