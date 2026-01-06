@@ -110,7 +110,6 @@ class UserDashboardController extends Controller
                     $total_amount += $boost->amount;
                 }
                 if ($total_amount == 100) {
-                    return 100;
                     $user->balance += 10;
                     $user->save();
                     $history = new History();
@@ -121,7 +120,6 @@ class UserDashboardController extends Controller
                     return redirect()->back()->with('success', 'You Mined PGN Successfully');
                 }
                 if ($total_amount == 300) {
-                    return 300;
                     $user->balance += 30;
                     $user->save();
                     $history = new History();
