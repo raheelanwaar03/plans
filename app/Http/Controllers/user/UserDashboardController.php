@@ -102,7 +102,8 @@ class UserDashboardController extends Controller
         $token_check = History::where('user_id', auth()->user()->id)->where('type', 'Mine')->whereDate('created_at', Carbon::today())->first();
         if ($token_check) {
             return redirect()->back()->with('error', 'You got todays token');
-        } else {
+        }
+        else {
             if ($user->status == 'booster') {
                 $booster_plan = History::where('user_id', auth()->user()->id)->where('type', 'boost')->get();
                 $total_amount = 0;
