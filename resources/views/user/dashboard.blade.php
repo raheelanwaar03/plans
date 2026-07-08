@@ -549,7 +549,7 @@
                 <div class="modal-box">
                     <h2>🎉 Marketing Offer!</h2>
                     <p>If you want to promot your website. Contact Us.</p>
-                    <a href="{{ route('User.Contact') }}" class="btn btn-primary">Contact Us</a>
+                    <a href="pgninfo.com/contact/" class="btn btn-primary">Contact Us</a>
                     <button onclick="closeModal()">Close</button>
                 </div>
             </div>
