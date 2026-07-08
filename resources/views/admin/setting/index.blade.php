@@ -85,7 +85,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h4 class="card-title text-center">Password</h4>
+                                        <h4 class="card-title text-center">Credentials</h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
@@ -98,6 +98,21 @@
                                                 <label for="password">Password Update</label>
                                                 <input type="text" id="password" class="form-control" name="password"
                                                     value="{{ auth()->user()->password }}">
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                </form>
+                                {{-- email --}}
+                                <form action="{{ route('Admin.Update.Email', auth()->user()->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="email">Email Update</label>
+                                                <input type="text" id="email" class="form-control" name="email"
+                                                    value="{{ auth()->user()->email }}">
                                             </div>
                                         </div>
                                         <div class="mt-3">

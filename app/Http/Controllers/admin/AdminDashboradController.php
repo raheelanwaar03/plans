@@ -182,4 +182,14 @@ class AdminDashboradController extends Controller
         $user->save();
         return redirect()->back()->with('success', 'Site Passwrod Updated');
     }
+
+    public function updateEmail(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->email = $request->email;
+        $user->save();
+        return redirect()->back()->with('success', 'Email Updated');
+    }
+
+
 }

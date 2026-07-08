@@ -57,6 +57,7 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::post('Email.Content', [EmailMarketingcontroller::class, 'content'])->name('Email.Marketing.Content');
     // password update
     Route::post('Update.Password/{id}', [AdminDashboradController::class, 'updatePassword'])->name('Update.Password');
+    Route::post('Update.Email/{id}', [AdminDashboradController::class, 'updateEmail'])->name('Update.Email');
     // wallets updation kyc_wallet
     Route::post('Update/Premium/Wallet/{id}', [AdminSettingController::class, 'premium_wallet'])->name('Update.Premium.Wallet');
     Route::post('Update/Kyc/Wallet/{id}', [AdminSettingController::class, 'kyc_wallet'])->name('Update.KYC.Wallet');
