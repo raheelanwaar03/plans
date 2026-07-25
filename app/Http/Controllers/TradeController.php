@@ -67,7 +67,7 @@ class TradeController extends Controller
             ->where('created_at', '>=', today())
             ->sum('amount');
         if ($check_history >= 100) {
-            return redirect()->back()->with('error', 'You can only sell 100 tokens in the last 24 hours.');
+            return redirect()->back()->with('error', 'You can only sell 100 tokens in the 24h.');
         }
 
 
