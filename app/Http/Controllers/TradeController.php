@@ -63,25 +63,38 @@ class TradeController extends Controller
             return redirect()->back()->with('error', 'You already have a pending selling request.');
         }
         // check if user have sold 100 tokens in the last 24 hours
-        $check_history = History::where('user_id', auth()->user()->id)
-            ->where('created_at', '>=', today())
-            ->sum('amount');
-        if ($check_history >= 100) {
-            return redirect()->back()->with('error', 'You can only sell 100 tokens in the 24h.');
+        // $check_history = History::where('user_id', auth()->user()->id)
+        //     ->where('created_at', '>=', today())
+        //     ->sum('amount');
+        // if ($check_history >= 100) {
+        //     return redirect()->back()->with('error', 'You can only sell 100 tokens in the 24h.');
+        // }
+
+        // check user KYC
+        $user = KYC::where('user_id', auth()->user()->id)->first();
+        if (!$user || $user->status == 'approved') {
+            $package_check = History::where('user_id', auth()->user()->id)->first();
+            if ($package_check) {
+                $package_check = History::where('user_id', auth()->user()->id)->get();
+                if ($package_check >= 5) {
+                    return redirect()->back()->with('error', 'You have to buy Premium 1 to do more transcations');
+                }
+            }
         }
+
 
         // check user package
         $package_check = History::where('user_id', auth()->user()->id)->first();
         if ($package_check) {
             if ($package_check->user_package == 'Package 1') {
                 $package_check = History::where('user_id', auth()->user()->id)->get();
-                if ($package_check >= 5) {
+                if ($package_check >= 10) {
                     return redirect()->back()->with('error', 'You have to buy Premium 2 to do more transcations');
                 }
             }
             if ($package_check->user_package == 'Package 2') {
                 $package_check = History::where('user_id', auth()->user()->id)->get();
-                if ($package_check >= 10) {
+                if ($package_check >= 15) {
                     return redirect()->back()->with('error', 'You have to buy Premium 3 to do more transcations');
                 }
             }
