@@ -371,9 +371,9 @@
                     </div>
                     <div class="form-group">
                         <select name="premiumOption" class="form-control">
-                            <option value="$5 - 10 PGN">1500 - 10 PGN</option>
-                            <option value="$10 - 25 PGN">2800 - 25 PGN</option>
-                            <option value="$15 - 40 PGN">4250 - 40 PGN</option>
+                            <option value="$5 - 10 PGN">1399 - 10 PGN</option>
+                            <option value="$10 - 25 PGN">2899 - 25 PGN</option>
+                            <option value="$15 - 40 PGN">4299 - 40 PGN</option>
                         </select>
                     </div>
                     <div class="form-group mt-2">
