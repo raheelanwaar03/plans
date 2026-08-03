@@ -90,8 +90,12 @@ class AdminDashboradController extends Controller
     {
         $user = User::find($request->user_id);
         $user->balance += $request->amount;
+        $user->package = $request->package;
         $user->save();
-        return redirect()->back()->with('success', 'Token added successfully');
+        $premium = PremiumPlan::find($id);
+        $premium->status = 'approved';
+        $premium->save();
+        return redirect()->route('Admin.Premium.Requests')->with('success', 'Tokens added, Request Approved!');
     }
 
     public function allTasks()
@@ -190,6 +194,4 @@ class AdminDashboradController extends Controller
         $user->save();
         return redirect()->back()->with('success', 'Email Updated');
     }
-
-
 }

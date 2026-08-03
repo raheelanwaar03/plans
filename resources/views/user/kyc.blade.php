@@ -266,7 +266,7 @@
         </div>
 
         <section class="card">
-            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="text-decoration:none;">Back</a>
+            <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="color:white;text-decoration:none;">Back</a>
                 Secure
                 ID Scan</h1>
             <p class="lead">Capture front & back of your identity card using your device camera. Pay 580pkr to given

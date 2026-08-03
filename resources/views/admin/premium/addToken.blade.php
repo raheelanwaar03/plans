@@ -48,7 +48,7 @@
                                             <div class="form-group">
                                                 <label for="option">Value</label>
                                                 <input type="text" id="option" class="form-control"
-                                                    value="{{ $premium->premiumOption }}" name="name" readonly>
+                                                    value="{{ $premium->premiumOption }}" name="premium" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-12 text-center">
@@ -56,15 +56,25 @@
                                                 <label for="option">Screen Shot</label>
                                                 <img src="{{ asset('images/premium/' . $premium->paymentScreenshot) }}"
                                                     height="150px" width="150px" alt="screenshot"
-                                                    style="border-radius:20px;margin-top:14px" >
+                                                    style="border-radius:20px;margin-top:14px">
                                             </div>
                                         </div>
                                         <input type="hidden" name="user_id" value="{{ $premium->user_id }}">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="amount">Add Amount</label>
                                                 <input type="text" id="amount" class="form-control" name="amount"
                                                     required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="package">Package</label>
+                                                <select name="package" class="form-control" required>
+                                                    <option value="Package 1">Package 1</option>
+                                                    <option value="Package 2">Package 2</option>
+                                                    <option value="Package 3">Package 3</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="mt-3">

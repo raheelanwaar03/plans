@@ -70,7 +70,24 @@ class TradeController extends Controller
             return redirect()->back()->with('error', 'You can only sell 100 tokens in the 24h.');
         }
 
+        // check user package
+        $package_check = History::where('user_id', auth()->user()->id)->first();
+        if ($package_check) {
+            if ($package_check->user_package == 'Package 1') {
+                $package_check = History::where('user_id', auth()->user()->id)->get();
+                if ($package_check >= 5) {
+                    return redirect()->back()->with('error', 'You have to buy Premium 2 to do more transcations');
+                }
+            }
+            if ($package_check->user_package == 'Package 2') {
+                $package_check = History::where('user_id', auth()->user()->id)->get();
+                if ($package_check >= 10) {
+                    return redirect()->back()->with('error', 'You have to buy Premium 3 to do more transcations');
+                }
+            }
+        }
 
+        // Applying
         $selling_token = new SellingTokens();
         $selling_token->user_id = auth()->user()->id;
         $selling_token->email = $request->email;
@@ -89,6 +106,7 @@ class TradeController extends Controller
         $history = new History();
         $history->user_id = auth()->user()->id;
         $history->type = 'selling';
+        $history->user_package = auth()->user()->package;
         $history->amount = $request->amount;
         $history->save();
 
