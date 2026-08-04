@@ -75,8 +75,8 @@ class TradeController extends Controller
         if (!$user || $user->status == 'approved') {
             $package_check = History::where('user_id', auth()->user()->id)->first();
             if ($package_check) {
-                $package_check = History::where('user_id', auth()->user()->id)->get();
-                if ($package_check >= 5) {
+                $package_check = History::where('user_id', auth()->user()->id)->get()->count();
+                if ($package_check == '5') {
                     return redirect()->back()->with('error', 'You have to buy Premium 1 to do more transcations');
                 }
             }
@@ -87,14 +87,14 @@ class TradeController extends Controller
         $package_check = History::where('user_id', auth()->user()->id)->first();
         if ($package_check) {
             if ($package_check->user_package == 'Package 1') {
-                $package_check = History::where('user_id', auth()->user()->id)->get();
-                if ($package_check >= 10) {
+                $transcation_count = History::where('user_id', auth()->user()->id)->get()->count();
+                if ($transcation_count == '10') {
                     return redirect()->back()->with('error', 'You have to buy Premium 2 to do more transcations');
                 }
             }
             if ($package_check->user_package == 'Package 2') {
-                $package_check = History::where('user_id', auth()->user()->id)->get();
-                if ($package_check >= 15) {
+                $transcation_count = History::where('user_id', auth()->user()->id)->get()->count();
+                if ($transcation_count == '15') {
                     return redirect()->back()->with('error', 'You have to buy Premium 3 to do more transcations');
                 }
             }

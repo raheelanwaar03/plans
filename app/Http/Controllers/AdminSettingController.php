@@ -50,10 +50,6 @@ class AdminSettingController extends Controller
         if ($buying_request) {
             $buying_request->status = 'approved';
             $buying_request->save();
-            // Update user's balance if needed
-            // $user = User::find($buying_request->user_id);
-            // $user->balance += $buying_request->amount;
-            // $user->save();
             return redirect()->back()->with('success', 'Buying request approved successfully.');
         }
         return redirect()->back()->with('error', 'Buying request not found.');
@@ -91,10 +87,6 @@ class AdminSettingController extends Controller
         if ($selling_request) {
             $selling_request->status = 'approved';
             $selling_request->save();
-            // Update user's balance if needed
-            $user = User::find($selling_request->user_id);
-            $user->balance -= $selling_request->amount;
-            $user->save();
             return redirect()->back()->with('success', 'Selling request approved successfully.');
         }
         return redirect()->back()->with('error', 'Selling request not found.');
