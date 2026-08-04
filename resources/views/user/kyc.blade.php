@@ -251,7 +251,7 @@
             </div>
         </div>
 
-        <div class="card small" style="margin-top: 30px">
+        {{-- <div class="card small" style="margin-top: 30px">
             <h3 style="margin:0 0 6px">Scanned Preview</h3>
             <div style="display:flex;gap:12px">
                 <div style="flex:1">
@@ -263,7 +263,7 @@
                     <div class="scanner-preview" id="backThumb"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <section class="card">
             <h1><a href="{{ route('User.Dashboard') }}" class="btn secondary" style="color:white;text-decoration:none;">Back</a>

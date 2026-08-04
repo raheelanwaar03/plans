@@ -348,7 +348,7 @@
             </div>
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount($10 - 25 PGN)">
-                    <p>2899 - 25PGN</p>
+                    <p>2899 - 25 PGN</p>
 
                 </div>
             </div>
