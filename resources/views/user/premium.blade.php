@@ -343,18 +343,18 @@
         <div class="row justify-content-around align-items-center my-3">
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount($5 - 10 PGN)">
-                    <p>1500 - 10 PGN</p>
+                    <p>1399 - 10 PGN</p>
                 </div>
             </div>
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount($10 - 25 PGN)">
-                    <p>2800 - PGN</p>
+                    <p>2899 - 25PGN</p>
 
                 </div>
             </div>
             <div class="col-3 text-center bg-white text-dark p-2" style="border-radius: 15px">
                 <div class="deposit-option" onclick="setDepositAmount($15 - 40 PGN)">
-                    <p>4250 - 40 PGN</p>
+                    <p>4299 - 40 PGN</p>
                 </div>
             </div>
         </div>
