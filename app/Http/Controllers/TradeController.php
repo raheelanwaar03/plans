@@ -70,22 +70,14 @@ class TradeController extends Controller
         //     return redirect()->back()->with('error', 'You can only sell 100 tokens in the 24h.');
         // }
 
-        // check user KYC
-        $user = KYC::where('user_id', auth()->user()->id)->first();
-        if (!$user || $user->status == 'approved') {
-            $package_check = History::where('user_id', auth()->user()->id)->first();
-            if ($package_check) {
-                $package_check = History::where('user_id', auth()->user()->id)->get()->count();
-                if ($package_check == '5') {
-                    return redirect()->back()->with('error', 'You have to buy Premium 1 to do more transcations');
-                }
-            }
-        }
-
-
-        // check user package
+        // check user previous history
         $package_check = History::where('user_id', auth()->user()->id)->first();
-        if ($package_check) {
+        if ($package_check == '') {
+            $package_check = History::where('user_id', auth()->user()->id)->get()->count();
+            if ($package_check == 5) {
+                return redirect()->back()->with('error', 'You have to buy Premium 1 to do more transcations');
+            }
+        } else {
             if ($package_check->user_package == 'Package 1') {
                 $transcation_count = History::where('user_id', auth()->user()->id)->get()->count();
                 if ($transcation_count == '10') {

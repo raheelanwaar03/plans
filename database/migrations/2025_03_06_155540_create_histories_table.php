@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('user_package');
+            $table->string('user_package')->nullable();
             $table->string('type');
             $table->string('amount');
             $table->timestamps();
