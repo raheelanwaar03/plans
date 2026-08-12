@@ -78,14 +78,13 @@ class TradeController extends Controller
                 return redirect()->back()->with('error', 'You have to buy Premium 1 to do more transcations');
             }
         } else {
-            $package_check = History::where('user_id', auth()->user()->id)->get();
-            if ($package_check->user_package == 'Package 1') {
+            if ($user_package->package == 'Package 1') {
                 $transcation_count = History::where('user_id', auth()->user()->id)->get()->count();
                 if ($transcation_count == '10') {
                     return redirect()->back()->with('error', 'You have to buy Premium 2 to do more transcations');
                 }
             }
-            if ($package_check->user_package == 'Package 2') {
+            if ($user_package->package == 'Package 2') {
                 $transcation_count = History::where('user_id', auth()->user()->id)->get()->count();
                 if ($transcation_count == '15') {
                     return redirect()->back()->with('error', 'You have to buy Premium 3 to do more transcations');
