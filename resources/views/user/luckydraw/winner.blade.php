@@ -183,11 +183,18 @@
         <div class="winner-title">Hurray! You Won 🎉</div>
 
         <!-- Prize Section -->
-        <div class="prize-box">
-            <img src="{{ asset('images/luckyDraw/' . $participant->image) }}" alt="Prize">
-            <div class="prize-text">🎁 Congratulation {{ $participant->user_name }}</div>
-            <div class="winner-name">#{{ $participant->lucky_draw_id }}</div>
-        </div>
+        @if ($participant)
+            <div class="prize-box">
+                <img src="{{ asset('images/luckyDraw/' . $participant->image) }}" alt="Prize">
+                <div class="prize-text">🎁 Congratulations {{ $participant->user_name }}</div>
+                <div class="winner-name">#{{ $participant->lucky_draw_id }}</div>
+            </div>
+        @else
+            <div class="prize-box">
+                <div class="prize-text">🎁 No Winner Yet</div>
+                <div class="winner-name">Please wait for the lucky draw!</div>
+            </div>
+        @endif
 
     </div>
 
