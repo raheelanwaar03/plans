@@ -180,7 +180,7 @@
 
     <div class="winner-container">
         <div class="trophy">🏆</div>
-        <div class="winner-title">Hurray! You Won 🎉</div>
+        <div class="winner-title">Winner 🎉</div>
 
         <!-- Prize Section -->
         @if ($participant)
