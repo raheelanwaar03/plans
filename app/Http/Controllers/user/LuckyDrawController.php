@@ -93,7 +93,6 @@ class LuckyDrawController extends Controller
         }
 
         $participant = LuckyParticipant::where('lucky_draw_id', $winner->lucky_draw_id)->first();
-        return $participant;
 
         return view('user.luckydraw.winner', compact('participant'));
     }
