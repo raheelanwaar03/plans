@@ -86,6 +86,15 @@ class AdminLuckyDrawController extends Controller
         }
     }
 
+    public function rejectReq($id)
+    {
+        $deposit = UserDeposit::find($id);
+        $deposit->status = 'rejected';
+        $deposit->save();
+        return redirect()->back()->with('success', 'Rejected');
+    }
+
+
     public function participante()
     {
         $participante = LuckyParticipant::get();

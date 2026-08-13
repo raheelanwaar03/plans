@@ -34,6 +34,7 @@ Route::name('Admin.')->prefix('Admin')->middleware('auth', 'admin')->group(funct
     Route::get('/All/Lucky/Items', [AdminLuckyDrawController::class, 'all'])->name('All.Lucky.Items');
     Route::get('/Deposit/Requests', [AdminLuckyDrawController::class, 'requests'])->name('Deposit.Requests');
     Route::get('/Approve/Deposit/Request/{id}', [AdminLuckyDrawController::class, 'approveReq'])->name('Approve.Deposit.Request');
+    Route::get('/Reject/Deposit/Request/{id}', [AdminLuckyDrawController::class, 'rejectReq'])->name('Rejected.Deposit.Request');
     Route::get('/All/Participante', [AdminLuckyDrawController::class, 'participante'])->name('All.Participantes');
     Route::post('/Chosse/Winner', [AdminLuckyDrawController::class, 'winner'])->name('Chosse.Winner');
     Route::get('/Del/Item/{id}', [AdminLuckyDrawController::class, 'delItem'])->name('Del.Item');

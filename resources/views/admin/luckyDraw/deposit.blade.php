@@ -62,7 +62,7 @@
                                                     <td class="text-end">
                                                         <a href="{{ route('Admin.Approve.Deposit.Request', $item->id) }}"><i
                                                                 class="las la-check text-secondary fs-18"></i></a>
-                                                        <a href="{{ route('Admin.Rejected.Premium', $item->id) }}">
+                                                        <a href="{{ route('Admin.Rejected.Deposit.Request', $item->id) }}">
                                                             <i class="las la-times text-secondary fs-18"></i></a>
                                                     </td>
                                                 </tr>
