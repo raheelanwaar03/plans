@@ -104,10 +104,10 @@ class AdminLuckyDrawController extends Controller
     public function winner(Request $request)
     {
         $lucky_winner = new LuckyDrawWinner();
-        $lucky_winner->lucky_draw_id = $request->winner_draw_id;
+        $lucky_winner->winner_id = $request->winner_id;
         $lucky_winner->status = "winner";
         $lucky_winner->save();
-        return redirect()->back()->with('success', 'Great!' . $request->winner_draw_id . ' selected as a Winner');
+        return redirect()->back()->with('success', 'Great!' . $request->winner_id . ' selected as a Winner');
     }
 
     public function delItem($id)

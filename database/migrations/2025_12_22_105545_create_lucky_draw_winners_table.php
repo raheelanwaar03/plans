@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lucky_draw_winners', function (Blueprint $table) {
             $table->id();
-            $table->string('lucky_draw_id');
+            $table->string('winner_id');
             $table->string('status');
             $table->timestamps();
         });

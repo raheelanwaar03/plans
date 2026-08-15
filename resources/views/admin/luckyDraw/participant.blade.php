@@ -34,7 +34,7 @@
                                     <form action="{{ route('Admin.Chosse.Winner') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" name="winner_draw_id" class="form-control" id="winner"
+                                            <input type="text" name="winner_id" class="form-control" id="winner"
                                                 placeholder="Add Winner ID">
                                         </div>
                                         <div class="mt-2">
