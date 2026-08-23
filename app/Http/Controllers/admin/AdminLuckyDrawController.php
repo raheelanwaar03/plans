@@ -98,6 +98,7 @@ class AdminLuckyDrawController extends Controller
     public function participante()
     {
         $participante = LuckyParticipant::get();
+        // return $participante;
         return view('admin.luckyDraw.participant', compact('participante'));
     }
 
