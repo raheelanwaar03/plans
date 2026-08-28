@@ -186,8 +186,7 @@
         @if ($winner)
             <div class="prize-box">
                 <img src="{{ asset('images/luckyDraw/' . $winner->image) }}" alt="Prize">
-                <div class="prize-text">🎁 Congratulations {{ $winner->user_name }}</div>
-                <div class="winner-name">#{{ $winner->lucky_draw_id }}</div>
+                <div class="prize-text">🎁 Congratulations {{ $winner->name }}</div>
             </div>
         @else
             <div class="prize-box">

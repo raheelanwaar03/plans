@@ -91,7 +91,6 @@ class LuckyDrawController extends Controller
         if ($winner == null) {
             return redirect()->back()->with('error', 'Winner is not announced yet! Please wait for the deadline');
         }
-
         return view('user.luckydraw.winner', compact('winner'));
     }
 }

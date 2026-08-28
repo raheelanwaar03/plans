@@ -104,7 +104,7 @@ class AdminLuckyDrawController extends Controller
 
     public function winner(Request $request)
     {
-        $participante = LuckyParticipant::where('lucky_draw_id', $request->winner_id)->get();
+        $participante = LuckyParticipant::where('lucky_draw_id', $request->winner_id)->first();
 
         $lucky_winner = new LuckyDrawWinner();
         $lucky_winner->winner_id = $request->winner_id;
