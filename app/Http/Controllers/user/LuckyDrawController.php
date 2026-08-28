@@ -92,9 +92,6 @@ class LuckyDrawController extends Controller
             return redirect()->back()->with('error', 'Winner is not announced yet! Please wait for the deadline');
         }
 
-        $participant = LuckyParticipant::latest()->first();
-        // return $participant;
-
-        return view('user.luckydraw.winner', compact('participant'));
+        return view('user.luckydraw.winner', compact('winner'));
     }
 }

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('lucky_draw_winners', function (Blueprint $table) {
             $table->id();
             $table->string('winner_id');
+            $table->string('name');
+            $table->string('image');
             $table->string('status');
             $table->timestamps();
         });
