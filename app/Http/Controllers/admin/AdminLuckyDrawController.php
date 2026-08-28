@@ -128,4 +128,14 @@ class AdminLuckyDrawController extends Controller
         $participante->delete();
         return redirect()->back()->with('success', 'Participante Deleted');
     }
+
+    public function delParticipants()
+    {
+        $participantes = LuckyParticipant::get();
+        foreach ($participantes as $data) {
+            $data->delete();
+        }
+        return redirect()->back()->with('success', 'Participantes Deleted');
+    }
+
 }
