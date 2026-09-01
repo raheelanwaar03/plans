@@ -141,6 +141,21 @@ class AdminLuckyDrawController extends Controller
             // Delete participant data
             $data->delete();
         }
-        return redirect()->back()->with('success', 'Participantes Deleted');
+
+        // delete Deposit requests
+
+        $deposit_requests = UserDeposit::get();
+        foreach ($deposit_requests as $data) {
+            $data->delete();
+        }
+        // delete lucky draw Items
+
+        $LuckyDrawItems = LuckyDrawItems::get();
+        foreach ($LuckyDrawItems as $data) {
+            $data->delete();
+        }
+
+
+        return redirect()->back()->with('success', 'Lucky Draw Deleted');
     }
 }

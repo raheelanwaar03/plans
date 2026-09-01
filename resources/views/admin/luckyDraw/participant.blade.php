@@ -55,7 +55,7 @@
                                     <div class="col d-flex justify-content-between align-items-center">
                                         <h4 class="card-title text-center">All Participantes</h4>
                                         <h4 class="card-title text-center"><a href="{{ route('Admin.Del.Participants') }}"
-                                                class='btn btn-primary btn-sm'>Delete Users</a></h4>
+                                                class='btn btn-primary btn-sm'>Delete Lucky Draw</a></h4>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end card-header-->
