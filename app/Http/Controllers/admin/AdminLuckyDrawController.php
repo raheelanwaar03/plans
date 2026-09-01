@@ -133,9 +133,14 @@ class AdminLuckyDrawController extends Controller
     {
         $participantes = LuckyParticipant::get();
         foreach ($participantes as $data) {
+            // Delete image file
+            if ($data->image && file_exists(public_path('images/luckyDraw/' . $data->image))) {
+                unlink(public_path('images/luckyDraw/' . $data->image));
+            }
+
+            // Delete participant data
             $data->delete();
         }
         return redirect()->back()->with('success', 'Participantes Deleted');
     }
-
 }
